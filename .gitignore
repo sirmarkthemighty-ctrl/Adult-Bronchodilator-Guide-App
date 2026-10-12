@@ -1,0 +1,18 @@
+# This folder holds several apps. Only the Adult Bronchodilator Device Guide is published from here:
+# ignore everything, then allow its files.
+/*
+!/.gitignore
+!/README.md
+!/index.html
+!/bronchodilator-guide.html
+!/bronchodilator-src/
+!/.claude/
+/.claude/*
+!/.claude/build-bronchodilator.js
+!/.claude/test-bronchodilator.js
+!/.claude/perf-bronchodilator.js
+!/.claude/ui-audit.js
+!/.claude/ui-audit-run.js
+!/.gitattributes
+!/LICENSE
+!/NOTICE

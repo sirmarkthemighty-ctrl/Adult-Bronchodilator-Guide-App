@@ -1,0 +1,23 @@
+Adult Bronchodilator Device Guide
+Copyright (c) 2026 Warodom Phaenthong, M.D.
+
+This work (the app, its source code, drawings, text and data tables) is licensed under the
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+The full licence text is in the LICENSE file and at
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+In short: you may share and adapt this work for non-commercial purposes, provided you credit the
+author, link to the licence, say what you changed, and release your version under the same licence.
+
+No warranty. The guide is decision support for healthcare professionals. It does not replace the
+product label, local guidelines or clinical judgement; see the disclaimer inside the app.
+
+Third-party software included in the built file (bronchodilator-guide.html), each under the MIT License
+and copyright of its authors:
+- React and React DOM 18.3.1, Copyright (c) Meta Platforms, Inc. and affiliates
+- html2canvas 1.4.1, Copyright (c) 2022 Niklas von Hertzen
+- Styles generated with Tailwind CSS 3.4.17, Copyright (c) Tailwind Labs, Inc.
+
+Fonts (IBM Plex Sans, IBM Plex Sans Thai) are loaded from Google Fonts under the SIL Open Font License.
+
+Product names and trademarks belong to their owners and are used only to identify the products.

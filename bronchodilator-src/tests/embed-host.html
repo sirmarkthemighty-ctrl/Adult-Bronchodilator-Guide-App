@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embed test host</title>
+<!-- Test fixture: embeds the built guide in a frame that is taller than the screen, the way a site builder's
+     full-page embed behaves on a phone when the browser's toolbar covers the bottom of the frame.
+     ?extra=<px> sets how far the frame runs past the bottom of the screen (default 90). -->
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  iframe { display: block; border: 0; width: 100%; }
+</style>
+<iframe id="app" src="../../bronchodilator-guide.html"></iframe>
+<script>
+  var extra = parseInt(new URLSearchParams(location.search).get('extra') || '90', 10);
+  document.getElementById('app').style.height = 'calc(100vh + ' + extra + 'px)';
+</script>
