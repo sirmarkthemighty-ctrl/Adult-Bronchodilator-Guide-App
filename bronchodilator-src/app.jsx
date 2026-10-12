@@ -424,7 +424,10 @@ const ICON_UNKNOWN = new Set([404, 542, 543, 544]); // also the BudeForu devices
 const ICON_SHAPE = { 415: 'LupinHaler', 533: 'Swinghaler' };
 // Teva's RespiClick (US) is the Spiromax inhaler under its US name: same picture and technique card, own label
 const SHAPE_LABEL = { 501: 'RespiClick', 512: 'RespiClick', 513: 'RespiClick', 514: 'RespiClick', 533: 'Swinghaler' };
-const shapeLabel = (med) => SHAPE_LABEL[med.id] || ICON_SHAPE[med.id] || med.shape;
+// Device names as shown in the filter and on cards; A-Z order with Other DPI last
+const shapeName = (shape) => (shape === 'OtherDPI' ? 'Other DPI' : shape);
+const shapeSort = (a, b) => (a === 'OtherDPI') - (b === 'OtherDPI') || shapeName(a).localeCompare(shapeName(b), 'en', { sensitivity: 'base' });
+const shapeLabel = (med) => SHAPE_LABEL[med.id] || ICON_SHAPE[med.id] || shapeName(med.shape);
 
 // Pressair (Genuair in Europe) traced from pack photos: white body lying flat, a `color` press button on top at
 // the back, a large rounded `color` protective cap over the mouthpiece at the front, and the control window.
@@ -468,6 +471,80 @@ const SwinghalerIcon = ({ className, color }) => (
   </svg>
 );
 
+// Brand grouping for the main list. Two products are the same brand row when their names differ only in the
+// strength (50/250, 125 mcg, 0.01%, 5 mg/mL ...) and they use the same device. "MDI" in a name is ignored
+// (Foster MDI 100/6 and Foster 200/6 are one row). The strength is the first strength token of the name.
+const STRENGTH_RE = /\b\d+(?:\.\d+)?(?:\s*\/\s*\d+(?:\.\d+)?)*\s*(?:mcg|mg|μg|%)?(?:\s*\/\s*\d*(?:\.\d+)?\s*mL)?/g;
+const brandLabel = (name) => name.replace(/\(([^)]*)\)/g, ' ($1) ').replace(STRENGTH_RE, ' ').replace(/\bmcg\b|\bmg\b/g, ' ')
+  .replace(/-\s/g, ' ').replace(/\s+/g, ' ').replace(/\s+\)/g, ')').replace(/\(\s+/g, '(').trim();
+const brandKey = (med) => brandLabel(med.marketName).replace(/\bMDI\b/, '').replace(/\s+/g, ' ').trim().toLowerCase() + '|' + med.shape;
+const strengthLabel = (med) => { const m = med.marketName.match(STRENGTH_RE); return m ? m[0].trim() : med.marketName; };
+// One row for a brand with several strengths. As tall as its content (never stretched to the neighbouring card).
+// Top: what every strength shares, shown once under the common name: picture, device tags, and the country lines
+// and indications when they are the same for all strengths. Then one line per strength: its strength, its
+// components, anything that differs between the strengths (country lines, indications), and its own Select and
+// Details buttons. Doses stay on each strength's full card (Show full cards, or tap a strength to jump to it).
+const BrandGroupRow = ({ meds, open, onToggle, onPick, onSelect, onDetails, isSelected, t, grid, regions, showHolder }) => {
+  const first = meds[0];
+  const selectedCount = meds.filter(isSelected).length;
+  const same = (fn) => meds.every(m => fn(m) === fn(first));
+  // registration status in every country, the holder and the NLEM type on the lines that are shown
+  const countrySig = (m) => LABEL_REGIONS.map(r => { const n = r === 'th' ? nlemOf(m) : null; return [statusIn(m, r), showHolder && regions.includes(r) ? holderIn(m, r, t) || '' : '', n ? n.list + (n.note || '') : r === 'th' && NLEM_STATUS[m.id] ? 'x' : ''].join('~'); }).join('|');
+  const commonCountries = same(countrySig);
+  const commonInd = same(m => (m.indications || []).join());
+  const icon = ICON_UNKNOWN.has(first.id) ? <NaIcon className="w-11 h-11 md:w-12 md:h-12" /> : getIcon(ICON_SHAPE[first.id] || first.shape, iconHex(first), 'w-11 h-11 md:w-12 md:h-12 text-slate-700', ' ', ICON_CAP[first.id]) /* ' ' = no strength number on the shared picture */;
+  return (
+    <div data-brand-group={brandKey(first)} data-open={open ? '1' : '0'} className="self-start w-full rounded-xl md:rounded-2xl border border-indigo-200 bg-indigo-50 shadow-sm p-2.5 md:p-3 flex flex-col gap-2">
+      <div className="flex items-start gap-3 min-w-0" data-brand-common>
+        <div className="p-1.5 rounded-lg bg-white border border-indigo-100 shrink-0">{icon}</div>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-1.5 mb-1">
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${first.tagColor}`}>{first.type}</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(first)}</span>
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border border-indigo-200 bg-white text-indigo-700 whitespace-nowrap" data-brand-count>{t.brandCount(meds.length)}</span>
+            {meds.every(m => m.isExtraFine) && <ExtraFineBadge t={t} compact={true} />}
+            <ExacBadge med={first} t={t} />
+            {selectedCount > 0 && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-600 text-white whitespace-nowrap">{t.brandSelected(selectedCount)}</span>}
+          </div>
+          <p className="font-extrabold text-slate-800 text-base md:text-lg leading-tight break-words" data-brand-name>{brandLabel(first.marketName)}</p>
+          {commonCountries && <CountryLines med={first} t={t} regions={regions} showHolder={showHolder} className="text-[11px] mt-1.5" />}
+          {commonInd && <DiagnosticBadges indications={first.indications} t={t} med={first} className="mt-2" />}
+        </div>
+      </div>
+      <div className={grid ? 'flex flex-col gap-1.5' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1.5 items-start'} data-brand-strengths>
+        {meds.map(m => {
+          const sel = isSelected(m);
+          return (
+            <div key={m.id} data-brand-pick={m.id} aria-label={m.marketName} title={t.brandJump} onClick={(e) => { if (e.target.closest('button, a, [data-cautions-pop]')) return; onPick(m); }}
+              className={`flex items-start gap-2 rounded-lg border bg-white hover:border-indigo-300 transition-colors p-2 md:p-2.5 min-w-0 cursor-pointer ${sel ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-indigo-100'}`}>
+              <div className="min-w-0 flex-1">
+                <span className="inline-block text-[11px] font-bold px-2 py-0.5 rounded-full border border-slate-200 bg-slate-50 text-slate-700 whitespace-nowrap" data-brand-strength>{strengthLabel(m)}</span>
+                <RenderSubstances medClass={m.class} medSubstance={m.substance} className="text-xs mt-1.5" />
+                {!commonCountries && <CountryLines med={m} t={t} regions={regions} showHolder={showHolder} className="text-[11px] mt-1.5" />}
+                {!commonInd && <DiagnosticBadges indications={m.indications} t={t} med={m} className="mt-2" />}
+              </div>
+              <div className="shrink-0 flex flex-col items-end gap-1.5 print:hidden">
+                <button onClick={() => onSelect(m)} data-brand-select title={sel ? t.selected : t.select} aria-label={`${sel ? t.selected : t.select}: ${m.marketName}`} className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${sel ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
+                  {sel ? <Check className="w-3 h-3" /> : <CompareIcon className="w-3 h-3" />}
+                  <span className="hidden sm:inline">{sel ? t.selected : t.select}</span>
+                </button>
+                <button onClick={() => onDetails(m)} data-brand-details className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border border-indigo-100 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 shadow-sm">
+                  {t.detailBtn} <span aria-hidden="true">›</span>
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <button type="button" onClick={onToggle} aria-expanded={open} data-brand-toggle
+        className="w-full flex items-center justify-center gap-1 rounded-lg border border-indigo-100 bg-white hover:bg-indigo-100 transition-colors px-2 py-1.5 text-[11px] font-bold text-indigo-700">
+        {open ? t.brandHide : t.brandShow}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </button>
+    </div>
+  );
+};
+
 // Feedback: the header button opens this form in a new tab. Empty = the button is not shown.
 const FEEDBACK_FORM_URL = 'https://forms.gle/ZMWtPk3WEjFvbkfj6';
 
@@ -487,7 +564,6 @@ const IconMap = {
   'Twisthaler': TwisthalerIcon,
   'NEXThaler': NexthalerIcon,
   'Airmaster': AirmasterIcon,
-  'Capsule': NaIcon,
   'OtherDPI': NaIcon,
   'Swinghaler': SwinghalerIcon,
   'LupinHaler': LupinhalerIcon
@@ -543,8 +619,8 @@ const translations = {
     searchPlaceholderShort: "Search…",
     filtersBtn: "Filters",
     sortLabel: "Sort order",
-    maintenanceGuide: "Initial Maintenance Guide",
-    exacGuide: "Exacerbation Guide",
+    maintenanceGuide: "Initial Maintenance",
+    exacGuide: "Exacerbation",
     deviceGuide: "Device Guide",
     martOnly: "MART Only",
     clearFilters: "Clear all filters",
@@ -643,6 +719,14 @@ const translations = {
     priceDisclaimer: "Relative cost per month at the usual maintenance dose ($ lowest – $$$$ highest; as-needed relievers: per pack), from the Thai national reference price (ราคากลางยา). Actual prices vary between hospitals.",
     priceEstNote: "No national reference price for this product: level estimated (~).",
     priceUnknownNote: "No Thai price recorded for this product.",
+    groupLabel: "Group strengths",
+    groupTitle: "One row per brand and device, listing its strengths; open it to see each strength's full card with its own dose. Switch off to list every strength as its own card.",
+    brandCount: (n) => `${n} strengths`,
+    brandSelected: (n) => `${n} selected`,
+    brandShow: "Show full cards with dose",
+    brandJump: "Open this strength's card",
+    brandHide: "Hide full cards",
+    brandRows: (n) => `in ${n} rows`,
     feedbackBtn: "Feedback",
     feedbackTitle: "Send feedback (opens a form in a new tab)",
     priceEstShort: "estimated",
@@ -1177,6 +1261,14 @@ const translations = {
     priceDisclaimer: "ช่วงราคาต่อเดือนโดยเปรียบเทียบ ที่ขนาดยาควบคุมอาการตามปกติ (฿ ต่ำสุด – ฿฿฿฿ สูงสุด; ยาบรรเทาอาการคิดต่อหน่วยบรรจุ) อ้างอิงราคากลางยาของประเทศ ราคาจริงแตกต่างกันในแต่ละโรงพยาบาล",
     priceEstNote: "ยานี้ไม่มีราคากลาง ระดับราคาเป็นการประมาณ (~)",
     priceUnknownNote: "ยังไม่มีข้อมูลราคาในไทยของยานี้",
+    groupLabel: "รวมขนาดยา",
+    groupTitle: "แสดงหนึ่งแถวต่อชื่อการค้าและอุปกรณ์ พร้อมรายการขนาดยา เปิดเพื่อดูการ์ดเต็มของแต่ละขนาดยาพร้อมขนาดที่ใช้ ปิดตัวเลือกนี้เพื่อแสดงทุกขนาดยาเป็นการ์ดแยก",
+    brandCount: (n) => `${n} ขนาด`,
+    brandSelected: (n) => `เลือก ${n}`,
+    brandShow: "แสดงการ์ดเต็มพร้อมขนาดที่ใช้",
+    brandJump: "เปิดการ์ดของขนาดยานี้",
+    brandHide: "ซ่อนการ์ดเต็ม",
+    brandRows: (n) => `รวมเป็น ${n} แถว`,
     feedbackBtn: "ข้อเสนอแนะ",
     feedbackTitle: "ส่งข้อเสนอแนะ (เปิดแบบฟอร์มในแท็บใหม่)",
     priceEstShort: "ประมาณการ",
@@ -1899,9 +1991,9 @@ const DeviceListSnippet = ({ med, getIcon, t, large = false, showHolder = false,
            {!large && <AvailBadge med={med} t={t} />}
            {!large && <CautionsPanel med={med} t={t} />}
         </div>
-        {/* main list: the country block always starts on the second row, so every row reads the same */}
-        {large && <CountryLines med={med} t={t} regions={holderRegions} showHolder={showHolder} listRow className="text-[11px] mb-1"><CautionsPanel med={med} t={t} /></CountryLines>}
-        <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className={`${large ? 'text-[11px] sm:text-xs' : 'text-[10px]'} text-slate-500`} />
+        {/* main list: components directly under the name, then the country block on its own rows, so every row reads the same */}
+        <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className={`${large ? 'text-[11px] sm:text-xs mb-1' : 'text-[10px]'} text-slate-500`} />
+        {large && <CountryLines med={med} t={t} regions={holderRegions} showHolder={showHolder} listRow className="text-[11px]"><CautionsPanel med={med} t={t} /></CountryLines>}
       </div>
     </div>
   );
@@ -2007,8 +2099,8 @@ const DeviceExportCard = ({ med, getIcon, t }) => {
 
         <div className="space-y-2 text-[13px] bg-slate-50 p-4 rounded-xl border border-slate-100 mt-5">
           <div className="flex justify-between items-start gap-3 border-b border-slate-200 pb-2 min-w-0">
-            <span className="text-slate-500 font-medium shrink-0">{t.peakFlow}</span>
-            <span className="font-bold text-cyan-700 text-right break-words min-w-0" data-flow>{flowText(med, t)}</span>
+            <span className="text-slate-500 font-medium break-words min-w-0">{t.peakFlow}</span>
+            <span className="font-bold text-cyan-700 text-right break-words shrink-0 max-w-[65%]" data-flow>{flowText(med, t)}</span>
           </div>
           <div className="flex justify-between items-center border-b border-slate-200 pb-2">
             <span className="text-slate-500 font-medium shrink-0">{t.estCost}</span>
@@ -2093,9 +2185,23 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.4",
+    date: "October 13, 2026",
+    features: [
+      "Brand rows no longer stretch into a tall, mostly empty card in tile view: a brand row is now only as tall as its content. Details shared by every strength are shown once at the top, under the common name: picture, device, and the country lines (licence holder, NLEM type) and indications when they are the same for all strengths. Each strength then shows its strength and its components labelled by drug class (ICS : ..., LABA : ...), anything that differs from the other strengths, and its own Select and Details buttons. Tapping a strength jumps to its full card, where the dose is; the button under the strengths shows or hides all the full cards.",
+      "Device filter: the device names under DPI, MDI and the other types are now in A to Z order. The unidentified capsule inhaler (Pulvisonide) is listed under Other DPI, together with the dry-powder inhalers that have no technique reference yet; Other DPI comes last.",
+      "Two buttons at the top have shorter names in English: Exacerbation (was Exacerbation Guide) and Initial Maintenance (was Initial Maintenance Guide). The Thai names are unchanged.",
+      "The components (for example ICS : Fluticasone propionate 100 mcg, LABA : Salmeterol 50 mcg) now sit directly under the product name, above the country lines, on cards, list rows and brand rows, because some product names carry no strength.",
+    ],
+    bugs: [
+      "Searching forced every matching brand open, so a brand row and its full cards showed together and hiding them did nothing. A search now shows the brand row only; open it to see the full cards, or switch Group strengths off to list every strength.",
+    ],
+  },
+  {
     version: "v1.12.3",
     date: "October 12, 2026",
     features: [
+      "Brand rows: products that differ only in strength now share one row in the list (for example Seretide Accuhaler with 50/100, 50/250 and 50/500), which cuts the full list from 131 cards to 93 rows. Tapping a row shows each strength's own card, unchanged, so every dose stays with its own strength. Searching opens the matching brands, and the result count says how many rows the products make. The new Group strengths button in the filter bar switches this off; the choice is remembered on the device.",
       "New Feedback button beside the version button at the top of the page. It opens the feedback form in a new tab, for reporting wrong data, a missing drug or a suggestion.",
       "Added Trimbow 172/5/9, registered in Thailand (2C 9/67) for asthma in adults not controlled on high-dose ICS + LABA; also licensed in the US, UK and EU. No Thai price is recorded yet, so its price shows Unknown.",
       "Countries filter: new JP (Japan) button. 53 products in the guide are on the Japanese market, read from the PMDA package-insert search by active ingredient (12 Oct 2026), with the indications each Japanese insert gives (for example Adoair has COPD only for 250 Diskus and 125 Aerosol; Relvar and Trelegy only for 100) and the Japanese marketing authorisation holder. Many are sold there under another name (Seretide as Adoair, Flixotide / Flovent as Flutide, Ventolin as Sultanol, Incruse as Encruse, Tudorza as Eklira Genuair); the detail view shows the Japanese name. Fifteen products were added from the Japanese market, each also checked in the Thai, UK and Irish/EU registers: Meptin Air, Meptin Swinghaler and Meptin Inhalation Solution (procaterol), Qvar 50 and 100 Aerosol, Atectura Breezhaler (three strengths), Enerzair Breezhaler (two strengths), the three BudeForu budesonide-formoterol generics, Berotec Aerosol 100 and Spiriva 1.25 μg Respimat. Meptin, Qvar, Atectura, Enerzair and Berotec were registered in Thailand before and show †. The Meptin Air and Meptin Swinghaler pictures follow photos of the devices. The BudeForu inhalers have no reference picture yet (N/A), and they and the Meptin Swinghaler have no technique steps yet (Unknown).",
@@ -2119,6 +2225,7 @@ const changelogData = [
       "The FDA filter (Currently / Past / Never) now applies to every selected country, using each country's own register: Thai FDA, FDA Drugs@FDA (US), MHRA SmPCs (UK) and the Irish HPRA lists (EU)."
     ],
     bugs: [
+      "Tile cards on narrow phones: a short inspiratory-flow value such as \"< 30 L/min\" was split across three lines when its label was long (Thai). The label now wraps and the value stays whole.",
       "QVAR RediHaler 40 was drawn maroon, which is the 80 mcg strength; the US label gives a beige actuator with a white cap for 40 mcg. Both strengths now follow the label.",
       "Thai registration status corrected against the register: Ultibro Breezhaler was registered and then cancelled (15 September 2025), so it now shows as previously registered instead of never registered. Cancellation dates updated for Onbrez (6 November 2024), Seebri (21 July 2022) and Flixotide Evohaler 250 (31 January 2017)."
     ]
@@ -2415,8 +2522,20 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.4": {
+  "features": [
+    "แถวชื่อการค้าในมุมมองตารางไม่ยืดเป็นการ์ดสูงที่ว่างเปล่าอีกแล้ว แถวจะสูงเท่าเนื้อหาเท่านั้น ข้อมูลที่เหมือนกันทุกขนาดยาแสดงครั้งเดียวด้านบนใต้ชื่อร่วม ได้แก่ รูป ชนิดอุปกรณ์ และบรรทัดประเทศ (ผู้รับอนุญาต ประเภทบัญชียาหลัก) กับข้อบ่งใช้เมื่อเหมือนกันทุกขนาดยา จากนั้นแต่ละขนาดยาแสดงขนาดยาและส่วนประกอบที่ระบุกลุ่มยา (ICS : ..., LABA : ...) ข้อมูลที่ต่างจากขนาดยาอื่น และปุ่มเลือกกับปุ่มรายละเอียดของตัวเอง เมื่อแตะขนาดยาจะเลื่อนไปที่การ์ดเต็มซึ่งมีขนาดที่ใช้ ส่วนปุ่มใต้รายการขนาดยาใช้แสดงหรือซ่อนการ์ดเต็มทั้งหมด",
+    "ตัวกรองอุปกรณ์: ชื่ออุปกรณ์ภายใต้ DPI, MDI และชนิดอื่น เรียงจาก A ถึง Z แล้ว อุปกรณ์สูดแคปซูลที่ยังไม่ทราบชนิด (Pulvisonide) จัดอยู่ใน Other DPI ร่วมกับยาสูดชนิดผงแห้งที่ยังไม่มีแหล่งอ้างอิงวิธีใช้ โดย Other DPI อยู่ลำดับสุดท้าย",
+    "ปุ่มด้านบนสองปุ่มใช้ชื่อภาษาอังกฤษสั้นลง: Exacerbation (เดิม Exacerbation Guide) และ Initial Maintenance (เดิม Initial Maintenance Guide) ส่วนชื่อภาษาไทยไม่เปลี่ยน",
+    "ส่วนประกอบ (เช่น ICS : Fluticasone propionate 100 mcg, LABA : Salmeterol 50 mcg) ย้ายมาอยู่ใต้ชื่อยาโดยตรง เหนือบรรทัดประเทศ ทั้งในการ์ด แถวรายการ และแถวชื่อการค้า เพราะชื่อยาบางรายการไม่มีขนาดยาอยู่ในชื่อ"
+  ],
+  "bugs": [
+    "การค้นหาเคยบังคับเปิดทุกชื่อการค้าที่ตรงกัน ทำให้แถวชื่อการค้าและการ์ดเต็มแสดงพร้อมกันและซ่อนไม่ได้ ตอนนี้การค้นหาจะแสดงเฉพาะแถวชื่อการค้า เปิดแถวเพื่อดูการ์ดเต็ม หรือปิดตัวเลือก รวมขนาดยา เพื่อแสดงทุกขนาดยา"
+  ]
+ },
  "v1.12.3": {
   "features": [
+    "แถวชื่อการค้า: ยาที่ต่างกันเฉพาะขนาดยาจะรวมอยู่ในแถวเดียว (เช่น Seretide Accuhaler ขนาด 50/100, 50/250 และ 50/500) ทำให้รายการทั้งหมดลดจาก 131 การ์ดเหลือ 93 แถว แตะแถวเพื่อแสดงการ์ดของแต่ละขนาดยาเหมือนเดิม ขนาดที่ใช้จึงอยู่กับขนาดยาของตัวเองเสมอ การค้นหาจะเปิดชื่อการค้าที่ตรงกัน และบรรทัดจำนวนผลลัพธ์บอกว่ารวมเป็นกี่แถว ปุ่ม รวมขนาดยา ใหม่ในแถบตัวกรองใช้ปิดการรวมนี้ได้ โดยจำค่าที่เลือกไว้ในอุปกรณ์",
     "ปุ่ม ข้อเสนอแนะ ใหม่ข้างปุ่มเวอร์ชันด้านบนของหน้า เปิดแบบฟอร์มข้อเสนอแนะในแท็บใหม่ สำหรับแจ้งข้อมูลผิด ยาที่ขาด หรือข้อเสนอแนะ",
     "เพิ่ม Trimbow 172/5/9 ซึ่งมีทะเบียนในไทย (2C 9/67) สำหรับโรคหืดในผู้ใหญ่ที่ควบคุมไม่ได้ด้วย ICS ขนาดสูงร่วมกับ LABA และมีทะเบียนในสหรัฐฯ สหราชอาณาจักร และสหภาพยุโรปด้วย ยังไม่มีข้อมูลราคาในไทย ราคาจึงแสดงเป็น Unknown",
     "ตัวกรองประเทศ: เพิ่มปุ่ม JP (ญี่ปุ่น) ยาในคู่มือ 53 รายการมีจำหน่ายในญี่ปุ่น ตรวจสอบจากระบบค้นหาเอกสารกำกับยาของ PMDA ตามชื่อตัวยาสำคัญ (12 ต.ค. 2569) พร้อมข้อบ่งใช้ตามเอกสารกำกับยาญี่ปุ่นของแต่ละรายการ (เช่น Adoair มีข้อบ่งใช้ COPD เฉพาะ 250 Diskus และ 125 Aerosol ส่วน Relvar และ Trelegy เฉพาะขนาด 100) และผู้รับอนุญาตในญี่ปุ่น หลายรายการจำหน่ายในชื่ออื่น (Seretide เป็น Adoair, Flixotide / Flovent เป็น Flutide, Ventolin เป็น Sultanol, Incruse เป็น Encruse, Tudorza เป็น Eklira Genuair) หน้ารายละเอียดแสดงชื่อที่ใช้ในญี่ปุ่น เพิ่มยา 15 รายการจากตลาดญี่ปุ่น ซึ่งตรวจสอบกับทะเบียนไทย สหราชอาณาจักร และไอร์แลนด์/สหภาพยุโรปด้วย ได้แก่ Meptin Air, Meptin Swinghaler และ Meptin Inhalation Solution (procaterol), Qvar 50 และ 100 Aerosol, Atectura Breezhaler (3 ขนาด), Enerzair Breezhaler (2 ขนาด), ยาสามัญ budesonide-formoterol ชื่อ BudeForu 3 รายการ, Berotec Aerosol 100 และ Spiriva 1.25 μg Respimat โดย Meptin, Qvar, Atectura, Enerzair และ Berotec เคยมีทะเบียนในไทย จึงแสดง † รูป Meptin Air และ Meptin Swinghaler วาดตามภาพถ่ายอุปกรณ์จริง ส่วนอุปกรณ์ของ BudeForu ยังไม่มีรูปอ้างอิง (แสดง N/A) และทั้ง BudeForu กับ Meptin Swinghaler ยังไม่มีขั้นตอนการใช้ (แสดง Unknown)",
@@ -2440,6 +2559,7 @@ const CHANGELOG_TH = {
     "ตัวกรอง อย. (ปัจจุบัน / เคยมี / ไม่เคยมี) ใช้กับทุกประเทศที่เลือก ตามฐานข้อมูลของแต่ละประเทศ: อย. ไทย, Drugs@FDA (สหรัฐฯ), SmPC ของ MHRA (สหราชอาณาจักร) และรายการของ HPRA ไอร์แลนด์ (สหภาพยุโรป)"
   ],
   "bugs": [
+    "การ์ดในมุมมองตารางบนมือถือจอแคบ: ค่าแรงสูดสั้นๆ เช่น \"< 30 L/min\" เคยถูกตัดเป็นสามบรรทัดเมื่อป้ายกำกับยาว (ภาษาไทย) ตอนนี้ป้ายกำกับขึ้นบรรทัดใหม่แทน และค่าอยู่ครบในบรรทัดเดียว",
     "QVAR RediHaler 40 เคยแสดงเป็นสีแดงเลือดหมู ซึ่งเป็นสีของขนาด 80 mcg ฉลากสหรัฐฯ ระบุว่าขนาด 40 mcg มีตัวหลอดสีเบจและฝาสีขาว ตอนนี้ทั้งสองขนาดแสดงตามฉลากแล้ว",
     "แก้สถานะทะเบียน อย. ให้ตรงกับฐานข้อมูล: Ultibro Breezhaler เคยขึ้นทะเบียนและถูกยกเลิก (15 กันยายน 2568) จึงแสดงเป็นเคยมีทะเบียน แทนไม่เคยมีทะเบียน และปรับวันยกเลิกของ Onbrez (6 พฤศจิกายน 2567), Seebri (21 กรกฎาคม 2565) และ Flixotide Evohaler 250 (31 มกราคม 2560)"
   ]
@@ -2739,7 +2859,7 @@ const deviceData = [
   { id: 92, type: 'DPI', shape: 'Turbuhaler', marketName: 'Pulmicort Turbuhaler 200 mcg', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 inhalations BID. Maintenance therapy.', hex: '#854d0e', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '100 doses', expiration: 'Until Expiry Date', doseRange: { low: '1 inhalation BID', medium: '2 inhalations BID', high: '4 inhalations BID' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Medium', priceLevel: 2, hiddenPrice: 492 }, // ≈492 THB/30 days from national reference price 410.24 THB per pack: Budesonide DPI 200 mcg (100 doses) // US FDA label (Pulmicort Flexhaler): asthma only
   { id: 401, type: 'MDI', shape: 'MDI', marketName: 'Aeronide 200 mcg', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#7a2e28', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Medium', priceLevel: 1, hiddenPrice: 53 }, // Colours from the pack photo supplied by the user on 11 Oct 2026 (AeroCare; maroon-brown actuator, orange dust cap; 200 metered actuations). MIMS Thailand brand; Thai FDA 1A 440/55, asthma; ≈53 THB/30 days from national reference price 87.63 THB per pack: Budesonide MDI 200 mcg (200 doses)
   { id: 402, type: 'MDI', shape: 'MDI', marketName: 'Budecort-200 Inhaler', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#e6eaf0', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Medium', priceLevel: 1, hiddenPrice: 53 }, // Colours from the pack photo supplied by the user on 11 Oct 2026 (Cipla Budecort inhaler 200 with dose counter: white actuator, magenta dust cap; 200 metered doses). MIMS Thailand brand; Thai FDA 1C 356/48 (CFC-free, Cipla/Medispray), asthma; Budecort-100 registration cancelled; reference price as Aeronide
-  { id: 404, type: 'DPI', shape: 'Capsule', marketName: 'Pulvisonide 200', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 capsules inhaled BID with the supplied inhaler. Rinse mouth after.', hex: '#b45309', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: false, totalDoses: 'Blister strips of 5 capsules (inhaler included in some packs)', expiration: 'Keep capsules in the blister until use', doseRange: { low: '1 capsule BID', medium: '2 capsules BID', high: '4 capsules BID' }, isMart: false, role: ['Controller'], flowRate: 'Unknown', icsDoseLevel: 'Medium', priceLevel: 2, hiddenPrice: 300 }, // MIMS Thailand brand; Thai FDA 1A 154/60 (T.O. Chemicals), asthma; ≈300 THB/30 days from national reference price 250 THB per pack: Budesonide capsule for inhaler 200 mcg (100 capsules + device)
+  { id: 404, type: 'DPI', shape: 'OtherDPI', marketName: 'Pulvisonide 200', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 capsules inhaled BID with the supplied inhaler. Rinse mouth after.', hex: '#b45309', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: false, totalDoses: 'Blister strips of 5 capsules (inhaler included in some packs)', expiration: 'Keep capsules in the blister until use', doseRange: { low: '1 capsule BID', medium: '2 capsules BID', high: '4 capsules BID' }, isMart: false, role: ['Controller'], flowRate: 'Unknown', icsDoseLevel: 'Medium', priceLevel: 2, hiddenPrice: 300 }, // MIMS Thailand brand; Thai FDA 1A 154/60 (T.O. Chemicals), asthma; ≈300 THB/30 days from national reference price 250 THB per pack: Budesonide capsule for inhaler 200 mcg (100 capsules + device)
   { id: 431, type: 'MDI', shape: 'MDI', marketName: 'BudeSpray-100 HFA', substance: 'Budesonide 100 mcg', class: 'ICS', instructions: '1-2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#f1eec9', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1-2 puffs BID', medium: '4 puffs BID', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Low', priceLevel: 1, hiddenPrice: 54 }, // Colours from the device photo supplied by the user on 11 Oct 2026 (BudeSpray 100: cream actuator, purple dust cap). MIMS Thailand brand; Thai FDA registration 1C 39/63 cancelled 14 Jul 2023, asthma; ≈54 THB/30 days from national reference price 180 THB per pack: Budesonide MDI 100 mcg (200 doses)
   { id: 432, type: 'MDI', shape: 'MDI', marketName: 'BudeSpray-200 HFA', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#a16207', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Medium', priceLevel: 1, hiddenPrice: 53 }, // MIMS Thailand brand; Thai FDA registration 1C 267/51 cancelled 14 Aug 2020, asthma; reference price as Budesonide MDI 200 mcg
   { id: 433, type: 'MDI', shape: 'MDI', marketName: 'Budiair 200 mcg', substance: 'Budesonide 200 mcg', class: 'ICS', instructions: '1-2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#9a1f45', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Medium', priceLevel: 1, hiddenPrice: 53 }, // Colours from the pack photo supplied by the user on 11 Oct 2026 (Chiesi Budiair 200 Mikrogramm, German pack: burgundy actuator and dust cap; 200 puffs). MIMS Thailand brand; Thai FDA registration 1C 176/49 cancelled 28 Feb 2011 (Chiesi; Thai label asthma and COPD); reference price as Budesonide MDI 200 mcg
@@ -3574,7 +3694,7 @@ const deliverFile = async (blob, fileName, downloads) => {
 // Steps follow each device's patient information leaflet; the error lists
 // follow the critical-error literature (Usmani et al., Respir Res 2018).
 // =====================================================================
-const DEVICE_ORDER = ['MDI', 'Respimat', 'Turbuhaler', 'Spiromax', 'Diskus', 'Airmaster', 'Ellipta', 'Easyhaler', 'NEXThaler', 'Pressair', 'Twisthaler', 'Handihaler', 'Breezhaler', 'Capsule', 'OtherDPI', 'Nebulizer'];
+const DEVICE_ORDER = ['MDI', 'Respimat', 'Turbuhaler', 'Spiromax', 'Diskus', 'Airmaster', 'Ellipta', 'Easyhaler', 'NEXThaler', 'Pressair', 'Twisthaler', 'Handihaler', 'Breezhaler', 'OtherDPI', 'Nebulizer'];
 const DEVICE_NAMES = {
   MDI: { en: 'Metered-dose inhaler (MDI)', th: 'ยาพ่นชนิดกด (MDI)', short: 'MDI' },
   Respimat: { en: 'Respimat soft-mist inhaler', th: 'Respimat ยาพ่นชนิดละอองฝอย', short: 'Respimat' },
@@ -3588,8 +3708,7 @@ const DEVICE_NAMES = {
   Twisthaler: { en: 'Twisthaler', th: 'Twisthaler', short: 'Twisthaler' },
   NEXThaler: { en: 'NEXThaler', th: 'NEXThaler', short: 'NEXThaler' },
   Airmaster: { en: 'Airmaster', th: 'Airmaster', short: 'Airmaster' },
-  OtherDPI: { en: 'Other dry-powder inhaler (no technique reference)', th: 'ยาสูดชนิดผงแห้งอื่น (ยังไม่มีแหล่งอ้างอิงวิธีใช้)', short: 'Other DPI' },
-  Capsule: { en: 'Capsule inhaler (device not identified)', th: 'ยาสูดชนิดแคปซูล (ยังไม่ทราบชนิดอุปกรณ์)', short: 'Capsule' },
+  OtherDPI: { en: 'Other DPI (device not identified, or no technique reference)', th: 'DPI อื่น (ยังไม่ทราบชนิดอุปกรณ์ หรือยังไม่มีแหล่งอ้างอิงวิธีใช้)', short: 'Other DPI' },
   Breezhaler: { en: 'Breezhaler', th: 'Breezhaler', short: 'Breezhaler' },
   Nebulizer: { en: 'Nebulizer', th: 'เครื่องพ่นละอองยา (Nebulizer)', short: 'Nebulizer' },
 };
@@ -4002,33 +4121,17 @@ const TECHNIQUE = {
   "OtherDPI": {
     "en": {
       "steps": [
-        "Unknown: no instructions-for-use reference has been recorded for this inhaler (Meptin Swinghaler, BudeForu generics), so no technique steps are given here. Use it as its package leaflet shows."
+        "Unknown: no instructions-for-use reference has been recorded for this inhaler (Meptin Swinghaler, BudeForu generics), or the inhaler itself has not been identified (the capsule inhaler supplied with Pulvisonide), so no technique steps are given here. Use it as its package leaflet shows."
       ],
       "errors": [],
-      "tip": "Dry-powder inhalers are used without a spacer and need a fast, deep breath in. Never breathe out into the inhaler."
+      "tip": "Dry-powder inhalers are used without a spacer and need a fast, deep breath in. Never breathe out into the inhaler. Capsules for inhalation go in the supplied inhaler only and are never swallowed."
     },
     "th": {
       "steps": [
-        "ไม่มีข้อมูล: ยังไม่มีแหล่งอ้างอิงวิธีใช้ของอุปกรณ์นี้ (Meptin Swinghaler, ยาสามัญ BudeForu) จึงไม่แสดงขั้นตอนการใช้ ให้ใช้ตามเอกสารกำกับยา"
+        "ไม่มีข้อมูล: ยังไม่มีแหล่งอ้างอิงวิธีใช้ของอุปกรณ์นี้ (Meptin Swinghaler, ยาสามัญ BudeForu) หรือยังไม่ทราบชนิดของอุปกรณ์ (อุปกรณ์สูดแคปซูลที่มาพร้อม Pulvisonide) จึงไม่แสดงขั้นตอนการใช้ ให้ใช้ตามเอกสารกำกับยา"
       ],
       "errors": [],
-      "tip": "ยาสูดชนิดผงแห้งไม่ใช้ร่วมกับ spacer และต้องสูดเข้าให้เร็วและลึก ห้ามหายใจออกเข้าไปในอุปกรณ์"
-    }
-  },
-  "Capsule": {
-    "en": {
-      "steps": [
-        "Unknown: the inhaler supplied with this product has not been identified, so no technique steps are given here. Use it as its package leaflet shows."
-      ],
-      "errors": [],
-      "tip": "The capsules are for inhalation with the supplied inhaler only. They are not to be swallowed."
-    },
-    "th": {
-      "steps": [
-        "ไม่มีข้อมูล: ยังไม่ทราบชนิดของอุปกรณ์สูดที่มาพร้อมยานี้ จึงไม่แสดงขั้นตอนการใช้ ให้ใช้ตามเอกสารกำกับยาในกล่อง"
-      ],
-      "errors": [],
-      "tip": "แคปซูลใช้สำหรับสูดผ่านอุปกรณ์ที่มาพร้อมกันเท่านั้น ห้ามกลืน"
+      "tip": "ยาสูดชนิดผงแห้งไม่ใช้ร่วมกับ spacer และต้องสูดเข้าให้เร็วและลึก ห้ามหายใจออกเข้าไปในอุปกรณ์ แคปซูลสำหรับสูดใช้กับอุปกรณ์ที่มาพร้อมกันเท่านั้น ห้ามกลืน"
     }
   },
   "Handihaler": {
@@ -4156,7 +4259,7 @@ const TECHNIQUE = {
 const CRITICAL_STEPS = {
   MDI: [0, 3], Respimat: [0, 3], Turbuhaler: [1, 2, 3], Diskus: [1, 2, 3], Ellipta: [0, 1, 3],
   Easyhaler: [0, 1, 2, 3], Handihaler: [1, 3, 4, 5, 6], Breezhaler: [1, 3, 4, 5], Nebulizer: [0, 3],
-  Spiromax: [1, 2, 3], NEXThaler: [0, 1, 2], Airmaster: [0, 1, 2], Capsule: [],
+  Spiromax: [1, 2, 3], NEXThaler: [0, 1, 2], Airmaster: [0, 1, 2],
   Pressair: [1, 2, 4], Twisthaler: [0, 2], OtherDPI: [],
 };
 const TechniqueChecklist = ({ shape, tech, devName, t, lang, onToast }) => {
@@ -7039,6 +7142,19 @@ function App() {
   const toggleHolder = () => setShowHolder(v => { try { localStorage.setItem('bdg-show-holder', v ? '0' : '1'); } catch (e) {} return !v; });
   // Faster first paint: draw the first few cards, then the rest right after as a low-priority update
   // (React keeps the page responsive while it renders them).
+  // Brand rows in the main list: on unless switched off (remembered on the device); which brands are opened
+  const [groupBrands, setGroupBrands] = useState(() => { try { return localStorage.getItem('bdg-group-brand') !== '0'; } catch (e) { return true; } });
+  const toggleGroupBrands = () => setGroupBrands(v => { try { localStorage.setItem('bdg-group-brand', v ? '0' : '1'); } catch (e) {} return !v; });
+  const [openBrands, setOpenBrands] = useState(() => new Set());
+  // A brand row opens only when the user opens it (or follows a link to one of its strengths), also while searching
+  const flip = (prev, k) => { const n = new Set(prev); if (n.has(k)) n.delete(k); else n.add(k); return n; };
+  const toggleBrand = (k) => { setHighlightId(null); setOpenBrands(prev => flip(prev, k)); };
+  const pickStrength = (k, m) => {
+    setOpenBrands(prev => (prev.has(k) ? prev : new Set(prev).add(k)));
+    setHighlightId(m.id);
+    setTimeout(() => { const el = document.getElementById('drug-' + m.id); if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 120);
+    setTimeout(() => setHighlightId(cur => (cur === m.id ? null : cur)), 3000);
+  };
   const [showAllCards, setShowAllCards] = useState(false);
   useEffect(() => {
     const later = React.startTransition || ((fn) => fn());
@@ -7405,12 +7521,35 @@ function App() {
     ...(extraFineOnly ? [{ key: 'extrafine', label: t.extraFineOnly, off: () => setExtraFineOnly(false) }] : []),
     ...(pifInput !== '' ? [{ key: 'pif', label: `${t.pifLabel}: ${pifInput} L/min`, off: () => setPifInput('') }] : []),
     ...selectedDevices.map(d => ({ key: `device-${d}`, label: d, off: () => { setSelectedDevices(prev => prev.filter(x => x !== d)); setSelectedShapes(prev => prev.filter(x => deviceData.find(y => y.shape === x)?.type !== d)); } })),
-    ...selectedShapes.map(x => ({ key: `shape-${x}`, label: x, off: () => setSelectedShapes(prev => prev.filter(y => y !== x)) })),
+    ...selectedShapes.map(x => ({ key: `shape-${x}`, label: shapeName(x), off: () => setSelectedShapes(prev => prev.filter(y => y !== x)) })),
   ];
   // Anything other than the default view (Thailand, currently registered, no search or other filter)
   const filtersActive = searchTerm !== '' || pifInput !== '' || martOnly || extraFineOnly || nlemOnly
     || selectedDevices.length + selectedShapes.length + selectedClasses.length + selectedDiseases.length + selectedRoles.length > 0
     || thStatus.join() !== 'current' || countries.join() !== 'th';
+
+  // Main list items. With brand rows on, strengths of one brand collapse into a row; it opens when tapped or when
+  // a link points at one of its strengths (a search shows the row, not the full cards). The position is that of the brand's first product.
+  const brandGroups = useMemo(() => { const g = new Map(); filteredAndSortedData.forEach(m => { const k = brandKey(m); if (!g.has(k)) g.set(k, []); g.get(k).push(m); });
+    // inside a brand, strengths go in ascending order whatever the list is sorted by
+    const nums = (m) => (strengthLabel(m).match(/\d+(?:\.\d+)?/g) || []).map(Number);
+    g.forEach(list => list.sort((a, b) => { const x = nums(a), y = nums(b); for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] || 0) - (y[i] || 0); if (d) return d; } return 0; }));
+    return g; }, [filteredAndSortedData]);
+  const listItems = useMemo(() => {
+    const vis = showAllCards ? filteredAndSortedData : filteredAndSortedData.slice(0, FIRST_PAINT_CARDS);
+    if (!groupBrands) return vis.map(med => ({ med }));
+    const out = [], seen = new Set();
+    vis.forEach(m => {
+      const k = brandKey(m), g = brandGroups.get(k);
+      if (g.length < 2) { out.push({ med: m }); return; }
+      if (seen.has(k)) return;
+      seen.add(k);
+      const open = openBrands.has(k) || g.some(x => x.id === highlightId);
+      out.push({ brand: k, meds: g, open });
+      if (open) g.forEach(x => out.push({ med: x, grouped: k }));
+    });
+    return out;
+  }, [filteredAndSortedData, brandGroups, showAllCards, groupBrands, openBrands, highlightId]);
 
   // Deep link: #drug=<id> → make sure the product is visible, then scroll to and highlight it
   useEffect(() => {
@@ -8310,6 +8449,17 @@ function App() {
                   {showHolder ? <Check className="w-2.5 h-2.5 md:w-3 md:h-3" /> : <X className="w-2.5 h-2.5 md:w-3 md:h-3" />} {t.holderLabel}
                 </button>
             </div>
+            {/* Display option: one row per brand, strengths inside */}
+            <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7 gap-0.5" data-group-toggle>
+                <button
+                  onClick={toggleGroupBrands}
+                  aria-pressed={groupBrands}
+                  title={t.groupTitle}
+                  className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${groupBrands ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
+                >
+                  {groupBrands ? <Check className="w-2.5 h-2.5 md:w-3 md:h-3" /> : <X className="w-2.5 h-2.5 md:w-3 md:h-3" />} {t.groupLabel}
+                </button>
+            </div>
           </div>
 
           {/* Filter row 2: clinical. Asthma / COPD, drug class, role, MART / extra-fine, inspiratory flow, device type */}
@@ -8430,7 +8580,7 @@ function App() {
                      return shapesForType.size > 1;
                   })
                   .map(d => d.shape)
-              ));
+              )).sort(shapeSort);
               if (availableShapes.length === 0) return null;
               return (
                 <div className="flex flex-wrap bg-cyan-50/80 rounded-md border border-cyan-100 p-0.5 shadow-sm items-center min-h-[26px] md:min-h-[28px] max-w-full animate-in fade-in zoom-in-95" data-shape-group>
@@ -8441,7 +8591,7 @@ function App() {
                     const isSelected = selectedShapes.includes(shape);
                     return (
                       <button key={shape} onClick={() => { if (isSelected) { setSelectedShapes(selectedShapes.filter(s => s !== shape)); } else { setSelectedShapes([...selectedShapes, shape]); } }} className={`h-full px-1.5 md:px-2 mx-0.5 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${isSelected ? 'bg-cyan-600 text-white shadow-sm' : 'text-cyan-700 hover:bg-cyan-100'}`}>
-                        {shape}
+                        {shapeName(shape)}
                       </button>
                     );
                   })}
@@ -8470,7 +8620,7 @@ function App() {
           )}
           <div className="flex items-start justify-between gap-2">
             <div className="text-[11px] md:text-xs text-slate-500 min-w-0 pt-0.5" aria-live="polite">
-              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-400" data-count-total>{t.countTotal(deviceData.length)}</span>
+              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-400" data-count-total>{t.countTotal(deviceData.length)}</span>{groupBrands && brandGroups.size < filteredAndSortedData.length && <span className="text-slate-400" data-brand-rows> · {t.brandRows(brandGroups.size)}</span>}
               {pifActive && (
                 <span className="block mt-0.5 text-cyan-700 font-medium">{pifHiddenSummary ? t.pifHidden(pifValue, pifHiddenSummary) : t.pifAllOk(pifValue)}{filteredAndSortedData.some(flowUnknown) && <span data-pif-unknown> {t.pifUnknown(filteredAndSortedData.filter(flowUnknown).length)}</span>}</span>
               )}
@@ -8491,12 +8641,14 @@ function App() {
           </div>
         ) : (
           <div id="printable-drug-list" data-all-cards={showAllCards ? '1' : '0'} className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" : "flex flex-col gap-2 md:gap-3"}>
-            {(showAllCards ? filteredAndSortedData : filteredAndSortedData.slice(0, FIRST_PAINT_CARDS)).map(med => {
+            {listItems.map(item => {
+              if (item.brand) return <BrandGroupRow key={'brand-' + item.brand} meds={item.meds} open={item.open} onToggle={() => toggleBrand(item.brand)} onPick={(m) => pickStrength(item.brand, m)} onSelect={toggleCompare} onDetails={(m) => setDetailId(m.id)} isSelected={(m) => compareList.some(c => c.id === m.id)} t={t} grid={viewMode === 'grid'} regions={countries} showHolder={showHolder} />;
+              const med = item.med;
               const isSelectedForCompare = compareList.some(c => c.id === med.id);
 
               if (viewMode === 'grid') {
                 return (
-                  <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}cursor-pointer h-full rounded-xl md:rounded-2xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-md'} p-3.5 md:p-5 flex flex-col shadow-sm transition-all relative`}>
+                  <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} {...(item.grouped ? { 'data-brand-member': item.grouped } : {})} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}${item.grouped ? 'ring-2 ring-indigo-200 ' : ''}cursor-pointer h-full rounded-xl md:rounded-2xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-md'} p-3.5 md:p-5 flex flex-col shadow-sm transition-all relative`}>
                     <div className="absolute top-3 right-3 md:top-4 md:right-4 print:hidden flex flex-col items-end gap-1.5" data-card-actions>
                        <button onClick={() => toggleCompare(med)} className={`flex items-center gap-1 md:gap-1.5 px-2 md:px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
                          {isSelectedForCompare ? <Check className="w-3 h-3" /> : <CompareIcon className="w-3 h-3" />}
@@ -8521,15 +8673,16 @@ function App() {
                         <ExacBadge med={med} t={t} />
                       </div>
                       <h3 className="text-lg font-extrabold text-slate-800 leading-tight mb-1 mt-2">{med.marketName}</h3>
-                      <CountryLines med={med} t={t} regions={countries} showHolder={showHolder} className="text-[11px] mb-1.5" />
+                      {/* components first (some names carry no strength), then the country lines */}
                       <RenderSubstances medClass={med.class} medSubstance={med.substance} className="text-sm mb-2 mt-1" />
+                      <CountryLines med={med} t={t} regions={countries} showHolder={showHolder} className="text-[11px] mb-2" />
                       <DiagnosticBadges indications={med.indications} t={t} med={med} />
                       {exacNoteOf(med, t) && <p className="mt-2 text-[11px] font-medium leading-snug text-rose-700" data-exac-note>{exacNoteOf(med, t)}</p>}
                       {/* Full facts on the card; the detail view (Details, or a click on the card) adds registration detail per country */}
                       <div className="space-y-1.5 text-xs bg-slate-50 p-3 rounded-lg border border-slate-100 mt-4" data-card-facts>
                         <div className="flex justify-between items-start gap-2 border-b border-slate-200 pb-1.5 pt-1 min-w-0">
-                          <span className="text-slate-500 font-medium shrink-0">{t.peakFlow}</span>
-                          <span className="font-bold text-cyan-700 text-right break-words min-w-0" data-flow>{flowText(med, t)}</span>
+                          <span className="text-slate-500 font-medium break-words min-w-0">{t.peakFlow}</span>
+                          <span className="font-bold text-cyan-700 text-right break-words shrink-0 max-w-[65%]" data-flow>{flowText(med, t)}</span>
                         </div>
                         {spacerFit(med) && (
                           <div className="flex justify-between items-start gap-2 border-b border-slate-200 pb-1.5 pt-1 min-w-0">
@@ -8572,7 +8725,7 @@ function App() {
 
               // List View Render
               return (
-                <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}cursor-pointer w-full rounded-xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-sm'} p-3 md:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 transition-all relative`}>
+                <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} {...(item.grouped ? { 'data-brand-member': item.grouped } : {})} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}${item.grouped ? 'ring-2 ring-indigo-200 ' : ''}cursor-pointer w-full rounded-xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-sm'} p-3 md:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 transition-all relative`}>
                    <div className="absolute z-10 top-3 right-3 sm:relative sm:top-0 sm:right-0 print:hidden shrink-0 order-first sm:order-last flex flex-col items-end sm:items-stretch gap-1.5" data-list-select>
                        <button onClick={() => toggleCompare(med)} className={`flex items-center justify-center w-7 h-7 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
                          {isSelectedForCompare ? <Check className="w-4 h-4 sm:w-3 sm:h-3" /> : <CompareIcon className="w-4 h-4 sm:w-3 sm:h-3" />}

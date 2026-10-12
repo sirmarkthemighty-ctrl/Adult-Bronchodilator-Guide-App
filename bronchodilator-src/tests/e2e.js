@@ -8,6 +8,45 @@ window.__bdgE2E = async function () {
   // the first paint draws only the first cards; wait for the full list
   { const first = document.querySelectorAll('#printable-drug-list h3').length; for (let i = 0; i < 100 && !document.querySelector('#printable-drug-list[data-all-cards="1"]'); i++) await wait(50);
     log('all cards are drawn shortly after the first paint', !!document.querySelector('#printable-drug-list[data-all-cards="1"]') && document.querySelectorAll('#printable-drug-list h3').length >= first, first); }
+  // brand rows are on by default: check the default view, then list every strength for the checks below
+  const groupBtn = () => document.querySelector('[data-group-toggle] button');
+  { const rows = document.querySelectorAll('#printable-drug-list [data-brand-group]').length, cards = document.querySelectorAll('#printable-drug-list h3').length;
+    log('default view groups strengths: brand rows are shown and fewer cards than products', groupBtn().getAttribute('aria-pressed') === 'true' && rows >= 5 && cards + rows < 58 && /in \d+ rows/.test((document.querySelector('[data-brand-rows]') || {}).textContent || ''), [rows, cards]);
+    const sa = document.querySelector('[data-brand-group="seretide accuhaler|Diskus"]');
+    const before = document.querySelectorAll('#printable-drug-list h3').length;
+    log('Seretide Accuhaler is one row with its three strengths, closed at first', !!sa && sa.dataset.open === '0' && [...sa.querySelectorAll('[data-brand-strength]')].map(x => x.textContent).join() === '50/100,50/250,50/500' && /3 strengths/.test(sa.querySelector('[data-brand-count]').textContent) && sa.querySelector('[data-brand-name]').textContent === 'Seretide Accuhaler' && ![...document.querySelectorAll('#printable-drug-list h3')].some(h => /Seretide Accuhaler/.test(h.textContent)), sa && sa.textContent.slice(0, 80));
+    { const card = [...document.querySelectorAll('#printable-drug-list > div[data-shape]')][0];
+      const it = sa.querySelector('[data-brand-pick="62"]');
+      log('tile view: a brand row is as tall as its content (no empty space under the last strength)', sa.getBoundingClientRect().bottom - sa.lastElementChild.getBoundingClientRect().bottom < 24 && Math.abs(sa.getBoundingClientRect().height - card.getBoundingClientRect().height) > 40, [Math.round(sa.getBoundingClientRect().height), Math.round(card.getBoundingClientRect().height)]);
+      const top = sa.querySelector('[data-brand-common]');
+      log('brand row: shared details once at the top (picture, device, holder, NLEM, indications, 5 country chips)', !!top.querySelector('svg') && /DPI/.test(top.textContent) && /GlaxoSmithKline \(Thailand\) Ltd\./.test(top.textContent) && /NLEM/.test(top.textContent) && /Asthma/.test(top.textContent) && top.querySelectorAll('[data-country]').length === 5 && sa.querySelector('[data-brand-name]').textContent === 'Seretide Accuhaler', top.textContent.slice(0, 160));
+      log('brand row: each strength shows only its strength and class-labelled components, with Select and Details', it.querySelector('[data-brand-strength]').textContent === '50/250' && /ICS\s*: Fluticasone propionate 250 mcg/.test(it.textContent) && /LABA\s*: Salmeterol 50 mcg/.test(it.textContent) && !it.querySelector('[data-country]') && !/GlaxoSmithKline|Asthma|NLEM/.test(it.textContent) && !!it.querySelector('[data-brand-select]') && !!it.querySelector('[data-brand-details]'), it.textContent.slice(0, 160));
+      { const sy = document.querySelector('[data-brand-group="symbicort turbuhaler|Turbuhaler"]'); const rows = [...sy.querySelectorAll('[data-brand-pick]')];
+        log('brand row: a detail that differs between strengths stays on each strength (Symbicort Turbuhaler: Japan only for 160/4.5)', rows.length === 2 && !sy.querySelector('[data-brand-common] [data-country]') && rows.every(r => r.querySelectorAll('[data-country]').length === 5) && rows.map(r => r.querySelector('[data-country="jp"]').dataset.status).join() === 'never,current', rows.map(r => r.textContent.slice(0, 40))); }
+      it.querySelector('[data-brand-details]').click(); await wait(400);
+      log('Details on a strength in the brand row opens that strength', !!document.querySelector('[data-detail-modal]') && document.querySelector('[data-detail-modal] h2').textContent === 'Seretide Accuhaler 50/250', '');
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(300);
+      sa.querySelector('[data-brand-pick="62"]').click(); await wait(500);
+      const picked = document.querySelector('#drug-62');
+      log('tapping a strength opens the row and highlights that strength\'s card', !!picked && /ring-sky-400/.test(picked.className) && document.querySelector('[data-brand-group="seretide accuhaler|Diskus"]').dataset.open === '1', !!picked);
+      document.querySelector('[data-brand-group="seretide accuhaler|Diskus"] [data-brand-toggle]').click(); await wait(400); }
+    sa.querySelector('[data-brand-toggle]').click(); await wait(400);
+    const members = [...document.querySelectorAll('#printable-drug-list [data-brand-member="seretide accuhaler|Diskus"] h3')].map(h => h.textContent);
+    const sa2 = document.querySelector('[data-brand-group="seretide accuhaler|Diskus"]');
+    log('opening the row shows each strength as its own card, right after the row', members.join() === 'Seretide Accuhaler 50/100,Seretide Accuhaler 50/250,Seretide Accuhaler 50/500' && sa2.dataset.open === '1' && sa2.nextElementSibling.querySelector('h3').textContent === 'Seretide Accuhaler 50/100' && document.querySelectorAll('#printable-drug-list h3').length === before + 3, members);
+    sa2.querySelector('[data-brand-toggle]').click(); await wait(300);
+    const si = document.querySelector('input[type="text"]');
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(si, 'seretide'); si.dispatchEvent(new Event('input', { bubbles: true })); await wait(500);
+    { const groups = () => [...document.querySelectorAll('#printable-drug-list [data-brand-group]')];
+      log('searching shows the matching brand rows only, not their full cards', groups().length === 2 && groups().every(g => g.dataset.open === '0') && document.querySelectorAll('#printable-drug-list h3').length === 0 && groups().map(g => g.querySelector('[data-brand-name]').textContent).join() === 'Seretide Accuhaler,Seretide Evohaler', [groups().length, document.querySelectorAll('#printable-drug-list h3').length]);
+      groups()[0].querySelector('[data-brand-toggle]').click(); await wait(400);
+      log('while searching, a brand row opens and closes with its button', groups()[0].dataset.open === '1' && document.querySelectorAll('#printable-drug-list h3').length === 3, document.querySelectorAll('#printable-drug-list h3').length);
+      groups()[0].querySelector('[data-brand-toggle]').click(); await wait(400);
+      log('and closes again', groups()[0].dataset.open === '0' && document.querySelectorAll('#printable-drug-list h3').length === 0, ''); }
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(si, ''); si.dispatchEvent(new Event('input', { bubbles: true })); await wait(400);
+    log('brand rule: 131 products make 93 rows; Foster MDI 100/6 and Foster 200/6 share a row; devices stay apart', new Set(deviceData.map(brandKey)).size === 93 && brandKey(deviceData.find(d => d.id === 32)) === brandKey(deviceData.find(d => d.id === 33)) && brandKey(deviceData.find(d => d.id === 61)) !== brandKey(deviceData.find(d => d.id === 41)) && strengthLabel(deviceData.find(d => d.id === 62)) === '50/250' && brandLabel('Qvar 100 Aerosol') === 'Qvar Aerosol', new Set(deviceData.map(brandKey)).size);
+    groupBtn().click(); await wait(500);
+    log('Group strengths off: every strength is listed again and the choice is saved', groupBtn().getAttribute('aria-pressed') === 'false' && !document.querySelector('#printable-drug-list [data-brand-group]') && document.querySelectorAll('#printable-drug-list h3').length === 58 && localStorage.getItem('bdg-group-brand') === '0', document.querySelectorAll('#printable-drug-list h3').length); }
   const setInput = (el, v) => {
     const proto = el.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
     Object.getOwnPropertyDescriptor(proto, 'value').set.call(el, v);
@@ -305,8 +344,8 @@ window.__bdgE2E = async function () {
     log('minimum inspiratory flow without a reference shows Unknown (Pulvisonide, Tropoair, Xalflu Airmaster); Spiriva keeps its figure', fl.join('|') === 'Unknown|Unknown|Unknown|Unknown|≥ 20 L/min' && deviceData.filter(flowUnknown).length === 15, fl);
     const tc = cardFor('Tropoair 18 mcg (LupinHaler)');
     log('Tropoair card: labelled LupinHaler with its own icon, still in the HandiHaler technique group', tc && tc.querySelector('[data-shape-label]').textContent === 'LupinHaler' && tc.getAttribute('data-shape') === 'Handihaler' && shapeLabel(deviceData.find(d => d.marketName === 'Spiriva HandiHaler')) === 'Handihaler', tc && tc.querySelector('[data-shape-label]').textContent);
-    const capsule = TECHNIQUE.Capsule;
-    log('unidentified capsule inhaler: no assumed technique steps', capsule.en.steps.length === 1 && /^Unknown:/.test(capsule.en.steps[0]) && capsule.en.errors.length === 0 && capsule.th.steps.length === 1 && (CRITICAL_STEPS.Capsule || []).length === 0, capsule.en.steps);
+    const capsule = TECHNIQUE.OtherDPI;
+    log('unidentified capsule inhaler: no assumed technique steps', capsule.en.steps.length === 1 && /^Unknown:/.test(capsule.en.steps[0]) && capsule.en.errors.length === 0 && capsule.th.steps.length === 1 && (CRITICAL_STEPS.OtherDPI || []).length === 0 && !TECHNIQUE.Capsule && deviceData.find(d => d.id === 404).shape === 'OtherDPI' && shapeLabel(deviceData.find(d => d.id === 404)) === 'Other DPI', capsule.en.steps);
     // inspiratory-flow filter keeps devices with an unknown minimum, with a note
     setInput(pif(), '25'); await wait(400);
     const note = document.querySelector('[data-pif-unknown]');
@@ -386,7 +425,7 @@ window.__bdgE2E = async function () {
   document.querySelector('button[aria-label="Grid View"]').click(); await wait(300);
   btnByText('Device Guide').click(); await wait(400);
   const tabs =[...document.querySelectorAll('[role="tab"]')].filter(x => x.querySelector('svg'));
-  log('Device Guide has 16 devices', tabs.length === 16, tabs.map(x => x.textContent.trim()));
+  log('Device Guide has 15 devices', tabs.length === 15, tabs.map(x => x.textContent.trim()));
   log('Device Guide MDI: shake before each puff, product-specific priming, GINA teaching points', /Shake the inhaler immediately before each puff/.test(document.body.innerText) && /Foster: release 1 puff/.test(document.body.innerText) && /re-check technique at every visit/.test(document.querySelector('[data-dev-teach]').textContent), '');
   tabs.find(x => x.textContent.trim() === 'HandiHaler').click(); await wait(300);
   log('HandiHaler steps shown', /piercing button/.test(document.body.innerText), '');
@@ -411,7 +450,7 @@ window.__bdgE2E = async function () {
   log('Escape closes Device Guide', document.querySelectorAll('[role="tab"]').length === 0, '');
 
   // --- Exacerbation Guide device lists (chosen by rule)
-  btnByText('Exacerbation Guide').click(); await wait(400);
+  btnExact('Exacerbation').click(); await wait(400);
   let ex = modalDrugNames();
   const exLists = () => [...document.querySelectorAll('.fixed [data-exac-groups]')].filter(x => x.offsetParent);
   const exCheck = (rule, el) => {
@@ -437,7 +476,7 @@ window.__bdgE2E = async function () {
   await esc();
 
   // --- Maintenance Guide ranking (COPD Group A)
-  btnByText('Maintenance Guide').click(); await wait(400);
+  btnByText('Initial Maintenance').click(); await wait(400);
   btnByText('COPD (GOLD)').click(); await wait(300);
   btnByText('GOLD 2 (Moderate)').click(); await wait(200);
   btnByText('Grade 0:').click(); await wait(200);
@@ -453,7 +492,7 @@ window.__bdgE2E = async function () {
   await esc();
 
   // --- Maintenance Guide: asthma Step 4 → Step 5 (optional "uncontrolled despite Step 4" question)
-  btnByText('Maintenance Guide').click(); await wait(400);
+  btnByText('Initial Maintenance').click(); await wait(400);
   btnByText('Asthma (GINA)').click(); await wait(300);
   btnByText('Symptoms most days').click(); await wait(150);
   btnByText('Low lung function').click(); await wait(150);
@@ -468,7 +507,7 @@ window.__bdgE2E = async function () {
   await esc();
 
   // --- Maintenance Guide device lists follow each product's own dose levels (GINA Table 6/7)
-  btnByText('Maintenance Guide').click(); await wait(400);
+  btnByText('Initial Maintenance').click(); await wait(400);
   btnByText('Asthma (GINA)').click(); await wait(300);
   btnByText('Symptoms most days').click(); await wait(150);
   btnByText('Normal lung function').click(); await wait(150);
@@ -910,11 +949,31 @@ window.__bdgE2E = async function () {
       log('Meptin Swinghaler has its own picture in its teal colour, not N/A', !ICON_UNKNOWN.has(533) && ICON_SHAPE[533] === 'Swinghaler' && IconMap.Swinghaler === SwinghalerIcon && iconHex(byId(533)) === '#5ecfc9' && !COLOUR_UNKNOWN.has(533), '');
     log('Feedback button sits right after the version button and opens the form in a new tab', !!fb && fb.previousElementSibling === vb && fb.getAttribute('href') === 'https://forms.gle/ZMWtPk3WEjFvbkfj6' && fb.target === '_blank' && /noopener/.test(fb.rel) && /Feedback/.test(fb.textContent), fb && fb.outerHTML.slice(0, 120)); } }
 
+  // --- Device filter: sub-types in A-Z order, Other DPI last
+  { const fbtn = (txt) => [...document.querySelectorAll('[data-filter-bar] button')].find(b => b.textContent.trim() === txt);
+    fbtn('DPI').click(); await wait(400);
+    const names = [...document.querySelectorAll('[data-shape-group] button')].map(b => b.textContent.trim());
+    const az = names.slice(0, -1);
+    log('DPI device names are A-Z with Other DPI last; no Capsule entry', names.length > 8 && names[names.length - 1] === 'Other DPI' && !names.includes('Capsule') && az.join() === [...az].sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' })).join(), names);
+    fbtn('DPI').click(); await wait(300); }
+
+  // --- Components directly under the name, above the country lines
+  { const order = (c) => { const h = c.querySelector('h3'), cn = c.querySelector('[data-countries]'); const sub = [...c.querySelectorAll('div, span')].find(e => /^(SABA|ICS)\s*:/.test(e.textContent.trim()) && e.children.length <= 2); return sub && cn ? [Math.round(h.getBoundingClientRect().bottom), Math.round(sub.getBoundingClientRect().top), Math.round(cn.getBoundingClientRect().top)] : null; };
+    const g = order(cardFor('Ventolin Evohaler 100 mcg'));
+    document.querySelector('button[aria-label="List View"]').click(); await wait(400);
+    const l = order(cardFor('Ventolin Evohaler 100 mcg'));
+    log('components sit under the product name and above the country lines, in tile and list view', !!g && !!l && g[0] <= g[1] + 1 && g[1] < g[2] && l[0] <= l[1] + 1 && l[1] < l[2], [g, l]);
+    document.querySelector('button[aria-label="Grid View"]').click(); await wait(400); }
+
   // --- Dark mode toggle
   document.querySelector('button[aria-label="Switch to dark mode"]').click(); await wait(300);
   log('dark mode toggles on', document.documentElement.classList.contains('dark'), '');
   document.querySelector('button[aria-label="Switch to light mode"]').click(); await wait(300);
   log('dark mode toggles off', !document.documentElement.classList.contains('dark'), '');
+
+  // back to the default (brand rows on) for the next run
+  if (groupBtn().getAttribute('aria-pressed') === 'false') { groupBtn().click(); await wait(300); }
+  log('brand rows are back on at the end', localStorage.getItem('bdg-group-brand') === '1', localStorage.getItem('bdg-group-brand'));
 
   return out;
 };

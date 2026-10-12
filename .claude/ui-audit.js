@@ -14,6 +14,7 @@ window.__uiAudit = (root = document.body) => {
   };
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT) });
   const texts = [];
+  const scrollBoxes = new Map(); // element -> its box if it is a scrolling container with hidden content, else null
   while (walker.nextNode()) {
     const n = walker.currentNode, el = n.parentElement;
     if (!el || el.closest('svg, script, style, .sr-only, [data-audit-skip]') || !visible(el)) continue;
@@ -25,9 +26,9 @@ window.__uiAudit = (root = document.body) => {
     // clip to scrolling ancestors: the part scrolled out of view is not drawn
     let hiddenByScroll = false;
     for (let e = el.parentElement; e && e !== document.body; e = e.parentElement) {
-      const cs = getComputedStyle(e);
-      if (!/auto|scroll/.test(cs.overflowY) || e.scrollHeight <= e.clientHeight + 1) continue;
-      const b = e.getBoundingClientRect();
+      let b = scrollBoxes.get(e);
+      if (b === undefined) { const cs = getComputedStyle(e); b = /auto|scroll/.test(cs.overflowY) && e.scrollHeight > e.clientHeight + 1 ? e.getBoundingClientRect() : null; scrollBoxes.set(e, b); }
+      if (!b) continue;
       for (let k = rects.length - 1; k >= 0; k--) {
         rects[k].top = Math.max(rects[k].top, b.top); rects[k].bottom = Math.min(rects[k].bottom, b.bottom);
         if (rects[k].bottom - rects[k].top < 1) rects.splice(k, 1);

@@ -23,6 +23,8 @@ window.__uiAuditRun = async () => {
     audit(lang + ' main grid');
     document.querySelector('button[aria-label="List View"], button[aria-label="มุมมองรายการ"]')?.click(); await wait(300);
     audit(lang + ' main list');
+    // brand rows: open the first one, audit the list with its strengths showing, close it
+    { const bt = document.querySelector('#printable-drug-list [data-brand-toggle]'); if (bt) { bt.click(); await wait(400); audit(lang + ' main list, brand row open'); const b2 = document.querySelector('#printable-drug-list [data-brand-group][data-open="1"] [data-brand-toggle]'); if (b2) { b2.click(); await wait(300); } } }
     // product detail view (a product with a past registration and several countries, then a plain one)
     for (const id of [303, 1]) { const b = document.querySelector('#drug-' + id + ' [data-details]') || document.querySelector('[data-details]'); if (b) { b.click(); await wait(400); if (modal()) audit(lang + ' detail view ' + id, modal()); await esc(); } }
     // key to symbols
@@ -44,8 +46,8 @@ window.__uiAuditRun = async () => {
     await clearSel();
     // header guides
     const guides = [
-      [L('Exacerbation Guide', 'แนวทางเมื่อกำเริบ'), 'Exacerbation'],
-      [L('Initial Maintenance Guide', 'แนวทางยาควบคุมเริ่มต้น'), 'Initial Maintenance'],
+      [L('Exacerbation', 'แนวทางเมื่อกำเริบ'), 'Exacerbation'],
+      [L('Initial Maintenance', 'แนวทางยาควบคุมเริ่มต้น'), 'Initial Maintenance'],
       [L('Follow-up', 'การติดตามผล'), 'Follow-up'],
       [L('Spacer & Mask', 'Spacer และหน้ากาก'), 'Spacer & Mask'],
       [L('Steroid Dose', 'ขนาดสเตียรอยด์'), 'Steroid Dose'],
