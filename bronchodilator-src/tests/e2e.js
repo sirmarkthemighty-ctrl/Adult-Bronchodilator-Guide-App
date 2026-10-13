@@ -76,6 +76,12 @@ window.__bdgE2E = async function () {
     await click('US');
     const so = document.querySelector('[data-search-open]'), sb = document.querySelector('[data-search-box]');
     log('computer width: the search box is always open (the magnifier button is for phones) and the guides carry their full names', so.getBoundingClientRect().width === 0 && sb.getBoundingClientRect().width > 150 && [...document.querySelectorAll('[data-guide]')].map(b => b.dataset.guide + '=' + b.textContent.trim()).join() === 'exac=Exacerbation,maint=Initial Maintenance,follow=Follow-up,device=Device Guide,spacer=Spacer & Mask,steroid=Steroid Dose', [...document.querySelectorAll('[data-guide]')].map(b => b.textContent.trim())); }
+  { const bar = document.querySelector('[data-search-bar]');
+    window.scrollTo(0, 1500); await wait(300);
+    const g = document.querySelector('[data-guide="exac"]').getBoundingClientRect(), br = bar.getBoundingClientRect();
+    const fb = document.querySelector('[data-filter-bar]').getBoundingClientRect();
+    log('guide buttons are pinned with the search row: still at the top after scrolling, with the filter panel right under the bar', bar.querySelectorAll('[data-guide]').length === 6 && !document.querySelector('header [data-guide]') && Math.abs(br.top) < 2 && g.top >= 0 && g.bottom < br.bottom && Math.abs(fb.top - (br.bottom - 1)) < 3, [br.top, g.top, br.bottom, fb.top]);
+    window.scrollTo(0, 0); await wait(200); }
   log('count shows the database total', /\(131 in database\)/.test(countText()), countText());
   { const fc = cardFor('Ventolin Evohaler 100 mcg');
     log('tile cards keep the full facts: flow, spacer, price, pack, expiry, dose, last-checked and ventilator use, plus a Details button', !!fc.querySelector('[data-card-facts]') && !!fc.querySelector('[data-flow]') && !!fc.querySelector('[data-card-pack]') && !!fc.querySelector('[data-card-exp]') && /Volumatic/.test(fc.querySelector('[data-spacer]').textContent) && !!fc.querySelector('[data-checked]') && /Ventilator/.test(fc.textContent) && /Rec. Dose/.test(fc.textContent) && !!fc.querySelector('[data-details]'), fc.textContent.slice(0, 200));
@@ -681,7 +687,7 @@ window.__bdgE2E = async function () {
   log('deep link to QVAR (not in TH) adds a licensed country and highlights it', btnExact('US').getAttribute('aria-pressed') === 'true' && !!document.getElementById('drug-261') && /ring-4/.test(document.getElementById('drug-261').className), '');
   location.hash = ''; await wait(200);
 
-  { const names = [...document.querySelectorAll('header button')].map(b => b.textContent.trim());
+  { const names = [...document.querySelectorAll('[data-guide]')].map(b => b.textContent.trim());
     const i = names.findIndex(n => n.includes('Device Guide'));
     log('header: Device Guide sits right before Spacer & Mask', i >= 0 && (names[i + 1] || '').includes('Spacer & Mask'), names); }
   // --- Top-right controls stay under pop-ups
@@ -691,19 +697,19 @@ window.__bdgE2E = async function () {
     const rc = ctl.children[1].getBoundingClientRect();
     const x = rc.left + rc.width / 2, y = rc.top + rc.height / 2;
     const before = ctl.contains(document.elementFromPoint(x, y));
-    [...document.querySelectorAll('header button')].find(b => b.textContent.includes('Spacer & Mask')).click(); await wait(300);
+    [...document.querySelectorAll('[data-guide]')].find(b => b.textContent.includes('Spacer & Mask')).click(); await wait(300);
     const covered = !ctl.contains(document.elementFromPoint(x, y));
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     log('top-right controls are hidden behind an open pop-up', before && covered, { before, covered, top: Math.round(rc.top), scrollY }); }
   // --- Spacer & Mask guide
-  { const b = [...document.querySelectorAll('header button')].find(x => x.textContent.includes('Spacer & Mask')); b.click(); await wait(300);
+  { const b = [...document.querySelectorAll('[data-guide]')].find(x => x.textContent.includes('Spacer & Mask')); b.click(); await wait(300);
     const g = document.querySelector('[data-spacer-guide]');
     const no = g && g.querySelector('[data-spacer-group="noSpacer"]'), yes = g && g.querySelector('[data-spacer-group="spacer"]');
     log('Spacer guide: children\'s rows for comparison, adult row highlighted, grouped inhalers', !!g && !!g.querySelector('[data-adult-row]') && /Adults/.test(g.querySelector('[data-adult-row]').textContent) && /0–3 years/.test(g.textContent) && /for comparison/.test(g.textContent) && no.textContent.includes('QVAR RediHaler') && no.textContent.includes('Relvar') && yes.textContent.includes('Ventolin') && !yes.textContent.includes('QVAR'), g ? '' : 'missing');
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     log('Escape closes the Spacer guide', !document.querySelector('[data-spacer-guide]'), ''); }
   // --- Steroid-dose calculator UI
-  { const b = [...document.querySelectorAll('header button')].find(x => x.textContent.includes('Steroid Dose')); b.click(); await wait(300);
+  { const b = [...document.querySelectorAll('[data-guide]')].find(x => x.textContent.includes('Steroid Dose')); b.click(); await wait(300);
     const m = document.querySelector('[data-ics-calc]');
     const res = () => m.querySelector('[data-ics-result="bud"]');
     log('Steroid calc opens: Symbicort 160/4.5 1 BID = 400 mcg budesonide, low', !!m && res() && res().dataset.grade === 'low' && res().textContent.includes('400 mcg/day'), m ? (res() || m).textContent.slice(0, 160) : 'missing');
@@ -723,8 +729,8 @@ window.__bdgE2E = async function () {
     log('Escape closes the Steroid calc', !document.querySelector('[data-ics-calc]'), ''); }
 
   // --- Step-down content inside the Follow-up Guide (GINA Box 4-13, GOLD 2026)
-  { log('header: Step Down Guide button removed (merged into Follow-up)', ![...document.querySelectorAll('header button')].some(x => x.textContent.includes('Step Down')), '');
-    [...document.querySelectorAll('header button')].find(x => x.textContent.includes('Follow-up')).click(); await wait(400);
+  { log('header: Step Down Guide button removed (merged into Follow-up)', ![...document.querySelectorAll('[data-guide]')].some(x => x.textContent.includes('Step Down')), '');
+    [...document.querySelectorAll('[data-guide]')].find(x => x.textContent.includes('Follow-up')).click(); await wait(400);
     const m = document.querySelector('[data-followup]');
     log('Follow-up: step-down guide collapsed by default', !m.querySelector('[data-stepdown]'), '');
     m.querySelector('[data-fu-sdref]').click(); await wait(200);
@@ -744,7 +750,7 @@ window.__bdgE2E = async function () {
     log('Escape closes the Follow-up Guide (step-down check)', !document.querySelector('[data-followup]'), ''); }
 
   // --- Follow-up Guide (GINA 2026 Table 2 / Figure 2 / Box 4-13; GOLD 2026 Figure 3.9)
-  { [...document.querySelectorAll('header button')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
+  { [...document.querySelectorAll('[data-guide]')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
     const m = document.querySelector('[data-followup]');
     const res = () => m.querySelector('[data-fu-result]');
     log('Follow-up opens on asthma Track 1 Step 4, well controlled → continue', !!m && res().dataset.fuResult === 'hold', m ? res().dataset.fuResult : 'missing');
@@ -810,7 +816,7 @@ window.__bdgE2E = async function () {
     log('Follow-up COPD: selected ICS-LABA + LAMA detected as triple', !!cd && cd.dataset.fuCopdDetected === 'triple' && m.querySelector('[data-fu-cur="triple"]').getAttribute('aria-pressed') === 'true', cd ? cd.textContent : 'missing');
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     clear(); await wait(150);
-    [...document.querySelectorAll('header button')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
+    [...document.querySelectorAll('[data-guide]')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
     log('Follow-up with nothing selected shows the Select tip', !!document.querySelector('[data-fu-hint]'), '');
     { const fm = document.querySelector('[data-followup]');
       const setV2 = (el, v) => { const p = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value'); p.set.call(el, v); el.dispatchEvent(new Event('input', { bubbles: true })); };
@@ -847,7 +853,7 @@ window.__bdgE2E = async function () {
     log('Follow-up asthma tab: Anoro still listed, flagged not indicated, LABA-without-ICS warning, no GINA step', !!m.querySelector('[data-fu-row="11"] [data-fu-notind-badge]') && !!ni && /Anoro/.test(ni.textContent) && /must not be used without an ICS/.test(ni.textContent) && !m.querySelector('[data-fu-detected]'), ni ? ni.textContent : 'missing');
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     clear(); await wait(150);
-    [...document.querySelectorAll('header button')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
+    [...document.querySelectorAll('[data-guide]')].find(b => b.textContent.includes('Follow-up')).click(); await wait(400);
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250); }
 
   // --- Follow-up logic (v1.11.7)

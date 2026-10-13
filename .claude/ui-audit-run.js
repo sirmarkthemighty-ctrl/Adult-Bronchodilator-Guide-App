@@ -33,7 +33,7 @@ window.__uiAuditRun = async () => {
     { const ft = document.querySelector('[data-filters-toggle]'); if (ft && ft.getBoundingClientRect().width > 0) { ft.click(); await wait(300); audit(lang + ' filter panel (phone)', document.querySelector('[data-filter-bar]')); audit(lang + ' search row (phone)', document.querySelector('[data-search-bar]')); ft.click(); await wait(200); } }
     // phones: the search bar opened from the magnifier button
     { const so = document.querySelector('[data-search-open]'); if (so && so.getBoundingClientRect().width > 0) { so.click(); await wait(300); audit(lang + ' search bar open (phone)', document.querySelector('[data-search-bar]')); document.activeElement && document.activeElement.blur(); await wait(200); } }
-    audit(lang + ' header (guides row)', document.querySelector('header'));
+    audit(lang + ' header', document.querySelector('header')); audit(lang + ' pinned bar (guides and search)', document.querySelector('[data-search-bar]'));
     document.querySelector('button[aria-label="Grid View"], button[aria-label="มุมมองตาราง"]')?.click(); await wait(300);
     // selection bar with 1 and 2 drugs, and the modals it opens
     await select(1);

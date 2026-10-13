@@ -2262,6 +2262,7 @@ const changelogData = [
       "Detail view: every fact now has a Source line, opened with the Show sources button at the bottom of the view (the choice is remembered). Registration in each country links to that country's register (Thai FDA, Drugs@FDA and DailyMed, MHRA Products, the Irish HPRA list, PMDA), with a search for the product already filled in where the search was checked to find it; NLEM, price, minimum inspiratory flow and ventilator use link to their reference. Where no source is recorded, the line says so instead of showing a link. The reference list gains Corradi 2014, the source of the NEXThaler minimum flow.",
       "Phones: the top of the page is shorter, so more of the list shows on opening. The title takes one line, the tagline is hidden, the credit and the disclaimer link share a line, and the six guides sit in one row of icon buttons with short names (Exac., Maint., Follow-up, Device, Spacer, Steroid). Tablet and computer layouts are unchanged.",
       "Phones: the search box is now a magnifying-glass button. Tapping it opens the search bar across the row; the sort menu uses the space it frees. The button turns blue while a search is active, and the X in the bar clears and closes the search.",
+      "The six guide buttons now stay pinned at the top with the search row while you scroll, on every screen size, so a guide is always one tap away.",
       "Cards and list rows no longer show a grey not-registered chip (for example US ⊘) for a country that is not selected in the Countries filter. A chip still shows for every selected country, and for any other country where the product is or was registered. The detail view lists all five countries as before.",
       "Mometasone checked against GINA 2026: the pressurised inhalers now carry an ICS dose level. GINA gives one band for low and medium together (200 to 400 mcg a day) and high above 400, so Asmanex HFA 100 and Dulera 100/5 (2 puffs twice a day, 400 mcg) show Low / Medium, and Asmanex HFA 200 and Dulera 200/5 (800 mcg) show High. The Steroid Dose calculator has a mometasone pMDI row with the same band and the US label maximum. The level uses the label strength, which is the delivered dose, because the US label gives no metered dose. Mometasone dry-powder inhalers (Asmanex Twisthaler, Atectura, Enerzair) still have no level: GINA says the dose depends on the device.",
       "Minimum inspiratory flow now has a reference for every device that shows a figure, listed under Show sources in the detail view. Dry-powder inhalers follow the table in Ghosh 2017: HandiHaler 20; Turbuhaler, Diskus, Ellipta and Easyhaler 30; NEXThaler 35; Spiromax and Genuair 40; Breezhaler 50 L/min. This changes DuoResp Spiromax from 30 to 40 L/min and gives a figure to products that showed Unknown: the RespiClick products and Tudorza and Duaklir Pressair (40; the reference lists them as Spiromax and Genuair, their names outside the US) and Asmanex Twisthaler (28; Clark 2020 puts the lower limit of acceptable performance between 20 and 28). MDIs cite the ERS/ISAM report (Laube 2011: below 30 L/min is the ideal flow), soft mist inhalers cite Wu 2023 (minimal 10, optimal 30 L/min) and nebulisers cite Laube 2011 (normal tidal breaths). Still Unknown because no reference was found: Airmaster, LupinHaler, Swinghaler, BudeForu and the Pulvisonide capsule inhaler. The reference list gains the four papers.",
@@ -2607,6 +2608,7 @@ const CHANGELOG_TH = {
     "หน้ารายละเอียด: ข้อมูลทุกรายการมีบรรทัด แหล่งข้อมูล ซึ่งเปิดด้วยปุ่ม แสดงแหล่งข้อมูล ด้านล่างของหน้า (ระบบจำตัวเลือกไว้) ทะเบียนของแต่ละประเทศเชื่อมไปยังฐานข้อมูลทะเบียนของประเทศนั้น (อย., Drugs@FDA และ DailyMed, MHRA Products, รายการของ HPRA ไอร์แลนด์, PMDA) โดยกรอกคำค้นของยาให้แล้วในกรณีที่ตรวจสอบแล้วว่าค้นพบ ส่วนบัญชียาหลัก ราคา แรงสูดขั้นต่ำ และการใช้กับเครื่องช่วยหายใจ เชื่อมไปยังเอกสารอ้างอิง หากไม่มีแหล่งอ้างอิงที่บันทึกไว้ บรรทัดจะระบุเช่นนั้นแทนการแสดงลิงก์ รายการเอกสารอ้างอิงเพิ่ม Corradi 2014 ซึ่งเป็นแหล่งที่มาของแรงสูดขั้นต่ำของ NEXThaler",
     "มือถือ: ส่วนบนของหน้าสั้นลง ทำให้เห็นรายการยามากขึ้นเมื่อเปิดแอป ชื่อแอปอยู่ในบรรทัดเดียว ซ่อนคำอธิบายใต้ชื่อ เครดิตกับลิงก์ข้อจำกัดความรับผิดชอบอยู่บรรทัดเดียวกัน และคู่มือทั้งหกเป็นปุ่มไอคอนแถวเดียวพร้อมชื่อสั้น (กำเริบ, ยาควบคุม, ติดตาม, อุปกรณ์, Spacer, สเตียรอยด์) ส่วนแท็บเล็ตและคอมพิวเตอร์ไม่เปลี่ยน",
     "มือถือ: ช่องค้นหาเป็นปุ่มรูปแว่นขยาย เมื่อแตะจะเปิดแถบค้นหาเต็มแถว และเมนูเรียงลำดับใช้พื้นที่ที่ว่างขึ้น ปุ่มจะเป็นสีน้ำเงินขณะมีคำค้น และปุ่ม X ในแถบใช้ล้างและปิดการค้นหา",
+    "ปุ่มคู่มือทั้งหกปุ่มตรึงอยู่ด้านบนพร้อมแถวค้นหาขณะเลื่อนหน้าจอในทุกขนาดจอ จึงเปิดคู่มือได้ในหนึ่งแตะเสมอ",
     "การ์ดและแถวรายการไม่แสดงป้ายสีเทาว่าไม่มีทะเบียน (เช่น US ⊘) ของประเทศที่ไม่ได้เลือกในตัวกรองประเทศอีกแล้ว แต่ยังแสดงป้ายของทุกประเทศที่เลือก และของประเทศอื่นที่ยามีหรือเคยมีทะเบียน หน้ารายละเอียดยังแสดงครบทั้งห้าประเทศเช่นเดิม",
     "ตรวจสอบ mometasone กับ GINA 2026: ยาสูดชนิด pMDI มีระดับขนาด ICS แล้ว GINA ให้เกณฑ์เดียวสำหรับขนาดต่ำและปานกลางรวมกัน (200 ถึง 400 mcg ต่อวัน) และขนาดสูงเมื่อเกิน 400 ดังนั้น Asmanex HFA 100 และ Dulera 100/5 (2 พัฟ วันละ 2 ครั้ง รวม 400 mcg) แสดง Low / Medium ส่วน Asmanex HFA 200 และ Dulera 200/5 (800 mcg) แสดง High เครื่องคำนวณขนาดสเตียรอยด์มีแถว mometasone pMDI ด้วยเกณฑ์เดียวกันและขนาดสูงสุดตามฉลากสหรัฐฯ ระดับนี้ใช้ความแรงตามฉลากซึ่งเป็นขนาดที่ออกจากอุปกรณ์ เพราะฉลากสหรัฐฯ ไม่ระบุขนาดที่ตวง ส่วน mometasone ชนิดผงแห้ง (Asmanex Twisthaler, Atectura, Enerzair) ยังไม่มีระดับ เพราะ GINA ระบุว่าขนาดยาขึ้นกับอุปกรณ์",
     "แรงสูดขั้นต่ำมีเอกสารอ้างอิงสำหรับทุกอุปกรณ์ที่แสดงตัวเลขแล้ว ดูได้จากปุ่ม แสดงแหล่งข้อมูล ในหน้ารายละเอียด ยาสูดชนิดผงแห้งใช้ตารางของ Ghosh 2017: HandiHaler 20; Turbuhaler, Diskus, Ellipta และ Easyhaler 30; NEXThaler 35; Spiromax และ Genuair 40; Breezhaler 50 L/min ทำให้ DuoResp Spiromax เปลี่ยนจาก 30 เป็น 40 L/min และยาที่เคยแสดง Unknown มีตัวเลขแล้ว ได้แก่ ยาที่ใช้ RespiClick กับ Tudorza และ Duaklir Pressair (40 โดยเอกสารอ้างอิงระบุในชื่อ Spiromax และ Genuair ซึ่งเป็นชื่อนอกสหรัฐฯ) และ Asmanex Twisthaler (28 โดย Clark 2020 ระบุว่าขีดล่างของสมรรถนะที่ยอมรับได้อยู่ระหว่าง 20 ถึง 28) ส่วน MDI อ้างอิงรายงาน ERS/ISAM (Laube 2011: แรงสูดต่ำกว่า 30 L/min เหมาะที่สุด) ยาสูดชนิด soft mist อ้างอิง Wu 2023 (ขั้นต่ำ 10 และเหมาะสม 30 L/min) และ nebulizer อ้างอิง Laube 2011 (หายใจปกติ) อุปกรณ์ที่ยังแสดง Unknown เพราะไม่พบเอกสารอ้างอิง: Airmaster, LupinHaler, Swinghaler, BudeForu และอุปกรณ์สูดแคปซูลของ Pulvisonide รายการเอกสารอ้างอิงเพิ่มเอกสารทั้งสี่ฉบับ",
@@ -7423,6 +7425,19 @@ function App() {
   // Phones: the search box is a magnifier button until tapped; it closes again when focus leaves it (the text stays)
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = React.useRef(null);
+  // The pinned bar (guides + search row) changes height with the screen width and language; the filter panel pins under it
+  const barRef = React.useRef(null);
+  const [barH, setBarH] = useState(96);
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const measure = () => setBarH(Math.round(el.getBoundingClientRect().height));
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   useEffect(() => {
     if (!searchOpen) return;
     if (searchRef.current) searchRef.current.focus();
@@ -8541,8 +8556,8 @@ function App() {
           </button>
         </div>
 
-        <header className="mb-4 md:mb-6">
-          <div className="mb-3">
+        <header className="mb-3 md:mb-4">
+          <div>
             {/* Phones: one-line title, no tagline, credit and disclaimer link on one line, so the list starts higher */}
             <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 mb-1 md:mb-2 leading-tight sm:pr-32 md:pr-48">{t.title}</h1>
             <p className="hidden sm:block text-xs md:text-sm text-slate-600" data-subtitle>{t.subtitle}</p>
@@ -8552,8 +8567,12 @@ function App() {
             </div>
           </div>
 
-          {/* Guides: on phones one row of six icon tiles with short names; a normal button row from tablet width up */}
-          <div className="grid grid-cols-6 gap-1 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 print:hidden w-full" data-guide-buttons>
+        </header>
+
+        {/* Guides and search row: always pinned */}
+        <div ref={barRef} className="sticky top-0 z-30 pt-2 pb-2 md:pt-3 md:pb-2.5 -mt-2 md:-mt-3 bg-slate-100/95 backdrop-blur-md print:hidden" data-search-bar>
+          {/* Guides: pinned with the search row. On phones one row of six icon tiles with short names; a normal button row from tablet width up */}
+          <div className="grid grid-cols-6 gap-1 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 print:hidden w-full mb-2" data-guide-buttons>
             {[
               ['exac', t.exacGuide, 'bg-rose-600 hover:bg-rose-700 border-rose-700', ActivityIcon, () => { setIsExacModalOpen(true); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
               ['maint', t.maintenanceGuide, 'bg-emerald-600 hover:bg-emerald-700 border-emerald-700', Stethoscope, () => { setIsWizardOpen(true); setIsExacModalOpen(false); setIsDeviceGuideOpen(false); }],
@@ -8567,10 +8586,6 @@ function App() {
               </button>
             ))}
           </div>
-        </header>
-
-        {/* Search row: always pinned */}
-        <div className="sticky top-0 z-30 pt-2 pb-2 md:pt-3 md:pb-2.5 -mt-2 md:-mt-3 bg-slate-100/95 backdrop-blur-md print:hidden" data-search-bar>
 
           {/* Row 1: Search + Sort + View Mode (+ Filters button on phones) */}
           <div className="flex gap-2 md:gap-3 w-full h-9 md:h-10">
@@ -8620,7 +8635,7 @@ function App() {
         {/* Filter rows: they wrap onto as many lines as the width needs (no sideways scrolling), pinned under the
             search row (the offsets are the search row's height). Shown while opened with the Filters button (the
             default on tablet and desktop); on phones the panel scrolls inside if taller than most of the screen. */}
-        <div id="filter-bar" className={`${filtersOpen ? 'flex' : 'hidden'} sticky top-[52px] md:top-[62px] z-20 max-h-[70vh] overflow-y-auto sm:max-h-none sm:overflow-visible pb-2 md:pb-3 mb-3 md:mb-6 bg-slate-100/95 backdrop-blur-md border-b border-slate-200/50 print:hidden flex-col gap-2 md:gap-2.5`} data-filter-bar>
+        <div id="filter-bar" className={`${filtersOpen ? 'flex' : 'hidden'} sticky z-20 max-h-[70vh] overflow-y-auto sm:max-h-none sm:overflow-visible pb-2 md:pb-3 mb-3 md:mb-6 bg-slate-100/95 backdrop-blur-md border-b border-slate-200/50 print:hidden flex-col gap-2 md:gap-2.5`} style={{ top: barH - 1 }} data-filter-bar>
           {/* Filter row 1: registration. Countries, licence status, NLEM (Thailand only) and the licence-holder switch */}
           <div className="flex flex-wrap items-center gap-1.5 md:gap-2 w-full min-w-0" data-filter-row="registration">
 
