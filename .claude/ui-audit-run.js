@@ -26,11 +26,14 @@ window.__uiAuditRun = async () => {
     // brand rows: open the first one, audit the list with its strengths showing, close it
     { const bt = document.querySelector('#printable-drug-list [data-brand-toggle]'); if (bt) { bt.click(); await wait(400); audit(lang + ' main list, brand row open'); const b2 = document.querySelector('#printable-drug-list [data-brand-group][data-open="1"] [data-brand-toggle]'); if (b2) { b2.click(); await wait(300); } } }
     // product detail view (a product with a past registration and several countries, then a plain one)
-    for (const id of [303, 1]) { const b = document.querySelector('#drug-' + id + ' [data-details]') || document.querySelector('[data-details]'); if (b) { b.click(); await wait(400); if (modal()) audit(lang + ' detail view ' + id, modal()); await esc(); } }
+    for (const id of [303, 1]) { const b = document.querySelector('#drug-' + id + ' [data-details]') || document.querySelector('[data-details]'); if (b) { b.click(); await wait(400); const st = document.querySelector('[data-src-toggle][aria-pressed="false"]'); if (st) { st.click(); await wait(250); } if (modal()) audit(lang + ' detail view ' + id, modal()); await esc(); } }
     // key to symbols
     { const lb = document.querySelector('[data-legend-btn]'); if (lb) { lb.click(); await wait(400); if (modal()) audit(lang + ' key', modal()); await esc(); } }
     // phones: the filters sit behind the Filters button; open the panel, audit it, close it
     { const ft = document.querySelector('[data-filters-toggle]'); if (ft && ft.getBoundingClientRect().width > 0) { ft.click(); await wait(300); audit(lang + ' filter panel (phone)', document.querySelector('[data-filter-bar]')); audit(lang + ' search row (phone)', document.querySelector('[data-search-bar]')); ft.click(); await wait(200); } }
+    // phones: the search bar opened from the magnifier button
+    { const so = document.querySelector('[data-search-open]'); if (so && so.getBoundingClientRect().width > 0) { so.click(); await wait(300); audit(lang + ' search bar open (phone)', document.querySelector('[data-search-bar]')); document.activeElement && document.activeElement.blur(); await wait(200); } }
+    audit(lang + ' header (guides row)', document.querySelector('header'));
     document.querySelector('button[aria-label="Grid View"], button[aria-label="มุมมองตาราง"]')?.click(); await wait(300);
     // selection bar with 1 and 2 drugs, and the modals it opens
     await select(1);
@@ -45,15 +48,9 @@ window.__uiAuditRun = async () => {
     barBtns()[1]?.click(); await wait(500); if (modal()) audit(lang + ' Follow-up (2 drugs)', modal()); await esc();
     await clearSel();
     // header guides
-    const guides = [
-      [L('Exacerbation', 'แนวทางเมื่อกำเริบ'), 'Exacerbation'],
-      [L('Initial Maintenance', 'แนวทางยาควบคุมเริ่มต้น'), 'Initial Maintenance'],
-      [L('Follow-up', 'การติดตามผล'), 'Follow-up'],
-      [L('Spacer & Mask', 'Spacer และหน้ากาก'), 'Spacer & Mask'],
-      [L('Steroid Dose', 'ขนาดสเตียรอยด์'), 'Steroid Dose'],
-    ];
+    const guides = [['exac', 'Exacerbation'], ['maint', 'Initial Maintenance'], ['follow', 'Follow-up'], ['spacer', 'Spacer & Mask'], ['steroid', 'Steroid Dose']];
     for (const [label, name] of guides) {
-      const b = [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === label);
+      const b = document.querySelector('[data-guide="' + label + '"]');
       if (!b) { out[lang + ' ' + name] = [{ type: 'missing-button', label }]; continue; }
       b.click(); await wait(600);
       const m = modal();
@@ -69,7 +66,7 @@ window.__uiAuditRun = async () => {
       await esc();
     }
     // Device Guide, every device tab
-    const dg = [...document.querySelectorAll('button')].find((x) => x.textContent.trim() === L('Device Guide', 'วิธีใช้อุปกรณ์'));
+    const dg = document.querySelector('[data-guide="device"]');
     if (dg) {
       dg.click(); await wait(600);
       const m = modal();

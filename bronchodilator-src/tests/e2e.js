@@ -22,7 +22,7 @@ window.__bdgE2E = async function () {
       log('brand row: shared details once at the top (picture, device, holder, NLEM, indications, 5 country chips)', !!top.querySelector('svg') && /DPI/.test(top.textContent) && /GlaxoSmithKline \(Thailand\) Ltd\./.test(top.textContent) && /NLEM/.test(top.textContent) && /Asthma/.test(top.textContent) && top.querySelectorAll('[data-country]').length === 5 && sa.querySelector('[data-brand-name]').textContent === 'Seretide Accuhaler', top.textContent.slice(0, 160));
       log('brand row: each strength shows only its strength and class-labelled components, with Select and Details', it.querySelector('[data-brand-strength]').textContent === '50/250' && /ICS\s*: Fluticasone propionate 250 mcg/.test(it.textContent) && /LABA\s*: Salmeterol 50 mcg/.test(it.textContent) && !it.querySelector('[data-country]') && !/GlaxoSmithKline|Asthma|NLEM/.test(it.textContent) && !!it.querySelector('[data-brand-select]') && !!it.querySelector('[data-brand-details]'), it.textContent.slice(0, 160));
       { const sy = document.querySelector('[data-brand-group="symbicort turbuhaler|Turbuhaler"]'); const rows = [...sy.querySelectorAll('[data-brand-pick]')];
-        log('brand row: a detail that differs between strengths stays on each strength (Symbicort Turbuhaler: Japan only for 160/4.5)', rows.length === 2 && !sy.querySelector('[data-brand-common] [data-country]') && rows.every(r => r.querySelectorAll('[data-country]').length === 5) && rows.map(r => r.querySelector('[data-country="jp"]').dataset.status).join() === 'never,current', rows.map(r => r.textContent.slice(0, 40))); }
+        log('brand row: a detail that differs between strengths stays on each strength (Symbicort Turbuhaler: Japan only for 160/4.5)', rows.length === 2 && !sy.querySelector('[data-brand-common] [data-country]') && rows.every(r => r.querySelectorAll('[data-country="th"]').length === 1) && rows.map(r => { const j = r.querySelector('[data-country="jp"]'); return j ? j.dataset.status : 'no chip'; }).join() === 'no chip,current', rows.map(r => r.textContent.slice(0, 40))); }
       it.querySelector('[data-brand-details]').click(); await wait(400);
       log('Details on a strength in the brand row opens that strength', !!document.querySelector('[data-detail-modal]') && document.querySelector('[data-detail-modal] h2').textContent === 'Seretide Accuhaler 50/250', '');
       window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(300);
@@ -69,6 +69,13 @@ window.__bdgE2E = async function () {
   const chip = (name, r) => { const c = cardFor(name); const el = c && c.querySelector('[data-country="' + r + '"]'); return el ? el.dataset.licensed === '1' : null; };
   const click = async (t) => { btnExact(t).click(); await wait(300); };
   const reg = (k) => document.querySelector('[data-threg="' + k + '"]');
+  { const chips = (name) => [...cardFor(name).querySelectorAll('[data-countries] [data-country]')].map(c => c.dataset.country + ':' + c.dataset.status).join();
+    log('Thailand view: a Thai-only product shows the TH chip alone (no grey chips for unselected countries); other registrations still show', chips('Aerobidol Inhaler') === 'th:current' && chips('Spiriva HandiHaler') === 'th:current,us:current,uk:current,eu:current,jp:current', [chips('Aerobidol Inhaler'), chips('Spiriva HandiHaler')]);
+    await click('US');
+    log('with the US selected too, a product not registered there shows the grey US chip', chips('Aerobidol Inhaler') === 'th:current,us:never', chips('Aerobidol Inhaler'));
+    await click('US');
+    const so = document.querySelector('[data-search-open]'), sb = document.querySelector('[data-search-box]');
+    log('computer width: the search box is always open (the magnifier button is for phones) and the guides carry their full names', so.getBoundingClientRect().width === 0 && sb.getBoundingClientRect().width > 150 && [...document.querySelectorAll('[data-guide]')].map(b => b.dataset.guide + '=' + b.textContent.trim()).join() === 'exac=Exacerbation,maint=Initial Maintenance,follow=Follow-up,device=Device Guide,spacer=Spacer & Mask,steroid=Steroid Dose', [...document.querySelectorAll('[data-guide]')].map(b => b.textContent.trim())); }
   log('count shows the database total', /\(131 in database\)/.test(countText()), countText());
   { const fc = cardFor('Ventolin Evohaler 100 mcg');
     log('tile cards keep the full facts: flow, spacer, price, pack, expiry, dose, last-checked and ventilator use, plus a Details button', !!fc.querySelector('[data-card-facts]') && !!fc.querySelector('[data-flow]') && !!fc.querySelector('[data-card-pack]') && !!fc.querySelector('[data-card-exp]') && /Volumatic/.test(fc.querySelector('[data-spacer]').textContent) && !!fc.querySelector('[data-checked]') && /Ventilator/.test(fc.textContent) && /Rec. Dose/.test(fc.textContent) && !!fc.querySelector('[data-details]'), fc.textContent.slice(0, 200));
@@ -79,6 +86,17 @@ window.__bdgE2E = async function () {
     log('detail view opens from the Details button, with pack size on one line', !!dm && dm.querySelector('h2').textContent === 'Ventolin Evohaler 100 mcg' && r && /200 puffs/.test(r.textContent) && Math.abs(r.children[0].getBoundingClientRect().top - r.children[1].getBoundingClientRect().top) < 4, dm && dm.textContent.slice(0, 120));
     log('detail view shows the last-checked line', /Last checked: Thai FDA 7 Oct 2026 · label 8 Oct 2026 · price 7 Oct 2026/.test(dm.querySelector('[data-checked]').textContent), dm.querySelector('[data-checked]').textContent);
     log('detail view shows the spacer (Ventolin: Volumatic), expiry and ventilator use', /Volumatic/.test(dm.querySelector('[data-spacer]').textContent) && /Until Expiry Date/.test(dm.querySelector('[data-card-exp]').textContent) && /Compatible/.test(dm.querySelector('[data-detail-vent]').textContent), '');
+    { const tg = dm.querySelector('[data-src-toggle]'); const before = dm.querySelectorAll('[data-src]').length;
+      tg.click(); await wait(250);
+      log('detail view: Source lines are hidden until Show sources is pressed, and the choice is saved', before === 0 && dm.querySelectorAll('[data-src]').length >= 14 && tg.getAttribute('aria-pressed') === 'true' && /Hide sources/.test(tg.textContent) && localStorage.getItem('bdg-show-sources') === '1', [before, dm.querySelectorAll('[data-src]').length]); }
+    { const sl = (k) => dm.querySelector('[data-src="' + k + '"]');
+      const href = (k, n = 0) => { const a = sl(k) && sl(k).querySelectorAll('a[data-src-link]')[n]; return a ? a.getAttribute('href') : ''; };
+      const keys = ['indications', 'dose', 'flow', 'spacer', 'vent', 'price', 'pack', 'expiry', 'reg-th', 'reg-us', 'reg-uk', 'reg-eu', 'reg-jp', 'maker'];
+      log('detail view: every fact has a Source line', keys.every(k => sl(k) && /^Source:/.test(sl(k).textContent)), keys.filter(k => !sl(k)));
+      log('source links open in a new tab and none is empty', [...dm.querySelectorAll('a[data-src-link]')].length >= 9 && [...dm.querySelectorAll('a[data-src-link]')].every(a => /^https:\/\//.test(a.getAttribute('href')) && a.target === '_blank' && /noopener/.test(a.rel)), dm.querySelectorAll('a[data-src-link]').length);
+      log('Ventolin sources: Thai FDA register and NLEM, DailyMed and MHRA searches for Ventolin, HPRA, PMDA, reference price, Dhand 1996', /pertento\.fda\.moph\.go\.th/.test(href('reg-th')) && /ndp\.fda\.moph\.go\.th/.test(href('reg-th', 1)) && /accessdata\.fda\.gov/.test(href('reg-us')) && /dailymed.*query=Ventolin/.test(href('reg-us', 1)) && /products\.mhra\.gov\.uk\/search\/\?search=Ventolin/.test(href('reg-uk')) && /hpra\.ie.*authorised-medicines\?data=/.test(href('reg-eu')) && JSON.parse(atob(href('reg-eu').split('data=')[1])).query === 'Ventolin' && /pmda\.go\.jp/.test(href('reg-jp')) && /dmsic\.moph\.go\.th/.test(href('price')) && /10\.1164/.test(href('vent')), [href('reg-us', 1), href('reg-uk'), href('price'), href('vent')]);
+      log('MDI flow cites Laube 2011, and product-information facts say no link is recorded', /Laube 2011/.test(sl('flow').textContent) && /10\.1183/.test(href('flow')) && !dm.querySelector('[data-src-none]') && /no link recorded/.test(sl('pack').textContent) && /UK SmPC/.test(sl('spacer').textContent) && !sl('pack').querySelector('a'), sl('flow').textContent);
+    }
     const th = dm.querySelector('[data-detail-country="th"]'), us = dm.querySelector('[data-detail-country="us"]');
     log('detail view lists all five countries with status, holder and detail; Thailand with the NLEM type; plus the manufacturer', dm.querySelectorAll('[data-detail-country]').length === 5 && /Registered/.test(th.textContent) && /GlaxoSmithKline \(Thailand\) Ltd\./.test(th.querySelector('[data-detail-holder]').textContent) && /NLEM/.test(th.textContent) && /Licensed for: /.test(th.querySelector('[data-detail-status]').textContent) && us.querySelector('[data-detail-holder]').textContent === 'GlaxoSmithKline' && /Glaxo Wellcome S\.A\., Spain/.test(dm.querySelector('[data-detail-maker]').textContent), th.textContent.slice(0, 160));
     await esc();
@@ -186,9 +204,9 @@ window.__bdgE2E = async function () {
   const disc = document.getElementById('disclaimer-heading');
   log('disclaimer section with 5 points', disc && disc.parentElement.querySelectorAll('li').length === 5, '');
   log('header links to disclaimer', !!document.querySelector('header a[href="#disclaimer-heading"]'), '');
-  log('references collapsed by default', !document.getElementById('refs-list') && document.getElementById('refs-heading').textContent.includes('(17)'), '');
+  log('references collapsed by default', !document.getElementById('refs-list') && document.getElementById('refs-heading').textContent.includes('(22)'), '');
   document.querySelector('#refs-heading button').click(); await wait(250);
-  log('17 references listed when opened', document.querySelectorAll('#refs-list ol > li').length === 17, '');
+  log('22 references listed when opened', document.querySelectorAll('#refs-list ol > li').length === 22, '');
   document.querySelector('#refs-heading button').click(); await wait(200);
 
   // --- One drug selected: Patient Sheet + Equivalent Drugs
@@ -307,7 +325,7 @@ window.__bdgE2E = async function () {
     log('every foreign holder belongs to a product that is or was registered in that country', abroadOk, '');
     // one line per country: status chip, holder, and the NLEM type on the Thailand line; the rest as chips on one row
     const vv = cardFor('Ventolin Evohaler 100 mcg'), sv = cardFor('Aeronide 200 mcg');
-    log('Thailand line carries the NLEM type; each country appears exactly once per card', /NLEM/.test(vv.querySelector('[data-holder-line="th"]').textContent) && !/NLEM/.test(vv.querySelector('[data-holder-line="us"]').textContent) && [...document.querySelectorAll('#printable-drug-list > div')].every(c => c.querySelectorAll('[data-country]').length === 5) && sv.querySelectorAll('[data-country-rest] [data-country]').length === 4, [vv.querySelector('[data-holder-line="th"]').textContent, sv.querySelectorAll('[data-country-rest] [data-country]').length]);
+    log('Thailand line carries the NLEM type; each country appears exactly once per card', /NLEM/.test(vv.querySelector('[data-holder-line="th"]').textContent) && !/NLEM/.test(vv.querySelector('[data-holder-line="us"]').textContent) && [...document.querySelectorAll('#printable-drug-list > div')].every(c => ['th', 'us', 'uk', 'eu'].every(r => c.querySelectorAll('[data-country="' + r + '"]').length === 1) && c.querySelectorAll('[data-country="jp"]').length <= 1 && !c.querySelector('[data-country="jp"][data-status="never"]')) && sv.querySelectorAll('[data-country-rest] [data-country]').length === 3, [vv.querySelector('[data-holder-line="th"]').textContent, sv.querySelectorAll('[data-country-rest] [data-country]').length]);
     await setCountries(wasOn); await wait(300);
     document.querySelector('button[aria-label="List View"]').click(); await wait(300);
     const rowsWith = [...document.querySelectorAll('#printable-drug-list > div')].filter(r => r.querySelector('[data-holder-name]')).length;
@@ -316,7 +334,7 @@ window.__bdgE2E = async function () {
     tg.click(); await wait(300);
     const hiddenList = document.querySelectorAll('#printable-drug-list [data-holder]').length;
     document.querySelector('button[aria-label="Grid View"]').click(); await wait(300);
-    log('Licence holder button hides the names in list and card view (chips stay on one row), and the choice is saved', hiddenList === 0 && document.querySelectorAll('#printable-drug-list [data-holder]').length === 0 && [...document.querySelectorAll('#printable-drug-list > div')].every(c => c.querySelectorAll('[data-country-rest] [data-country]').length === 5) && tg.getAttribute('aria-pressed') === 'false' && localStorage.getItem('bdg-show-holder') === '0', [hiddenList, localStorage.getItem('bdg-show-holder')]);
+    log('Licence holder button hides the names in list and card view (chips stay on one row), and the choice is saved', hiddenList === 0 && document.querySelectorAll('#printable-drug-list [data-holder]').length === 0 && [...document.querySelectorAll('#printable-drug-list > div')].every(c => { const on = ['TH', 'US', 'UK', 'EU', 'JP'].filter(x => btnExact(x).getAttribute('aria-pressed') === 'true').map(x => x.toLowerCase()); const ch = [...c.querySelectorAll('[data-country-rest] [data-country]')]; return on.every(r => ch.filter(x => x.dataset.country === r).length === 1) && ch.every(x => x.dataset.status !== 'never' || on.includes(x.dataset.country)); }) && tg.getAttribute('aria-pressed') === 'false' && localStorage.getItem('bdg-show-holder') === '0', [hiddenList, localStorage.getItem('bdg-show-holder')]);
     tg.click(); await wait(300);
     log('Licence holder button shows the line again', document.querySelectorAll('#printable-drug-list [data-holder]').length === cardNames().length && localStorage.getItem('bdg-show-holder') === '1', '');
     log('register corrections: Ultibro is a past registration (cancelled 15 Sep 2025)', thaiStatus(deviceData.find(d => d.id === 14)) === 'past' && TH_CANCELLED[14].date === 'September 15, 2025' && TH_CANCELLED[303].date === 'November 6, 2024', thaiStatus(deviceData.find(d => d.id === 14))); }
@@ -341,7 +359,7 @@ window.__bdgE2E = async function () {
     // values without a reference read "Unknown", never an assumed number
     const flowOf = (name) => { const c = cardFor(name), e = c && c.querySelector('[data-flow]'); return e ? e.textContent.trim() : 'none'; };
     const fl = ['Pulvisonide 200', 'Tropoair 18 mcg (LupinHaler)', 'Xalflu Airmaster 50/100', 'Xalflu Airmaster 50/250', 'Spiriva HandiHaler'].map(flowOf);
-    log('minimum inspiratory flow without a reference shows Unknown (Pulvisonide, Tropoair, Xalflu Airmaster); Spiriva keeps its figure', fl.join('|') === 'Unknown|Unknown|Unknown|Unknown|≥ 20 L/min' && deviceData.filter(flowUnknown).length === 15, fl);
+    log('minimum inspiratory flow without a reference shows Unknown (Pulvisonide, Tropoair, Xalflu Airmaster); Spiriva keeps its figure', fl.join('|') === 'Unknown|Unknown|Unknown|Unknown|≥ 20 L/min' && deviceData.filter(flowUnknown).length === 8, fl);
     const tc = cardFor('Tropoair 18 mcg (LupinHaler)');
     log('Tropoair card: labelled LupinHaler with its own icon, still in the HandiHaler technique group', tc && tc.querySelector('[data-shape-label]').textContent === 'LupinHaler' && tc.getAttribute('data-shape') === 'Handihaler' && shapeLabel(deviceData.find(d => d.marketName === 'Spiriva HandiHaler')) === 'Handihaler', tc && tc.querySelector('[data-shape-label]').textContent);
     const capsule = TECHNIQUE.OtherDPI;
@@ -349,7 +367,7 @@ window.__bdgE2E = async function () {
     // inspiratory-flow filter keeps devices with an unknown minimum, with a note
     setInput(pif(), '25'); await wait(400);
     const note = document.querySelector('[data-pif-unknown]');
-    log('flow filter at 25 L/min: unknown-flow products stay listed with a note', cardNames().includes('Pulvisonide 200') && cardNames().includes('Xalflu Airmaster 50/100') && !cardNames().includes('Seretide Accuhaler 50/250') && note && /12 shown have no published minimum flow/.test(note.textContent), [cardNames().length, note && note.textContent]);
+    log('flow filter at 25 L/min: unknown-flow products stay listed with a note', cardNames().includes('Pulvisonide 200') && cardNames().includes('Xalflu Airmaster 50/100') && !cardNames().includes('Seretide Accuhaler 50/250') && note && /5 shown have no published minimum flow/.test(note.textContent), [cardNames().length, note && note.textContent]);
     setInput(pif(), ''); await wait(400); }
   // --- Filter bar: registration filters on row 1, clinical filters on row 2
   { const r1 = document.querySelector('[data-filter-row="registration"]'), r2 = document.querySelector('[data-filter-row="clinical"]');
@@ -402,12 +420,44 @@ window.__bdgE2E = async function () {
     roleBtn('Controller').click(); await wait(100); roleBtn('Reliever').click(); await wait(300);
     log('Reliever filter: nebulised bronchodilators yes, nebulised budesonide no', cardNames().includes('Salbutamol Nebules 2.5 mg') && !cardNames().some(n => /Respules/.test(n)), cardNames().filter(n => /Respules|Nebul/.test(n)));
     roleBtn('Reliever').click(); await wait(300);
+    { const byId0 = (id) => deviceData.find(d => d.id === id);
+      const srcOf = async (name) => { const d = await openDetail(name); const o = {}; d.querySelectorAll('[data-src]').forEach(p => { o[p.dataset.src] = { text: p.textContent, hrefs: [...p.querySelectorAll('a')].map(a => a.getAttribute('href')), unknown: !!p.querySelector('[data-src-unknown]'), none: !!p.querySelector('[data-src-none]') }; }); await esc(); return o; };
+      const ser = await srcOf('Seretide Accuhaler 50/250');
+      log('Seretide Accuhaler sources: flow from Ghosh 2017 and Weers 2022, ventilator use with no recorded source; the US search uses the US name (Advair Diskus)', /Ghosh 2017/.test(ser.flow.text) && /10\.1089\/jamp\.2017/.test(ser.flow.hrefs[0]) && /Weers 2022/.test(ser.flow.text) && /10\.3389/.test(ser.flow.hrefs[1]) && /query=Advair%20Diskus/.test(ser['reg-us'].hrefs[1]) && /search=Seretide/.test(ser['reg-uk'].hrefs[0]) && ser.vent.none, [ser.flow.text, ser['reg-us'].hrefs]);
+      const fos = await srcOf('Foster NEXThaler 100/6');
+      log('Foster NEXThaler sources: flow from Corradi 2014; no verified UK or EU search word, so the register front page', /Ghosh 2017/.test(fos.flow.text) && /Corradi 2014/.test(fos.flow.text) && /10\.1517/.test(fos.flow.hrefs[1]) && fos['reg-uk'].hrefs[0] === 'https://products.mhra.gov.uk/' && /authorised-medicines$/.test(fos['reg-eu'].hrefs[0]), [fos.flow.text, fos['reg-uk'].hrefs, fos['reg-eu'].hrefs]);
+      const duo = await srcOf('DuoResp Spiromax 160/4.5');
+      log('DuoResp Spiromax: 40 L/min from Ghosh 2017', /Ghosh 2017/.test(duo.flow.text) && /10\.1089\/jamp\.2017/.test(duo.flow.hrefs[0]) && pifNeeded(byId0(405).flowRate) === 40, duo.flow.text);
+    }
     // Equivalent Drugs: exacerbation use alone does not make two drugs alternatives
     sel('Pulmicort Respules'); await wait(300);
     btnByText('Equivalent Drugs').click(); await wait(500);
     const eq = modalDrugNames();
     const eqText = (document.querySelector('.fixed.inset-0') || document.body).textContent;
     log('Equivalent Drugs for nebulised budesonide: other ICS products, no bronchodilator nebulisers', eq.some(n => /Direct equivalents.*\((\d{2,}|[1-9])\)/.test(n)) && eq.some(n => /Other options.*\(0\)/.test(n)) && !/Salbutamol Nebules|Berodual Nebules|Combivent UDV/.test(eqText), eq.slice(0, 12));
+    { const rows = () => [...document.querySelectorAll('[data-equiv-row]')];
+      const pressed = () => [...document.querySelectorAll('[data-equiv-country][aria-pressed="true"]')].map(b => b.dataset.equivCountry).join();
+      const mainPressed = () => ['TH', 'US', 'UK', 'EU', 'JP'].filter(c => btnExact(c).getAttribute('aria-pressed') === 'true').join().toLowerCase();
+      const has = (row, r) => !!row.querySelector('[data-equiv-avail] [data-country="' + r + '"]');
+      const eqClick = async (sel) => { document.querySelector(sel).click(); await wait(400); };
+      const main0 = mainPressed();
+      log('Equivalent Drugs: the country filter starts on the main list\'s countries', pressed() === main0 && main0 !== '', [pressed(), main0]);
+      if (pressed() !== 'th,us,uk,eu,jp') await eqClick('[data-equiv-country-all]');
+      const nAll = rows().length;
+      log('All selects the five countries', pressed() === 'th,us,uk,eu,jp' && nAll > 0, [pressed(), nAll]);
+      await eqClick('[data-equiv-country-all]');
+      log('no country chosen: a hint replaces the lists', pressed() === '' && rows().length === 0 && !!document.querySelector('[data-equiv-nocountry]'), rows().length);
+      await eqClick('[data-equiv-country="th"]');
+      const n0 = rows().length;
+      log('Thailand only: every equivalent is registered in Thailand', pressed() === 'th' && n0 > 0 && n0 < nAll && rows().every(r => has(r, 'th')), [n0, nAll]);
+      await eqClick('[data-equiv-country="jp"]');
+      const n1 = rows().length;
+      log('adding Japan lists more equivalents, some of them not registered in Thailand', n1 > n0 && rows().some(r => !has(r, 'th') && has(r, 'jp')) && rows().every(r => has(r, 'th') || has(r, 'jp')), [n0, n1]);
+      await eqClick('[data-equiv-country="th"]');
+      log('Japan only: every equivalent is registered in Japan', pressed() === 'jp' && rows().length > 0 && rows().length < n1 && rows().every(r => has(r, 'jp')), rows().length);
+      await esc();
+      log('the main list keeps its own countries', mainPressed() === main0, [mainPressed(), main0]);
+    }
     await esc(); btnByText('Clear').click(); await wait(300);
   }
   // list view: country chips on their own second row in every row
@@ -415,7 +465,8 @@ window.__bdgE2E = async function () {
   { const rows = [...document.querySelectorAll('#printable-drug-list > div')];
     const bad = rows.filter(r => {
       const c = r.querySelector('[data-list-countries]'), h = r.querySelector('h3');
-      if (!c || !h || c.querySelectorAll('[data-country]').length !== 5) return true;
+      const cs = c ? [...c.querySelectorAll('[data-country]')].map(x => x.dataset.country) : [];
+      if (!c || !h || cs.length < 1 || new Set(cs).size !== cs.length) return true;
       const cr = c.getBoundingClientRect(), nameLine = h.parentElement.getBoundingClientRect();
       const caution = r.querySelector('[data-list-countries] button');
       if (h.parentElement.querySelector('button')) return true; // the cautions button belongs on the countries row
@@ -621,8 +672,11 @@ window.__bdgE2E = async function () {
   log('no copy-link button on cards', !document.querySelector('#drug-41 button[title*="link" i]') && typeof shareUrlFor === 'undefined', '');
   // --- Steroid-dose grading (GINA 2026 Table 6)
   log('ICS grade: budesonide 800 adult = medium, 801 = high', gradeIcs('bud', 800, 'adult') === 'medium' && gradeIcs('bud', 801, 'adult') === 'high', '');
-  log('ICS grade: FP 500 adult = medium, 1000 = high; FF 100 low, 200 high', gradeIcs('fp', 500, 'adult') === 'medium' && gradeIcs('fp', 1000, 'adult') === 'high' && gradeIcs('ff', 100, 'adult') === 'low' && gradeIcs('ff', 200, 'adult') === 'high', '');
+  log('ICS grade: FP 500 adult = medium, 1000 = high; FF 100 low to medium (one GINA band), 200 high', gradeIcs('fp', 500, 'adult') === 'medium' && gradeIcs('fp', 1000, 'adult') === 'high' && gradeIcs('ff', 100, 'adult') === 'lowmed' && gradeIcs('ff', 200, 'adult') === 'high' && /low to medium 100, high >100/.test(ICS_TEXT.en.band(ICS_BANDS.adult.ff)), '');
   log('ICS metered: Symbicort Turbuhaler 160/4.5 = 200 mcg, Trimbow = 100 extrafine', icsInfo(deviceData.find(d => d.id === 72)).mcg === 200 && icsInfo(deviceData.find(d => d.id === 25)).key === 'bdpEf' && icsInfo(deviceData.find(d => d.id === 25)).mcg === 100, '');
+  log('mometasone pMDI (GINA 2026: 200-400 low to medium, >400 high): Asmanex HFA 100 and Dulera 100/5 are Low / Medium, the 200 strengths High; the DPIs have no level', icsLevels(byId(509)).join() === 'low,medium' && icsLevels(byId(515)).join() === 'low,medium' && icsLevels(byId(510)).join() === 'high' && icsLevels(byId(516)).join() === 'high' && [511, 537, 538, 539, 540, 541].every(id => icsLevels(byId(id)).length === 0 && icsInfo(byId(id)) === null), [509, 510, 515, 516].map(id => icsLevels(byId(id)).join('/')));
+  log('steroid calculator: mometasone pMDI graded 400 = low to medium, 800 = high, 100 = below; label maximum 4 inhalations a day', icsInfo(byId(509)).key === 'mom' && icsInfo(byId(509)).mcg === 100 && icsInfo(byId(516)).mcg === 200 && gradeIcs('mom', 400) === 'lowmed' && gradeIcs('mom', 200) === 'lowmed' && gradeIcs('mom', 800) === 'high' && gradeIcs('mom', 401) === 'high' && gradeIcs('mom', 100) === 'below' && [509, 510, 515, 516].every(id => LABEL_MAX[id].n === 4) && /low to medium 200–400, high >400/.test(ICS_TEXT.en.band(ICS_BANDS.adult.mom)), [gradeIcs('mom', 400), gradeIcs('mom', 800), ICS_TEXT.en.band(ICS_BANDS.adult.mom)]);
+  log('ciclesonide (GINA 2026: 80-160 low, >160-320 medium, >320 high): Alvesco 80 Low / Medium / High, Alvesco 160 Medium / High; calculator grades 160 low, 320 medium, 640 high; label maximum 640 mcg a day', icsLevels(byId(505)).join() === 'low,medium,high' && icsLevels(byId(506)).join() === 'medium,high' && byId(505).doseRange.low === '1 puff BID' && byId(506).doseRange.medium === '1 puff BID' && icsInfo(byId(505)).key === 'cic' && icsInfo(byId(506)).mcg === 160 && gradeIcs('cic', 160) === 'low' && gradeIcs('cic', 320) === 'medium' && gradeIcs('cic', 640) === 'high' && gradeIcs('cic', 40) === 'below' && LABEL_MAX[505].mcg === 640 && LABEL_MAX[506].mcg === 640, [icsLevels(byId(505)).join('/'), icsLevels(byId(506)).join('/'), gradeIcs('cic', 320)]);
   location.hash = '#drug=261'; await wait(900);
   log('deep link to QVAR (not in TH) adds a licensed country and highlights it', btnExact('US').getAttribute('aria-pressed') === 'true' && !!document.getElementById('drug-261') && /ring-4/.test(document.getElementById('drug-261').className), '');
   location.hash = ''; await wait(200);
@@ -920,7 +974,7 @@ window.__bdgE2E = async function () {
   { const us = deviceData.filter(d => d.id >= 500 && d.id <= 530);
     log('US additions: 30 products, each with a US licence, a US holder and a technique card; Trimbow has its US licence', us.length === 30 && licenceIn(byId(25), 'us').join() === 'Asthma' && HOLDER_ABROAD.us[25] === 'Chiesi' && us.every(d => licenceIn(d, 'us') && HOLDER_ABROAD.us[d.id] && TECHNIQUE[d.shape] && IconMap[d.shape]), us.filter(d => !(licenceIn(d, 'us') && HOLDER_ABROAD.us[d.id] && TECHNIQUE[d.shape])).map(d => d.id));
     log('US additions: Thai status from the register (Yupelri current; Alvesco, Asmanex Twisthaler, Striverdi, Incruse, Tudorza, Duaklir past; the rest never)', us.filter(d => thaiStatus(d) === 'current').map(d => d.id).join() === '521' && us.filter(d => thaiStatus(d) === 'past').map(d => d.id).join() === '505,506,511,517,519,520,523' && holderText(byId(521), { isTh: false }) === 'Viatris Pharmaceutical (Thailand) Ltd.', us.filter(d => thaiStatus(d) !== 'never').map(d => d.id));
-    log('US additions: unknown flow for RespiClick, Pressair and Twisthaler; RespiClick uses the Spiromax card with its own label', [501, 511, 512, 513, 514, 520, 523].every(id => flowUnknown(byId(id))) && byId(501).shape === 'Spiromax' && shapeLabel(byId(501)) === 'RespiClick' && DEVICE_NAMES.Spiromax.en === 'Spiromax / RespiClick', '');
+    log('minimum flow from references: Spiromax / RespiClick and Pressair (Genuair) 40, Twisthaler 28 (Ghosh 2017, Clark 2020); RespiClick uses the Spiromax card with its own label', [405, 406, 501, 512, 513, 514, 520, 523].every(id => pifNeeded(byId(id).flowRate) === 40) && pifNeeded(byId(511).flowRate) === 28 && byId(501).shape === 'Spiromax' && shapeLabel(byId(501)) === 'RespiClick' && DEVICE_NAMES.Spiromax.en === 'Spiromax / RespiClick', '');
     const yc = cardFor('Yupelri 175 mcg/3 mL');
     log('Yupelri is listed in the default (Thailand) view with price Unknown', !!yc && !!yc.querySelector('[data-price-unknown]') && yc.querySelector('[data-price-unknown]').textContent === 'Unknown', !!yc);
     document.querySelector('button[aria-label="List View"]').click(); await wait(400);

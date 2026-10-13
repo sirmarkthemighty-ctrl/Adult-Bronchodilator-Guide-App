@@ -777,6 +777,31 @@ const translations = {
     detailEuPast: (date) => `Licence withdrawn in Ireland on ${date} (HPRA).`,
     detailSources: "Sources: Thai FDA register (TH), FDA Drugs@FDA (US), UK SmPCs (UK), Irish HPRA lists (EU). Manufacturer of the finished product from the Thai FDA register.",
     detailNoPicture: "No reference picture of this product's inhaler is available.",
+    srcLabel: "Source",
+    srcShow: "Show sources",
+    srcHide: "Hide sources",
+    searchOpen: "Search",
+    searchClose: "Clear and close the search",
+    guideShort: { exac: "Exac.", maint: "Maint.", follow: "Follow-up", device: "Device", spacer: "Spacer", steroid: "Steroid" },
+    srcNone: "No source recorded",
+    srcUnknown: "No reference found, so the value is Unknown",
+    srcProductInfo: "Manufacturer's product information (no link recorded; the labels are in the registers below)",
+    srcProductInfoShort: "Manufacturer's product information (no link recorded)",
+    srcSearch: (site, q) => `${site}: search "${q}"`,
+    srcThFda: "Thai FDA register",
+    srcNlem: "National List of Essential Medicines 2026",
+    srcRefPrice: "National reference price database",
+    srcFlowMdi: "below 30 L/min is the ideal flow with a pMDI (inhale slowly)",
+    srcFlowSmi: "minimal 10, optimal 30 L/min (inhale slowly)",
+    srcFlowNeb: "normal (tidal) breaths",
+    srcFlowGenuair: "listed as Genuair, the name of Pressair outside the US",
+    srcFlowRespiClick: "listed as Spiromax, the name of RespiClick outside the US",
+    srcFlowTwist: "the lower limit of acceptable performance in vitro lies between 20 and 28 L/min; 28 is shown",
+    srcNamedLabel: (src) => `Product label (${src}), no link recorded`,
+    srcIndications: "Licensed indications in each country's label; see Registration below",
+    srcGinaLevels: "GINA 2026 (low, medium and high ICS dose levels)",
+    srcVentMdiNote: "salbutamol MDI study, applied to MDIs as a class",
+    srcVentSmiNote: "tiotropium soft mist study in vitro, applied to soft mist inhalers as a class",
     makerLabel: "Manufacturer",
     holderLabel: "Licence holder",
     holderNone: "Not registered in Thailand",
@@ -855,6 +880,11 @@ const translations = {
       weers: "minimum inspiratory flow for HandiHaler, Turbuhaler, Diskus/Accuhaler and Breezhaler.",
       grant: "minimum inspiratory flow for Ellipta.",
       haikarainen: "minimum inspiratory flow for Easyhaler.",
+      corradi: "minimum inspiratory flow for NEXThaler.",
+      ghosh: "minimal inspiratory flow for each dry-powder inhaler (Turbuhaler, Diskus, Ellipta, Easyhaler, HandiHaler, NEXThaler, Spiromax, Genuair, Breezhaler).",
+      clark: "lower limit of acceptable performance for Twisthaler.",
+      laube: "ideal inspiratory flow with a pMDI (below 30 L/min) and tidal breathing with a nebuliser.",
+      wu: "minimal and optimal inspiratory flow for the soft mist inhaler.",
       fda: "Thai availability (active registration) of each product.",
       bts: "oxygen target of 88–92% in COPD exacerbations.",
       labels: "the US, UK and EU options of the Label toggle (licensed asthma/COPD indications).",
@@ -866,7 +896,10 @@ const translations = {
     convertBtn: "Dose Conversion",
     equivBtn: "Equivalent Drugs",
     equivTitle: "Equivalent Drugs",
-    equivSub: "Every drug in the database you could switch to, with the equivalent regimen",
+    equivSub: "Drugs you could switch to in the countries you choose, with the equivalent regimen",
+    equivRegIn: "Registered in",
+    equivRegInTitle: "Lists equivalents currently registered in any chosen country. Starts with the countries of the main list; changing it here does not change the main list.",
+    equivNoCountry: "Choose at least one country to list the equivalents.",
     equivSame: "Direct equivalents (same drug classes)",
     equivOther: "Other options with the same role (class change)",
     equivNone: "No drugs in the database match.",
@@ -1319,6 +1352,31 @@ const translations = {
     detailEuPast: (date) => `ถอนทะเบียนในไอร์แลนด์เมื่อ ${date} (HPRA)`,
     detailSources: "แหล่งข้อมูล: ทะเบียน อย. (TH), Drugs@FDA (US), SmPC ของสหราชอาณาจักร (UK), รายการของ HPRA ไอร์แลนด์ (EU) ผู้ผลิตยาสำเร็จรูปตามทะเบียน อย.",
     detailNoPicture: "ไม่มีรูปอ้างอิงของอุปกรณ์สูดของยานี้",
+    srcLabel: "แหล่งข้อมูล",
+    srcShow: "แสดงแหล่งข้อมูล",
+    srcHide: "ซ่อนแหล่งข้อมูล",
+    searchOpen: "ค้นหา",
+    searchClose: "ล้างและปิดการค้นหา",
+    guideShort: { exac: "กำเริบ", maint: "ยาควบคุม", follow: "ติดตาม", device: "อุปกรณ์", spacer: "Spacer", steroid: "สเตียรอยด์" },
+    srcNone: "ไม่มีแหล่งอ้างอิงที่บันทึกไว้",
+    srcUnknown: "ไม่พบแหล่งอ้างอิง จึงแสดงเป็น ไม่มีข้อมูล",
+    srcProductInfo: "เอกสารกำกับยาของผู้ผลิต (ไม่มีลิงก์ที่บันทึกไว้ ดูฉลากได้จากทะเบียนด้านล่าง)",
+    srcProductInfoShort: "เอกสารกำกับยาของผู้ผลิต (ไม่มีลิงก์ที่บันทึกไว้)",
+    srcSearch: (site, q) => `${site}: ค้นหา "${q}"`,
+    srcThFda: "ทะเบียน อย.",
+    srcNlem: "บัญชียาหลักแห่งชาติ พ.ศ. 2569",
+    srcRefPrice: "ฐานข้อมูลราคากลางยา",
+    srcFlowMdi: "แรงสูดต่ำกว่า 30 L/min เหมาะที่สุดสำหรับ pMDI (สูดช้า ๆ)",
+    srcFlowSmi: "ขั้นต่ำ 10 และเหมาะสม 30 L/min (สูดช้า ๆ)",
+    srcFlowNeb: "หายใจปกติ (tidal)",
+    srcFlowGenuair: "ระบุในชื่อ Genuair ซึ่งเป็นชื่อของ Pressair นอกสหรัฐฯ",
+    srcFlowRespiClick: "ระบุในชื่อ Spiromax ซึ่งเป็นชื่อของ RespiClick นอกสหรัฐฯ",
+    srcFlowTwist: "ขีดล่างของสมรรถนะที่ยอมรับได้ในหลอดทดลองอยู่ระหว่าง 20 ถึง 28 L/min จึงแสดง 28",
+    srcNamedLabel: (src) => `ฉลากยา (${src}) ไม่มีลิงก์ที่บันทึกไว้`,
+    srcIndications: "ข้อบ่งใช้ตามฉลากของแต่ละประเทศ ดูหัวข้อทะเบียนด้านล่าง",
+    srcGinaLevels: "GINA 2026 (ระดับขนาด ICS ต่ำ กลาง สูง)",
+    srcVentMdiNote: "การศึกษา salbutamol MDI ใช้กับ MDI ทั้งกลุ่ม",
+    srcVentSmiNote: "การศึกษา tiotropium soft mist ในหลอดทดลอง ใช้กับยาสูดชนิด soft mist ทั้งกลุ่ม",
     makerLabel: "ผู้ผลิต",
     holderLabel: "ผู้รับอนุญาต",
     holderNone: "ไม่ได้ขึ้นทะเบียนในไทย",
@@ -1397,6 +1455,11 @@ const translations = {
       weers: "แรงสูดขั้นต่ำของ HandiHaler, Turbuhaler, Diskus/Accuhaler และ Breezhaler",
       grant: "แรงสูดขั้นต่ำของ Ellipta",
       haikarainen: "แรงสูดขั้นต่ำของ Easyhaler",
+      corradi: "แรงสูดขั้นต่ำของ NEXThaler",
+      ghosh: "แรงสูดขั้นต่ำของยาสูดชนิดผงแห้งแต่ละอุปกรณ์ (Turbuhaler, Diskus, Ellipta, Easyhaler, HandiHaler, NEXThaler, Spiromax, Genuair, Breezhaler)",
+      clark: "ขีดล่างของสมรรถนะที่ยอมรับได้ของ Twisthaler",
+      laube: "แรงสูดที่เหมาะสมของ pMDI (ต่ำกว่า 30 L/min) และการหายใจปกติขณะใช้ nebulizer",
+      wu: "แรงสูดขั้นต่ำและที่เหมาะสมของยาสูดชนิด soft mist",
       fda: "การมีจำหน่ายในไทย (ทะเบียนที่ยังคงอยู่) ของยาแต่ละรายการ",
       bts: "เป้าหมาย O₂ Sat 88–92% ในผู้ป่วย COPD กำเริบ",
       labels: "ตัวเลือกฉลากสหรัฐฯ UK และ EU (ข้อบ่งใช้หืด/COPD ที่ได้รับอนุมัติ)",
@@ -1408,7 +1471,10 @@ const translations = {
     convertBtn: "แปลงขนาดยา",
     equivBtn: "ยาที่เทียบเท่า",
     equivTitle: "ยาที่เทียบเท่า",
-    equivSub: "ยาทุกตัวในฐานข้อมูลที่เปลี่ยนไปใช้ได้ พร้อมขนาดยาที่เทียบเท่า",
+    equivSub: "ยาที่เปลี่ยนไปใช้ได้ในประเทศที่เลือก พร้อมขนาดยาที่เทียบเท่า",
+    equivRegIn: "ขึ้นทะเบียนใน",
+    equivRegInTitle: "แสดงยาที่เทียบเท่าซึ่งขึ้นทะเบียนอยู่ในประเทศที่เลือกอย่างน้อยหนึ่งประเทศ เริ่มต้นตามประเทศของรายการหลัก การเปลี่ยนที่นี่ไม่เปลี่ยนรายการหลัก",
+    equivNoCountry: "เลือกอย่างน้อยหนึ่งประเทศเพื่อแสดงยาที่เทียบเท่า",
     equivSame: "เทียบเท่าโดยตรง (กลุ่มยาเหมือนกัน)",
     equivOther: "ทางเลือกอื่นที่มีบทบาทเดียวกัน (เปลี่ยนกลุ่มยา)",
     equivNone: "ไม่มียาในฐานข้อมูลที่ตรงเงื่อนไข",
@@ -2192,6 +2258,15 @@ const changelogData = [
       "Device filter: the device names under DPI, MDI and the other types are now in A to Z order. The unidentified capsule inhaler (Pulvisonide) is listed under Other DPI, together with the dry-powder inhalers that have no technique reference yet; Other DPI comes last.",
       "Two buttons at the top have shorter names in English: Exacerbation (was Exacerbation Guide) and Initial Maintenance (was Initial Maintenance Guide). The Thai names are unchanged.",
       "The components (for example ICS : Fluticasone propionate 100 mcg, LABA : Salmeterol 50 mcg) now sit directly under the product name, above the country lines, on cards, list rows and brand rows, because some product names carry no strength.",
+      "Equivalent Drugs: a Registered in filter (All, TH, US, UK, EU, JP) in the window chooses the countries to look in, for example to find the Thai equivalents of an inhaler from Japan. It starts with the countries of the main list, and changing it there does not change the main list. Each equivalent shows the countries where it is currently registered, and its Asthma / COPD tags follow the labels of the chosen countries.",
+      "Detail view: every fact now has a Source line, opened with the Show sources button at the bottom of the view (the choice is remembered). Registration in each country links to that country's register (Thai FDA, Drugs@FDA and DailyMed, MHRA Products, the Irish HPRA list, PMDA), with a search for the product already filled in where the search was checked to find it; NLEM, price, minimum inspiratory flow and ventilator use link to their reference. Where no source is recorded, the line says so instead of showing a link. The reference list gains Corradi 2014, the source of the NEXThaler minimum flow.",
+      "Phones: the top of the page is shorter, so more of the list shows on opening. The title takes one line, the tagline is hidden, the credit and the disclaimer link share a line, and the six guides sit in one row of icon buttons with short names (Exac., Maint., Follow-up, Device, Spacer, Steroid). Tablet and computer layouts are unchanged.",
+      "Phones: the search box is now a magnifying-glass button. Tapping it opens the search bar across the row; the sort menu uses the space it frees. The button turns blue while a search is active, and the X in the bar clears and closes the search.",
+      "Cards and list rows no longer show a grey not-registered chip (for example US ⊘) for a country that is not selected in the Countries filter. A chip still shows for every selected country, and for any other country where the product is or was registered. The detail view lists all five countries as before.",
+      "Mometasone checked against GINA 2026: the pressurised inhalers now carry an ICS dose level. GINA gives one band for low and medium together (200 to 400 mcg a day) and high above 400, so Asmanex HFA 100 and Dulera 100/5 (2 puffs twice a day, 400 mcg) show Low / Medium, and Asmanex HFA 200 and Dulera 200/5 (800 mcg) show High. The Steroid Dose calculator has a mometasone pMDI row with the same band and the US label maximum. The level uses the label strength, which is the delivered dose, because the US label gives no metered dose. Mometasone dry-powder inhalers (Asmanex Twisthaler, Atectura, Enerzair) still have no level: GINA says the dose depends on the device.",
+      "Minimum inspiratory flow now has a reference for every device that shows a figure, listed under Show sources in the detail view. Dry-powder inhalers follow the table in Ghosh 2017: HandiHaler 20; Turbuhaler, Diskus, Ellipta and Easyhaler 30; NEXThaler 35; Spiromax and Genuair 40; Breezhaler 50 L/min. This changes DuoResp Spiromax from 30 to 40 L/min and gives a figure to products that showed Unknown: the RespiClick products and Tudorza and Duaklir Pressair (40; the reference lists them as Spiromax and Genuair, their names outside the US) and Asmanex Twisthaler (28; Clark 2020 puts the lower limit of acceptable performance between 20 and 28). MDIs cite the ERS/ISAM report (Laube 2011: below 30 L/min is the ideal flow), soft mist inhalers cite Wu 2023 (minimal 10, optimal 30 L/min) and nebulisers cite Laube 2011 (normal tidal breaths). Still Unknown because no reference was found: Airmaster, LupinHaler, Swinghaler, BudeForu and the Pulvisonide capsule inhaler. The reference list gains the four papers.",
+      "Ciclesonide (Alvesco) has GINA 2026 dose levels: low 80 to 160, medium above 160 to 320, high above 320 mcg a day. Alvesco 80 shows 1 puff twice a day (low), 2 puffs (medium) and 4 puffs (high); Alvesco 160 shows 1 puff twice a day (medium) and 2 puffs (high), following the US label's twice-daily doses up to 320 mcg twice a day. The Steroid Dose calculator has a ciclesonide row. The level uses the label strength, which is the dose from the actuator.",
+      "Steroid Dose calculator: fluticasone furoate 100 mcg a day is graded Low to medium dose, because GINA 2026 gives one band for low and medium together. It was shown as Low dose.",
     ],
     bugs: [
       "Searching forced every matching brand open, so a brand row and its full cards showed together and hiding them did nothing. A search now shows the brand row only; open it to see the full cards, or switch Group strengths off to list every strength.",
@@ -2527,7 +2602,16 @@ const CHANGELOG_TH = {
     "แถวชื่อการค้าในมุมมองตารางไม่ยืดเป็นการ์ดสูงที่ว่างเปล่าอีกแล้ว แถวจะสูงเท่าเนื้อหาเท่านั้น ข้อมูลที่เหมือนกันทุกขนาดยาแสดงครั้งเดียวด้านบนใต้ชื่อร่วม ได้แก่ รูป ชนิดอุปกรณ์ และบรรทัดประเทศ (ผู้รับอนุญาต ประเภทบัญชียาหลัก) กับข้อบ่งใช้เมื่อเหมือนกันทุกขนาดยา จากนั้นแต่ละขนาดยาแสดงขนาดยาและส่วนประกอบที่ระบุกลุ่มยา (ICS : ..., LABA : ...) ข้อมูลที่ต่างจากขนาดยาอื่น และปุ่มเลือกกับปุ่มรายละเอียดของตัวเอง เมื่อแตะขนาดยาจะเลื่อนไปที่การ์ดเต็มซึ่งมีขนาดที่ใช้ ส่วนปุ่มใต้รายการขนาดยาใช้แสดงหรือซ่อนการ์ดเต็มทั้งหมด",
     "ตัวกรองอุปกรณ์: ชื่ออุปกรณ์ภายใต้ DPI, MDI และชนิดอื่น เรียงจาก A ถึง Z แล้ว อุปกรณ์สูดแคปซูลที่ยังไม่ทราบชนิด (Pulvisonide) จัดอยู่ใน Other DPI ร่วมกับยาสูดชนิดผงแห้งที่ยังไม่มีแหล่งอ้างอิงวิธีใช้ โดย Other DPI อยู่ลำดับสุดท้าย",
     "ปุ่มด้านบนสองปุ่มใช้ชื่อภาษาอังกฤษสั้นลง: Exacerbation (เดิม Exacerbation Guide) และ Initial Maintenance (เดิม Initial Maintenance Guide) ส่วนชื่อภาษาไทยไม่เปลี่ยน",
-    "ส่วนประกอบ (เช่น ICS : Fluticasone propionate 100 mcg, LABA : Salmeterol 50 mcg) ย้ายมาอยู่ใต้ชื่อยาโดยตรง เหนือบรรทัดประเทศ ทั้งในการ์ด แถวรายการ และแถวชื่อการค้า เพราะชื่อยาบางรายการไม่มีขนาดยาอยู่ในชื่อ"
+    "ส่วนประกอบ (เช่น ICS : Fluticasone propionate 100 mcg, LABA : Salmeterol 50 mcg) ย้ายมาอยู่ใต้ชื่อยาโดยตรง เหนือบรรทัดประเทศ ทั้งในการ์ด แถวรายการ และแถวชื่อการค้า เพราะชื่อยาบางรายการไม่มีขนาดยาอยู่ในชื่อ",
+    "ยาที่เทียบเท่า: มีตัวกรอง ขึ้นทะเบียนใน (ทั้งหมด, TH, US, UK, EU, JP) ในหน้าต่าง ใช้เลือกประเทศที่ต้องการค้นหา เช่น หายาที่เทียบเท่าในไทยของยาสูดจากญี่ปุ่น ตัวกรองเริ่มต้นตามประเทศของรายการหลัก และการเปลี่ยนในหน้าต่างนี้ไม่เปลี่ยนรายการหลัก ยาที่เทียบเท่าแต่ละรายการแสดงประเทศที่ขึ้นทะเบียนอยู่ในปัจจุบัน และป้าย Asthma / COPD เป็นไปตามฉลากของประเทศที่เลือก",
+    "หน้ารายละเอียด: ข้อมูลทุกรายการมีบรรทัด แหล่งข้อมูล ซึ่งเปิดด้วยปุ่ม แสดงแหล่งข้อมูล ด้านล่างของหน้า (ระบบจำตัวเลือกไว้) ทะเบียนของแต่ละประเทศเชื่อมไปยังฐานข้อมูลทะเบียนของประเทศนั้น (อย., Drugs@FDA และ DailyMed, MHRA Products, รายการของ HPRA ไอร์แลนด์, PMDA) โดยกรอกคำค้นของยาให้แล้วในกรณีที่ตรวจสอบแล้วว่าค้นพบ ส่วนบัญชียาหลัก ราคา แรงสูดขั้นต่ำ และการใช้กับเครื่องช่วยหายใจ เชื่อมไปยังเอกสารอ้างอิง หากไม่มีแหล่งอ้างอิงที่บันทึกไว้ บรรทัดจะระบุเช่นนั้นแทนการแสดงลิงก์ รายการเอกสารอ้างอิงเพิ่ม Corradi 2014 ซึ่งเป็นแหล่งที่มาของแรงสูดขั้นต่ำของ NEXThaler",
+    "มือถือ: ส่วนบนของหน้าสั้นลง ทำให้เห็นรายการยามากขึ้นเมื่อเปิดแอป ชื่อแอปอยู่ในบรรทัดเดียว ซ่อนคำอธิบายใต้ชื่อ เครดิตกับลิงก์ข้อจำกัดความรับผิดชอบอยู่บรรทัดเดียวกัน และคู่มือทั้งหกเป็นปุ่มไอคอนแถวเดียวพร้อมชื่อสั้น (กำเริบ, ยาควบคุม, ติดตาม, อุปกรณ์, Spacer, สเตียรอยด์) ส่วนแท็บเล็ตและคอมพิวเตอร์ไม่เปลี่ยน",
+    "มือถือ: ช่องค้นหาเป็นปุ่มรูปแว่นขยาย เมื่อแตะจะเปิดแถบค้นหาเต็มแถว และเมนูเรียงลำดับใช้พื้นที่ที่ว่างขึ้น ปุ่มจะเป็นสีน้ำเงินขณะมีคำค้น และปุ่ม X ในแถบใช้ล้างและปิดการค้นหา",
+    "การ์ดและแถวรายการไม่แสดงป้ายสีเทาว่าไม่มีทะเบียน (เช่น US ⊘) ของประเทศที่ไม่ได้เลือกในตัวกรองประเทศอีกแล้ว แต่ยังแสดงป้ายของทุกประเทศที่เลือก และของประเทศอื่นที่ยามีหรือเคยมีทะเบียน หน้ารายละเอียดยังแสดงครบทั้งห้าประเทศเช่นเดิม",
+    "ตรวจสอบ mometasone กับ GINA 2026: ยาสูดชนิด pMDI มีระดับขนาด ICS แล้ว GINA ให้เกณฑ์เดียวสำหรับขนาดต่ำและปานกลางรวมกัน (200 ถึง 400 mcg ต่อวัน) และขนาดสูงเมื่อเกิน 400 ดังนั้น Asmanex HFA 100 และ Dulera 100/5 (2 พัฟ วันละ 2 ครั้ง รวม 400 mcg) แสดง Low / Medium ส่วน Asmanex HFA 200 และ Dulera 200/5 (800 mcg) แสดง High เครื่องคำนวณขนาดสเตียรอยด์มีแถว mometasone pMDI ด้วยเกณฑ์เดียวกันและขนาดสูงสุดตามฉลากสหรัฐฯ ระดับนี้ใช้ความแรงตามฉลากซึ่งเป็นขนาดที่ออกจากอุปกรณ์ เพราะฉลากสหรัฐฯ ไม่ระบุขนาดที่ตวง ส่วน mometasone ชนิดผงแห้ง (Asmanex Twisthaler, Atectura, Enerzair) ยังไม่มีระดับ เพราะ GINA ระบุว่าขนาดยาขึ้นกับอุปกรณ์",
+    "แรงสูดขั้นต่ำมีเอกสารอ้างอิงสำหรับทุกอุปกรณ์ที่แสดงตัวเลขแล้ว ดูได้จากปุ่ม แสดงแหล่งข้อมูล ในหน้ารายละเอียด ยาสูดชนิดผงแห้งใช้ตารางของ Ghosh 2017: HandiHaler 20; Turbuhaler, Diskus, Ellipta และ Easyhaler 30; NEXThaler 35; Spiromax และ Genuair 40; Breezhaler 50 L/min ทำให้ DuoResp Spiromax เปลี่ยนจาก 30 เป็น 40 L/min และยาที่เคยแสดง Unknown มีตัวเลขแล้ว ได้แก่ ยาที่ใช้ RespiClick กับ Tudorza และ Duaklir Pressair (40 โดยเอกสารอ้างอิงระบุในชื่อ Spiromax และ Genuair ซึ่งเป็นชื่อนอกสหรัฐฯ) และ Asmanex Twisthaler (28 โดย Clark 2020 ระบุว่าขีดล่างของสมรรถนะที่ยอมรับได้อยู่ระหว่าง 20 ถึง 28) ส่วน MDI อ้างอิงรายงาน ERS/ISAM (Laube 2011: แรงสูดต่ำกว่า 30 L/min เหมาะที่สุด) ยาสูดชนิด soft mist อ้างอิง Wu 2023 (ขั้นต่ำ 10 และเหมาะสม 30 L/min) และ nebulizer อ้างอิง Laube 2011 (หายใจปกติ) อุปกรณ์ที่ยังแสดง Unknown เพราะไม่พบเอกสารอ้างอิง: Airmaster, LupinHaler, Swinghaler, BudeForu และอุปกรณ์สูดแคปซูลของ Pulvisonide รายการเอกสารอ้างอิงเพิ่มเอกสารทั้งสี่ฉบับ",
+    "Ciclesonide (Alvesco) มีระดับขนาดยาตาม GINA 2026: ต่ำ 80 ถึง 160 ปานกลางมากกว่า 160 ถึง 320 และสูงมากกว่า 320 mcg ต่อวัน Alvesco 80 แสดง 1 พัฟ วันละ 2 ครั้ง (ต่ำ) 2 พัฟ (ปานกลาง) และ 4 พัฟ (สูง) ส่วน Alvesco 160 แสดง 1 พัฟ วันละ 2 ครั้ง (ปานกลาง) และ 2 พัฟ (สูง) ตามขนาดยาวันละ 2 ครั้งในฉลากสหรัฐฯ ซึ่งสูงสุด 320 mcg วันละ 2 ครั้ง เครื่องคำนวณขนาดสเตียรอยด์มีแถว ciclesonide แล้ว ระดับนี้ใช้ความแรงตามฉลากซึ่งเป็นขนาดที่ออกจากปากอุปกรณ์",
+    "เครื่องคำนวณขนาดสเตียรอยด์: fluticasone furoate 100 mcg ต่อวัน จัดเป็นขนาดต่ำถึงปานกลาง เพราะ GINA 2026 ให้เกณฑ์เดียวสำหรับขนาดต่ำและปานกลางรวมกัน เดิมแสดงเป็นขนาดต่ำ"
   ],
   "bugs": [
     "การค้นหาเคยบังคับเปิดทุกชื่อการค้าที่ตรงกัน ทำให้แถวชื่อการค้าและการ์ดเต็มแสดงพร้อมกันและซ่อนไม่ได้ ตอนนี้การค้นหาจะแสดงเฉพาะแถวชื่อการค้า เปิดแถวเพื่อดูการ์ดเต็ม หรือปิดตัวเลือก รวมขนาดยา เพื่อแสดงทุกขนาดยา"
@@ -2869,29 +2953,29 @@ const deviceData = [
   { id: 438, type: 'MDI', shape: 'MDI', marketName: 'Beclocip 250 HFA', substance: 'Beclometasone 250 mcg', class: 'ICS', instructions: '2 puffs BID. Maintenance therapy. Rinse mouth after.', hex: '#991b1b', tagColor: 'bg-red-100 text-red-900', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Medium', priceLevel: 1, hiddenPrice: 138 }, // MIMS Thailand brand; Thai FDA registration 1C 225/52 cancelled 30 Sep 2021; ≈138 THB/30 days from national reference price 230.07 THB per pack: Beclometasone MDI 250 mcg (200 doses)
   { id: 439, type: 'MDI', shape: 'MDI', marketName: 'Beclosal HFA Inhaler', substance: 'Beclometasone 50 mcg / Salbutamol 100 mcg', class: 'ICS / SABA', instructions: '2 puffs 3-4 times daily. Rinse mouth after.', hex: '#4f46e5', tagColor: 'bg-indigo-100 text-indigo-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs QID', isMart: false, role: ['Controller', 'Reliever'], flowRate: '< 30 L/min', icsDoseLevel: 'Low', priceLevel: 1, hiddenPrice: 150, priceEst: true }, // MIMS Thailand brand; Thai FDA registration 2C 9/63 cancelled 31 Aug 2023, asthma (salbutamol sulphate 120 mcg = 100 mcg base); no reference price, level estimated
   { id: 261, type: 'MDI', shape: 'MDI', marketName: 'QVAR RediHaler 40', substance: 'Beclomethasone 40 mcg', class: 'ICS', instructions: 'Breath-actuated. Do not use with a spacer. 1-4 puffs BID.', hex: '#d6c4a0', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1-2 puffs BID', medium: '4 puffs BID', high: 'Not appropriate' }, isMart: false, isExtraFine: true, role: ['Controller'], flowRate: '< 30 L/min', icsDoseLevel: 'Low / Medium', priceLevel: 1, hiddenPrice: 225, priceEst: true }, // No national reference price; level estimated
-  { id: 501, type: 'DPI', shape: 'Spiromax', marketName: 'ProAir RespiClick', substance: 'Salbutamol (albuterol) 90 mcg', class: 'SABA', instructions: '2 inhalations every 4-6 hours PRN. Open the red cap until it clicks. No spacer, no priming.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '200 doses', expiration: '13 months after opening the foil pouch', doseRange: '2 inhalations Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 501, type: 'DPI', shape: 'Spiromax', marketName: 'ProAir RespiClick', substance: 'Salbutamol (albuterol) 90 mcg', class: 'SABA', instructions: '2 inhalations every 4-6 hours PRN. Open the red cap until it clicks. No spacer, no priming.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '200 doses', expiration: '13 months after opening the foil pouch', doseRange: '2 inhalations Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 502, type: 'MDI', shape: 'MDI', marketName: 'Xopenex HFA', substance: 'Levalbuterol 45 mcg', class: 'SABA', instructions: '2 puffs every 4-6 hours PRN; 1 puff every 4 hours may be enough. Shake well.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 503, type: 'MDI', shape: 'MDI', marketName: 'Airsupra', substance: 'Salbutamol (albuterol) 90 mcg / Budesonide 80 mcg', class: 'SABA / ICS', instructions: 'As-needed reliever with ICS, adults 18+: 2 puffs PRN, maximum 6 doses (12 puffs) in 24 hours. Shake well.', hex: '#e2e8f0', tagColor: 'bg-teal-100 text-teal-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: '12 months after opening the foil pouch', doseRange: '2 puffs PRN (Max 12/day)', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 504, type: 'MDI', shape: 'MDI', marketName: 'QVAR RediHaler 80', substance: 'Beclomethasone 80 mcg', class: 'ICS', instructions: 'Breath-actuated. Do not use with a spacer. 1-4 puffs BID.', hex: '#7f1d1d', tagColor: 'bg-red-100 text-red-900', indications: ['Asthma'], ventCompatible: false, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', isExtraFine: true, icsDoseLevel: 'Low / Medium / High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 505, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 80', substance: 'Ciclesonide 80 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#7c4a2d', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: '1-2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 506, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 160', substance: 'Ciclesonide 160 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: '1-2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 505, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 80', substance: 'Ciclesonide 80 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#7c4a2d', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 506, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 160', substance: 'Ciclesonide 160 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: 'Not appropriate', medium: '1 puff BID', high: '2 puffs BID' }, icsDoseLevel: 'Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 507, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 100 mcg', substance: 'Fluticasone furoate 100 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: '1 inhalation ONCE daily', medium: '1 inhalation ONCE daily', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Low / Medium' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 508, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 200 mcg', substance: 'Fluticasone furoate 200 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: 'Not appropriate', medium: 'Not appropriate', high: '1 inhalation ONCE daily' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 509, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 100 mcg', substance: 'Mometasone 100 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 510, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 200 mcg', substance: 'Mometasone 200 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 511, type: 'DPI', shape: 'Twisthaler', marketName: 'Asmanex Twisthaler 220 mcg', substance: 'Mometasone 220 mcg', class: 'ICS', instructions: '1 inhalation once daily in the evening; highest 440 mcg a day. Inhale fast and deep. Rinse mouth after. UK/EU label: 200 mcg (delivered dose).', hex: '#ec4899', tagColor: 'bg-pink-100 text-pink-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30, 60 or 120 doses', expiration: '45 days after opening the foil pouch', doseRange: '1 inhalation ONCE daily (Max 2/day)', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 512, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 55/14', substance: 'Fluticasone propionate 55 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 513, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 113/14', substance: 'Fluticasone propionate 113 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/100.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 514, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 232/14', substance: 'Fluticasone propionate 232 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/202.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 515, type: 'MDI', shape: 'MDI', marketName: 'Dulera 100/5', substance: 'Mometasone 100 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 516, type: 'MDI', shape: 'MDI', marketName: 'Dulera 200/5', substance: 'Mometasone 200 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 509, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 100 mcg', substance: 'Mometasone 100 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'Low / Medium', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 510, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 200 mcg', substance: 'Mometasone 200 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 511, type: 'DPI', shape: 'Twisthaler', marketName: 'Asmanex Twisthaler 220 mcg', substance: 'Mometasone 220 mcg', class: 'ICS', instructions: '1 inhalation once daily in the evening; highest 440 mcg a day. Inhale fast and deep. Rinse mouth after. UK/EU label: 200 mcg (delivered dose).', hex: '#ec4899', tagColor: 'bg-pink-100 text-pink-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30, 60 or 120 doses', expiration: '45 days after opening the foil pouch', doseRange: '1 inhalation ONCE daily (Max 2/day)', isMart: false, role: ['Controller'], flowRate: '≥ 28 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 512, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 55/14', substance: 'Fluticasone propionate 55 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 513, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 113/14', substance: 'Fluticasone propionate 113 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/100.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 514, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 232/14', substance: 'Fluticasone propionate 232 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/202.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 515, type: 'MDI', shape: 'MDI', marketName: 'Dulera 100/5', substance: 'Mometasone 100 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'Low / Medium', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 516, type: 'MDI', shape: 'MDI', marketName: 'Dulera 200/5', substance: 'Mometasone 200 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 517, type: 'SMI', shape: 'Respimat', marketName: 'Striverdi Respimat 2.5 mcg', substance: 'Olodaterol 2.5 mcg', class: 'LABA', instructions: '2 actuations ONCE daily. TOP: Turn, Open, Press. COPD only.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['COPD'], ventCompatible: true, totalDoses: '60 puffs (30 doses)', expiration: '3 months after first use', doseRange: '2 actuations ONCE daily', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 518, type: 'Nebulizer', shape: 'Nebulizer', marketName: 'Perforomist 20 mcg/2 mL', substance: 'Formoterol 20 mcg per 2 mL', class: 'LABA', instructions: '1 vial (20 mcg) by jet nebulizer BID; no more than 40 mcg a day. COPD only.', hex: '#2563eb', tagColor: 'bg-sky-100 text-sky-800', indications: ['COPD'], ventCompatible: true, totalDoses: 'Single use vial', expiration: 'Use immediately after opening', doseRange: '20 mcg Nebulized BID', isMart: false, role: ['Controller'], flowRate: 'Tidal' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 519, type: 'DPI', shape: 'Ellipta', marketName: 'Incruse Ellipta 62.5 mcg', substance: 'Umeclidinium 62.5 mcg', class: 'LAMA', instructions: '1 inhalation ONCE daily. Open light green cover fully. UK/EU label: 55 mcg (delivered dose).', hex: '#86c7a4', tagColor: 'bg-green-100 text-green-800', indications: ['COPD'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: '1 inhalation ONCE daily', isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 520, type: 'DPI', shape: 'Pressair', marketName: 'Tudorza Pressair 400 mcg', substance: 'Aclidinium 400 mcg', class: 'LAMA', instructions: '1 inhalation BID. Press and release the green button, then inhale strongly. UK/EU/Thai name: Eklira Genuair 322 mcg (delivered dose).', hex: '#16a34a', tagColor: 'bg-green-100 text-green-800', indications: ['COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '45 days after opening the sealed bag', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 520, type: 'DPI', shape: 'Pressair', marketName: 'Tudorza Pressair 400 mcg', substance: 'Aclidinium 400 mcg', class: 'LAMA', instructions: '1 inhalation BID. Press and release the green button, then inhale strongly. UK/EU/Thai name: Eklira Genuair 322 mcg (delivered dose).', hex: '#16a34a', tagColor: 'bg-green-100 text-green-800', indications: ['COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '45 days after opening the sealed bag', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 521, type: 'Nebulizer', shape: 'Nebulizer', marketName: 'Yupelri 175 mcg/3 mL', substance: 'Revefenacin 175 mcg per 3 mL', class: 'LAMA', instructions: '1 vial (175 mcg) by jet nebulizer with a mouthpiece, once daily. No dilution.', hex: '#16a34a', tagColor: 'bg-green-100 text-green-800', indications: ['COPD'], ventCompatible: true, totalDoses: 'Single use vial', expiration: 'Use immediately after opening', doseRange: '175 mcg Nebulized ONCE daily', isMart: false, role: ['Controller'], flowRate: 'Tidal' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 522, type: 'MDI', shape: 'MDI', marketName: 'Bevespi Aerosphere 9/4.8', substance: 'Formoterol 4.8 mcg / Glycopyrronium 9 mcg', class: 'LABA / LAMA', instructions: '2 puffs BID. Shake well. UK/EU label: 7.2/5 mcg (delivered dose).', hex: '#e2e8f0', tagColor: 'bg-orange-100 text-orange-800', indications: ['COPD'], ventCompatible: true, totalDoses: '120 puffs', expiration: '3 months after opening the foil pouch', doseRange: '2 puffs BID', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 523, type: 'DPI', shape: 'Pressair', marketName: 'Duaklir Pressair 400/12', substance: 'Formoterol 12 mcg / Aclidinium 400 mcg', class: 'LABA / LAMA', instructions: '1 inhalation BID. Press and release the orange button, then inhale strongly. UK/EU/Thai name: Duaklir Genuair 340/12 (delivered dose).', hex: '#f97316', tagColor: 'bg-orange-100 text-orange-800', indications: ['COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '2 months after opening the sealed bag', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: 'Unknown' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 523, type: 'DPI', shape: 'Pressair', marketName: 'Duaklir Pressair 400/12', substance: 'Formoterol 12 mcg / Aclidinium 400 mcg', class: 'LABA / LAMA', instructions: '1 inhalation BID. Press and release the orange button, then inhale strongly. UK/EU/Thai name: Duaklir Genuair 340/12 (delivered dose).', hex: '#f97316', tagColor: 'bg-orange-100 text-orange-800', indications: ['COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '2 months after opening the sealed bag', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 524, type: 'MDI', shape: 'MDI', marketName: 'ProAir HFA', substance: 'Salbutamol (albuterol) 90 mcg', class: 'SABA', instructions: '2 puffs every 4-6 hours PRN; 1 puff every 4 hours may be enough. Shake well. FDA lists it as marketed, but no current label from its maker is on DailyMed (12 Oct 2026): check supply.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label text from a 2021 repackager label (DailyMed); Drugs@FDA status Prescription; no Thai price recorded
   { id: 525, type: 'MDI', shape: 'MDI', marketName: 'Proventil HFA', substance: 'Salbutamol (albuterol) 90 mcg', class: 'SABA', instructions: '2 puffs every 4-6 hours PRN. Shake well. FDA lists it as marketed, but no current label from its maker is on DailyMed (12 Oct 2026): check supply.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label of Oct 2019 (Merck, DailyMed); Drugs@FDA status Prescription; no Thai price recorded
   { id: 526, type: 'DPI', shape: 'Diskus', marketName: 'Flovent Diskus 50 mcg', substance: 'Fluticasone propionate 50 mcg', class: 'ICS', instructions: 'Starting dose 100 mcg BID; maximum 1,000 mcg BID. Rinse mouth after. UK/EU name: Flixotide Accuhaler / Diskus. FDA lists it as marketed, but no current label from its maker is on DailyMed (12 Oct 2026): check supply.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 blisters', expiration: '6 weeks after opening foil', doseRange: { low: '1-2 blisters BID', medium: 'Not appropriate', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Low' }, // US label text from a 2024 repackager label (DailyMed); Drugs@FDA status Prescription; no Thai price recorded
@@ -2935,8 +3019,8 @@ const deviceData = [
   { id: 71, type: 'DPI', shape: 'Turbuhaler', marketName: 'Symbicort Turbuhaler 80/4.5', substance: 'Budesonide 80 mcg / Formoterol 4.5 mcg', class: 'ICS / LABA', instructions: '1-2 inhalations BID or as SMART. Twist red grip.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: 'Until Expiry Date', doseRange: { low: '1-2 inhalations BID', medium: '4 inhalations BID', high: 'Not appropriate' }, martMax: '12 inhalations/day', isMart: true, role: ['Controller', 'Reliever'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Low', priceLevel: 2, hiddenPrice: 428 }, // ≈428 THB/30 days from national reference price 428 THB per pack: Formoterol + budesonide DPI 4.5/80 (60 doses) // Thai FDA label: asthma only (2C 14/44)
   { id: 72, type: 'DPI', shape: 'Turbuhaler', marketName: 'Symbicort Turbuhaler 160/4.5 mcg', substance: 'Budesonide 160 mcg / Formoterol 4.5 mcg', class: 'ICS / LABA', instructions: '1-2 inhalations BID or as SMART. Twist red grip.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '60 or 120 doses', expiration: 'Until Expiry Date', doseRange: { low: '1 inhalation BID', medium: '2 inhalations BID', high: '4 inhalations BID' }, martMax: '12 inhalations/day', isMart: true, role: ['Controller', 'Reliever'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Medium', priceLevel: 3, hiddenPrice: 820 }, // ≈820 THB/30 days from national reference price 409.81 THB per pack: Formoterol + budesonide DPI 4.5/160 (60 doses)
   { id: 31, type: 'DPI', shape: 'Turbuhaler', marketName: 'Symbicort Forte Turbuhaler 320/9', substance: 'Budesonide 320 mcg / Formoterol 9 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. High-dose maintenance therapy. Not for MART.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: 'Until Expiry Date', doseRange: { low: 'Not appropriate', medium: '1 inhalation BID', high: '2 inhalations BID' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'High', priceLevel: 3, hiddenPrice: 963 }, // ≈963 THB/30 days from national reference price 481.5 THB per pack: Formoterol + budesonide DPI 9/320 (60 doses)
-  { id: 405, type: 'DPI', shape: 'Spiromax', marketName: 'DuoResp Spiromax 160/4.5', substance: 'Budesonide 160 mcg / Formoterol 4.5 mcg', class: 'ICS / LABA', instructions: '1-2 inhalations BID or as MART. Do not shake. Rinse mouth.', hex: '#9f1239', tagColor: 'bg-rose-100 text-rose-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '120 doses', expiration: '6 months after removing the foil wrapper', doseRange: { low: '1 inhalation BID', medium: '2 inhalations BID', high: '4 inhalations BID' }, martMax: '12 inhalations/day', isMart: true, role: ['Controller', 'Reliever'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Medium', priceLevel: 3, hiddenPrice: 820 }, // MIMS Thailand brand; Thai FDA 2C 15090/63 (Teva), adults 18+, asthma + COPD; reference price as Symbicort Turbuhaler 160/4.5 (Formoterol + budesonide DPI 4.5/160)
-  { id: 406, type: 'DPI', shape: 'Spiromax', marketName: 'DuoResp Spiromax 320/9', substance: 'Budesonide 320 mcg / Formoterol 9 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. High-dose maintenance therapy. Not for MART.', hex: '#9f1239', tagColor: 'bg-rose-100 text-rose-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '6 months after removing the foil wrapper', doseRange: { low: 'Not appropriate', medium: '1 inhalation BID', high: '2 inhalations BID' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'High', priceLevel: 3, hiddenPrice: 963 }, // MIMS Thailand brand; Thai FDA 2C 15091/63 (Teva), adults 18+, asthma + COPD; reference price as Symbicort Forte Turbuhaler
+  { id: 405, type: 'DPI', shape: 'Spiromax', marketName: 'DuoResp Spiromax 160/4.5', substance: 'Budesonide 160 mcg / Formoterol 4.5 mcg', class: 'ICS / LABA', instructions: '1-2 inhalations BID or as MART. Do not shake. Rinse mouth.', hex: '#9f1239', tagColor: 'bg-rose-100 text-rose-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '120 doses', expiration: '6 months after removing the foil wrapper', doseRange: { low: '1 inhalation BID', medium: '2 inhalations BID', high: '4 inhalations BID' }, martMax: '12 inhalations/day', isMart: true, role: ['Controller', 'Reliever'], flowRate: '≥ 40 L/min', icsDoseLevel: 'Medium', priceLevel: 3, hiddenPrice: 820 }, // MIMS Thailand brand; Thai FDA 2C 15090/63 (Teva), adults 18+, asthma + COPD; reference price as Symbicort Turbuhaler 160/4.5 (Formoterol + budesonide DPI 4.5/160)
+  { id: 406, type: 'DPI', shape: 'Spiromax', marketName: 'DuoResp Spiromax 320/9', substance: 'Budesonide 320 mcg / Formoterol 9 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. High-dose maintenance therapy. Not for MART.', hex: '#9f1239', tagColor: 'bg-rose-100 text-rose-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '60 doses', expiration: '6 months after removing the foil wrapper', doseRange: { low: 'Not appropriate', medium: '1 inhalation BID', high: '2 inhalations BID' }, isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min', icsDoseLevel: 'High', priceLevel: 3, hiddenPrice: 963 }, // MIMS Thailand brand; Thai FDA 2C 15091/63 (Teva), adults 18+, asthma + COPD; reference price as Symbicort Forte Turbuhaler
   { id: 440, type: 'DPI', shape: 'Turbuhaler', marketName: 'Oxis Turbuhaler', substance: 'Formoterol (strength unknown)', class: 'LABA', instructions: 'Dose unknown (strength not on record). In asthma only with an ICS. Twist grip to load.', hex: '#2a9fb3', tagColor: 'bg-sky-100 text-sky-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: 'Unknown', expiration: 'Until Expiry Date', doseRange: 'Unknown', isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', priceLevel: 2, hiddenPrice: 450, priceEst: true }, // Colour from Oxis Turbuhaler product pictures (felleskatalogen.no, rightbreathe.com), seen 11 Oct 2026: white body, turquoise grip. MIMS Thailand brand; Thai FDA registration 1C 226/41 cancelled 12 Jan 2007 (AstraZeneca); strength not stated in the Thai register or on MIMS Thailand (checked 11 Oct 2026), so strength, dose and pack size are Unknown; no reference price, level estimated
   { id: 32, type: 'MDI', shape: 'MDI', marketName: 'Foster MDI 100/6', substance: 'Beclometasone 100 mcg / Formoterol 6 mcg', class: 'ICS / LABA', instructions: '1-2 puffs BID. Extra-fine particles; rinse mouth.', hex: '#db2777', tagColor: 'bg-pink-100 text-pink-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '120 puffs', expiration: '5 months after dispensing', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: 'Not appropriate' }, martMax: '8 puffs/day (GINA: up to 12 temporarily)', isMart: true, isExtraFine: true, role: ['Controller', 'Reliever'], flowRate: '< 30 L/min', icsDoseLevel: 'Low / Medium', priceLevel: 2, hiddenPrice: 437 }, // ≈437 THB/30 days from national reference price 874.19 THB per pack: Formoterol + beclometasone MDI 6/100 (120 doses)
   { id: 407, type: 'DPI', shape: 'NEXThaler', marketName: 'Foster NEXThaler 100/6', substance: 'Beclometasone 100 mcg / Formoterol 6 mcg', class: 'ICS / LABA', instructions: '1-2 inhalations BID or as MART. Extra-fine powder; rinse mouth.', hex: '#be185d', tagColor: 'bg-pink-100 text-pink-800', indications: ['Asthma', 'COPD'], ventCompatible: false, totalDoses: '120 doses', expiration: '6 months after opening the pouch', doseRange: { low: '1 inhalation BID', medium: '2 inhalations BID', high: 'Not appropriate' }, martMax: '8 inhalations/day (GINA: up to 12 temporarily)', isMart: true, isExtraFine: true, role: ['Controller', 'Reliever'], flowRate: '≥ 35 L/min', icsDoseLevel: 'Low / Medium', priceLevel: 2, hiddenPrice: 437, priceEst: true }, // MIMS Thailand brand; Thai FDA 2C 15055/67 (Chiesi), asthma + COPD; no reference price for the DPI form, level estimated from Foster MDI
@@ -3328,7 +3412,7 @@ const DoseConversionModal = ({ pair, t, onClose }) => {
 const sameClasses = (a, b) => Object.keys(medComponents(a)).sort().join() === Object.keys(medComponents(b)).sort().join();
 
 const EquivalentRow = ({ med, conv, t, onConvert }) => (
-  <li className="bg-white rounded-xl border border-slate-200 p-3 flex flex-col sm:flex-row sm:items-center gap-3">
+  <li data-equiv-row={med.id} className="bg-white rounded-xl border border-slate-200 p-3 flex flex-col sm:flex-row sm:items-center gap-3">
     <div className="flex items-start gap-3 min-w-0 flex-grow">
       <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 shrink-0">{medIcon(med, 'w-9 h-9')}</div>
       <div className="min-w-0">
@@ -3340,6 +3424,11 @@ const EquivalentRow = ({ med, conv, t, onConvert }) => (
           ))}
         </div>
         <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className="text-[11px] mt-0.5" />
+        <div className="flex items-center gap-0.5 flex-wrap mt-1" data-equiv-avail aria-label={t.equivRegIn}>
+          {LABEL_REGIONS.filter(r => statusIn(med, r) === 'current').map(r => (
+            <span key={r} title={t.countryNames[r]} data-country={r} className={`text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${COUNTRY_COLORS[r].chip}`}>{t.countryCodes[r]}</span>
+          ))}
+        </div>
         <div className="flex items-center gap-1.5 flex-wrap mt-1">
           <span className="text-xs font-bold text-purple-700">{conv.toReg}</span>
           {conv.toLvl && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border border-purple-200 bg-purple-50 text-purple-700">{t.convertLevel[conv.toLvl]} ICS</span>}
@@ -3354,8 +3443,14 @@ const EquivalentRow = ({ med, conv, t, onConvert }) => (
   </li>
 );
 
-const EquivalentDrugsModal = ({ med, t, onClose, onConvert, pool = deviceData }) => {
+const EquivalentDrugsModal = ({ med, t, onClose, onConvert, countries = ['th'] }) => {
   const [condition, setCondition] = useState('All');
+  // Countries to look in: starts as the main list's countries and is changed here without touching the main list.
+  // A product counts when it is currently registered in a chosen country; its indications are those countries' labels.
+  const [regions, setRegions] = useState(countries);
+  const toggleRegion = (r) => setRegions(prev => (prev.includes(r) ? prev.filter(x => x !== r) : LABEL_REGIONS.filter(x => x === r || prev.includes(x))));
+  const allRegions = regions.length === LABEL_REGIONS.length;
+  const pool = useMemo(() => deviceData.map(d => { const ind = countryView(d, regions); return ind ? { ...d, indications: ind } : null; }).filter(Boolean), [regions]);
   const disease = condition === 'Asthma' ? 'Asthma' : 'COPD';
   const candidates = pool
     .filter(d => d.id !== med.id && (condition === 'All' || d.indications.includes(condition)))
@@ -3393,7 +3488,19 @@ const EquivalentDrugsModal = ({ med, t, onClose, onConvert, pool = deviceData })
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <ConvertSideCard label={t.convertFrom} med={med} regimen={fromLvl ? `${regimenAt(med, fromLvl)} · ${t.convertLevel[fromLvl]} ICS` : regimenAt(med, null)} t={t} />
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex flex-col gap-2 sm:items-end sm:shrink-0 min-w-0" data-equiv-filters>
+            <div className="flex items-center gap-2 flex-wrap" data-equiv-countries title={t.equivRegInTitle}>
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{t.equivRegIn}</span>
+              <div className="flex flex-wrap bg-white rounded-lg border border-slate-200 p-0.5 gap-0.5" role="group" aria-label={t.equivRegIn}>
+                <button onClick={() => setRegions(allRegions ? [] : [...LABEL_REGIONS])} aria-pressed={allRegions} data-equiv-country-all
+                  className={`px-2 py-1 rounded-md text-xs font-bold transition-all whitespace-nowrap ${allRegions ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}>{t.countriesAll}</button>
+                {LABEL_REGIONS.map(r => (
+                  <button key={r} onClick={() => toggleRegion(r)} aria-pressed={regions.includes(r)} title={t.countryNames[r]} data-equiv-country={r}
+                    className={`px-2 py-1 rounded-md text-xs font-bold transition-all whitespace-nowrap ${regions.includes(r) ? COUNTRY_COLORS[r].on : COUNTRY_COLORS[r].off}`}>{t.countryCodes[r]}</button>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{t.indication}</span>
               <div className="flex bg-white rounded-lg border border-slate-200 p-0.5">
                 {['All', 'Asthma', 'COPD'].map(c => (
@@ -3401,11 +3508,16 @@ const EquivalentDrugsModal = ({ med, t, onClose, onConvert, pool = deviceData })
                 ))}
               </div>
             </div>
+            </div>
           </div>
           {fromLvl && <p className="text-[11px] text-slate-500 -mt-2">{t.equivLevelNote(t.convertLevel[fromLvl])}</p>}
 
-          {section(t.equivSame, direct, t.equivNone)}
-          {section(t.equivOther, other, t.equivNone)}
+          {regions.length === 0 ? (
+            <p className="text-sm text-slate-500 italic p-3 bg-white rounded-xl border border-slate-200" data-equiv-nocountry>{t.equivNoCountry}</p>
+          ) : (<>
+            {section(t.equivSame, direct, t.equivNone)}
+            {section(t.equivOther, other, t.equivNone)}
+          </>)}
 
           <p className="text-[11px] text-slate-500 leading-relaxed">{t.convertDisclaimer}</p>
         </div>
@@ -3595,13 +3707,14 @@ const SpacerFit = ({ med, t, className = '' }) => {
 };
 
 // Minimum peak inspiratory flow (L/min) a device needs, read from its flowRate field
-// ("≥ 30 L/min"); MDI, SMI and nebulisers need none. DPI minimums: HandiHaler 20,
-// Turbuhaler and Diskus/Accuhaler 30, Breezhaler 50 (Weers 2022, citing Haidl 2016);
-// Ellipta 30 (Grant 2015); Easyhaler 30 (Haikarainen 2018). NEXThaler 35 (dose released only above
-// about 35 L/min, Corradi 2014). Spiromax 30 (same resistance class as Turbuhaler and Diskus).
-// No reference, so flowRate is 'Unknown' (never an assumed number): Airmaster, LupinHaler (Tropoair), the
-// unidentified capsule inhaler of Pulvisonide, and the US products on RespiClick, Pressair and Twisthaler
-// (their labels report patients' flows, not a minimum).
+// ("≥ 30 L/min"); MDI, SMI and nebulisers need none (pMDI: below 30 L/min is the ideal flow, nebuliser: tidal
+// breaths, Laube 2011; soft mist: minimal 10, optimal 30, Wu 2023). DPI minimums, checked 13 Oct 2026 against the
+// table in Ghosh 2017 (minimal flow): HandiHaler 20; Turbuhaler, Diskus/Accuhaler, Ellipta and Easyhaler 30;
+// NEXThaler 35; Spiromax 40 (so also RespiClick, its US name); Genuair 40 (so also Pressair, its US name);
+// Breezhaler 50. Also Weers 2022, Grant 2015, Haikarainen 2018 and Corradi 2014 for single devices.
+// Twisthaler 28: Clark 2020 puts the lower limit of acceptable in vitro performance between 20 and 28 L/min.
+// No reference, so flowRate is 'Unknown' (never an assumed number): Airmaster, LupinHaler (Tropoair), Swinghaler,
+// BudeForu and the unidentified capsule inhaler of Pulvisonide.
 const pifNeeded = (flowRate) => { const m = /≥\s*(\d+)/.exec(flowRate); return m ? +m[1] : 0; };
 const flowUnknown = (med) => /^unknown$/i.test(med.flowRate);
 const flowText = (med, t) => (flowUnknown(med) ? t.unknown : med.flowRate);
@@ -4718,22 +4831,27 @@ const CautionsPanel = ({ med, t }) => {
 // GINA 2026 Summary Guide Table 6 (adults and adolescents): low / medium / high total daily METERED ICS doses (mcg).
 // lo–hi = low, >hi–med = medium, >med = high. med null: nothing above hi is graded
 // (over = grade used above hi). Bands are dose levels, not dose equivalence.
+// merged: GINA gives one band for low and medium together (fluticasone furoate 100, mometasone pMDI 200-400),
+// graded "low to medium". Ciclesonide (pMDI, extrafine): 80-160 low, >160-320 medium, >320 high.
+// Mometasone DPI has no band ("depends on DPI device - see product information").
 const ICS_BANDS = {
   adult: {
     bdp:   { lo: 200, hi: 500, med: 1000 },
     bdpEf: { lo: 100, hi: 200, med: 400 },
     bud:   { lo: 200, hi: 400, med: 800 },
     budNeb: null,
-    ff:    { lo: 100, hi: 100, med: 100 },
+    ff:    { lo: 100, hi: 100, med: 100, merged: true },
     fp:    { lo: 100, hi: 250, med: 500 },
+    mom:   { lo: 200, hi: 400, med: 400, merged: true },
+    cic:   { lo: 80, hi: 160, med: 320 },
   },
 };
-const ICS_GRADE_RANK = { below: 0, low: 1, medium: 2, high: 3, above: 3, na: -1 };
+const ICS_GRADE_RANK = { below: 0, low: 1, lowmed: 1.5, medium: 2, high: 3, above: 3, na: -1 };
 const gradeIcs = (key, mcg, age = 'adult') => {
   const b = ICS_BANDS[age][key];
   if (!b || !(mcg > 0)) return 'na';
   if (mcg < b.lo) return 'below';
-  if (mcg <= b.hi) return 'low';
+  if (mcg <= b.hi) return b.merged ? 'lowmed' : 'low';
   if (b.med == null) return b.over || 'high';
   if (mcg <= b.med) return 'medium';
   return 'high';
@@ -4762,6 +4880,8 @@ const LABEL_MAX = {
   101: { n: 1, src: 'UK SmPC' }, 102: { n: 1, src: 'UK SmPC' }, 12: { n: 1, src: 'UK SmPC' }, 103: { n: 1, src: 'UK SmPC' }, // Ellipta
   531: { n: 4, src: 'UK SmPC' }, 535: { mcg: 800, src: 'JP insert' }, 536: { mcg: 800, src: 'JP insert' }, 542: { n: 8, src: 'JP insert' }, 543: { n: 8, src: 'JP insert' }, 544: { n: 8, src: 'JP insert' }, // Trimbow 172, Qvar aerosol, BudeForu
   25: { n: 4, src: 'UK SmPC' }, 21: { n: 4, src: 'label' },                                                    // Trimbow, Breztri: 2 BID
+  505: { mcg: 640, src: 'US label' }, 506: { mcg: 640, src: 'US label' },                                       // Alvesco: 320 mcg BID (label read 13 Oct 2026)
+  509: { n: 4, src: 'US label' }, 510: { n: 4, src: 'US label' }, 515: { n: 4, src: 'US label' }, 516: { n: 4, src: 'US label' }, // Asmanex HFA, Dulera: 2 inhalations BID (labels read 13 Oct 2026)
   401: { mcg: 1600, src: 'label' }, 402: { mcg: 1600, src: 'label' }, 404: { mcg: 1600, src: 'label' },       // budesonide MDI / capsules (MIMS brands)
   431: { mcg: 1600, src: 'label' }, 432: { mcg: 1600, src: 'label' }, 433: { mcg: 1600, src: 'label' },       // BudeSpray, Budiair
   435: { mcg: 2000, src: 'label' }, 436: { mcg: 2000, src: 'label' }, 437: { mcg: 2000, src: 'label' }, 438: { mcg: 2000, src: 'label' }, // Beclocip (standard-particle BDP)
@@ -4776,12 +4896,18 @@ const icsInfo = (med) => {
   let key = null;
   if (/beclo/.test(n)) key = med.isExtraFine ? 'bdpEf' : 'bdp';
   else if (/budesonide/.test(n)) key = med.type === 'Nebulizer' ? 'budNeb' : 'bud';
+  else if (/mometasone/.test(n)) key = med.type === 'MDI' ? 'mom' : null; // GINA: a band for the pMDI only
+  else if (/ciclesonide/.test(n)) key = med.type === 'MDI' ? 'cic' : null;
   else if (/furoate/.test(n)) key = 'ff';
   else if (/propionate/.test(n)) key = 'fp';
   if (!key) return null;
   const neb = med.type === 'Nebulizer';
   const mcg = neb ? NEB_STRENGTHS[0] : (ICS_METERED[med.id] || (c.unit === 'mg' ? c.amount * 1000 : c.amount));
-  return { key, mcg, neb, converted: !!ICS_METERED[med.id], labelled: c.amount };
+  // Asmanex HFA, Dulera: the US label strength is the delivered dose and gives no metered dose in mcg, so the label
+  // strength is graded as it stands (user decision 13 Oct 2026).
+  // Alvesco: the label strength is the dose from the actuator (80 / 160 mcg; 100 / 200 mcg from the valve, US label);
+  // GINA's ciclesonide band is graded on the label strength, like mometasone.
+  return { key, mcg, neb, converted: !!ICS_METERED[med.id], labelled: c.amount, labelNote: key === 'mom' ? 'labelOnly' : key === 'cic' ? 'labelCic' : null };
 };
 // Default regimen from the product's instructions, e.g. "2 puffs BID", "1 inhalation ONCE daily".
 const defaultRegimen = (med) => {
@@ -4806,10 +4932,12 @@ const ICS_TEXT = {
     remove: 'Remove',
     resultTitle: 'Total daily ICS dose',
     overall: 'Overall',
-    molecule: { bdp: 'Beclometasone (standard particle)', bdpEf: 'Beclometasone (extrafine)', bud: 'Budesonide', budNeb: 'Budesonide (nebules)', ff: 'Fluticasone furoate', fp: 'Fluticasone propionate' },
-    grade: { below: 'Below low dose', low: 'Low dose', medium: 'Medium dose', high: 'High dose', above: 'Above the GINA table', na: 'Not graded' },
-    band: (b) => b ? `GINA bands: low ${b.lo === b.hi ? b.lo : b.lo + '–' + b.hi}${b.med == null ? '' : b.med === b.hi ? `, high >${b.hi}` : `, medium >${b.hi}–${b.med}, high >${b.med}`} mcg/day` : 'No GINA band for this age group',
+    molecule: { bdp: 'Beclometasone (standard particle)', bdpEf: 'Beclometasone (extrafine)', bud: 'Budesonide', budNeb: 'Budesonide (nebules)', ff: 'Fluticasone furoate', fp: 'Fluticasone propionate', mom: 'Mometasone (pMDI)', cic: 'Ciclesonide (pMDI)' },
+    grade: { below: 'Below low dose', low: 'Low dose', lowmed: 'Low to medium dose (GINA gives one band)', medium: 'Medium dose', high: 'High dose', above: 'Above the GINA table', na: 'Not graded' },
+    band: (b) => b ? `GINA bands: ${b.merged ? 'low to medium' : 'low'} ${b.lo === b.hi ? b.lo : b.lo + '–' + b.hi}${b.med == null ? '' : b.med === b.hi ? `, high >${b.hi}` : `, medium >${b.hi}–${b.med}, high >${b.med}`} mcg/day` : 'No GINA band for this age group',
     metered: (lab, mcg) => `Label states ${lab} mcg delivered = ${mcg} mcg metered (GINA uses metered doses).`,
+    labelOnly: 'The label strength is the delivered dose; the US label gives no metered dose, so the label strength is graded.',
+    labelCic: 'The label strength (the dose from the actuator) is graded; the valve delivers 100 or 200 mcg.',
     martMax: (n, max) => `${n} inhalations a day in total exceeds the maximum of ${max}.`,
     maxAmount: (m) => m.n ? `${m.n} inhalation${m.n > 1 ? 's' : ''} a day` : `${m.mcg} mcg a day`,
     maxInfo: (txt, src) => `Label maximum (adults): ${txt} (${src}).`,
@@ -4841,10 +4969,12 @@ const ICS_TEXT = {
     remove: 'ลบ',
     resultTitle: 'ขนาด ICS รวมต่อวัน',
     overall: 'สรุป',
-    molecule: { bdp: 'Beclometasone (อนุภาคมาตรฐาน)', bdpEf: 'Beclometasone (อนุภาคละเอียดพิเศษ)', bud: 'Budesonide', budNeb: 'Budesonide (ชนิดพ่นละออง)', ff: 'Fluticasone furoate', fp: 'Fluticasone propionate' },
-    grade: { below: 'ต่ำกว่าขนาดต่ำ', low: 'ขนาดต่ำ', medium: 'ขนาดปานกลาง', high: 'ขนาดสูง', above: 'เกินตาราง GINA', na: 'ไม่มีการจัดระดับ' },
-    band: (b) => b ? `เกณฑ์ GINA: ต่ำ ${b.lo === b.hi ? b.lo : b.lo + '–' + b.hi}${b.med == null ? '' : b.med === b.hi ? `, สูง >${b.hi}` : `, ปานกลาง >${b.hi}–${b.med}, สูง >${b.med}`} mcg/วัน` : 'ไม่มีเกณฑ์ GINA สำหรับกลุ่มอายุนี้',
+    molecule: { bdp: 'Beclometasone (อนุภาคมาตรฐาน)', bdpEf: 'Beclometasone (อนุภาคละเอียดพิเศษ)', bud: 'Budesonide', budNeb: 'Budesonide (ชนิดพ่นละออง)', ff: 'Fluticasone furoate', fp: 'Fluticasone propionate', mom: 'Mometasone (pMDI)', cic: 'Ciclesonide (pMDI)' },
+    grade: { below: 'ต่ำกว่าขนาดต่ำ', low: 'ขนาดต่ำ', lowmed: 'ขนาดต่ำถึงปานกลาง (GINA ให้เกณฑ์เดียว)', medium: 'ขนาดปานกลาง', high: 'ขนาดสูง', above: 'เกินตาราง GINA', na: 'ไม่มีการจัดระดับ' },
+    band: (b) => b ? `เกณฑ์ GINA: ${b.merged ? 'ต่ำถึงปานกลาง' : 'ต่ำ'} ${b.lo === b.hi ? b.lo : b.lo + '–' + b.hi}${b.med == null ? '' : b.med === b.hi ? `, สูง >${b.hi}` : `, ปานกลาง >${b.hi}–${b.med}, สูง >${b.med}`} mcg/วัน` : 'ไม่มีเกณฑ์ GINA สำหรับกลุ่มอายุนี้',
     metered: (lab, mcg) => `ฉลากระบุ ${lab} mcg เป็นขนาดที่ออกจากอุปกรณ์ เท่ากับ ${mcg} mcg ขนาดที่ตวง (GINA ใช้ขนาดที่ตวง)`,
+    labelOnly: 'ความแรงตามฉลากเป็นขนาดที่ออกจากอุปกรณ์ ฉลากสหรัฐฯ ไม่ระบุขนาดที่ตวง จึงจัดระดับจากความแรงตามฉลาก',
+    labelCic: 'จัดระดับจากความแรงตามฉลาก (ขนาดที่ออกจากปากอุปกรณ์) โดยวาล์วปล่อยยา 100 หรือ 200 mcg',
     martMax: (n, max) => `รวม ${n} ครั้งต่อวัน เกินขนาดสูงสุด ${max} ครั้ง`,
     maxAmount: (m) => m.n ? `${m.n} ครั้งต่อวัน` : `${m.mcg} mcg ต่อวัน`,
     maxInfo: (txt, src) => `ขนาดสูงสุดตามฉลาก (ผู้ใหญ่): ${txt} (${src})`,
@@ -4863,7 +4993,7 @@ const ICS_TEXT = {
     source: 'ที่มา: GINA 2026 Summary Guide, Table 6 (ขนาด ICS ที่ตวงต่อวัน ระดับต่ำ ปานกลาง และสูง)',
   },
 };
-const GRADE_TONE = { below: 'bg-slate-100 text-slate-700 border-slate-200', low: 'bg-emerald-100 text-emerald-800 border-emerald-200', medium: 'bg-amber-100 text-amber-800 border-amber-200', high: 'bg-red-100 text-red-800 border-red-200', above: 'bg-red-100 text-red-800 border-red-200', na: 'bg-slate-100 text-slate-700 border-slate-200' };
+const GRADE_TONE = { below: 'bg-slate-100 text-slate-700 border-slate-200', low: 'bg-emerald-100 text-emerald-800 border-emerald-200', lowmed: 'bg-amber-100 text-amber-800 border-amber-200', medium: 'bg-amber-100 text-amber-800 border-amber-200', high: 'bg-red-100 text-red-800 border-red-200', above: 'bg-red-100 text-red-800 border-red-200', na: 'bg-slate-100 text-slate-700 border-slate-200' };
 const CalcIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="4" y="2" width="16" height="20" rx="2" /><line x1="8" y1="6" x2="16" y2="6" /><line x1="8" y1="11" x2="8" y2="11.01" /><line x1="12" y1="11" x2="12" y2="11.01" /><line x1="16" y1="11" x2="16" y2="11.01" /><line x1="8" y1="15" x2="8" y2="15.01" /><line x1="12" y1="15" x2="12" y2="15.01" /><line x1="16" y1="15" x2="16" y2="18" /><line x1="8" y1="18" x2="12" y2="18" /></svg>);
 const ICS_PRODUCTS = deviceData.filter(d => icsInfo(d)).sort((a, b) => a.marketName.localeCompare(b.marketName));
 const newIcsRow = (id) => {
@@ -4957,6 +5087,7 @@ const IcsCalculatorModal = ({ lang, onClose }) => {
                 <div className="text-xs text-slate-600">
                   <span className="font-semibold">{c.molecule[info.key]}</span>: {perMcg} mcg × {count} = <span className="font-bold tabular-nums">{perMcg * count} mcg/day</span>
                   {info.converted && <span className="block text-slate-500">{c.metered(info.labelled, info.mcg)}</span>}
+                  {info.labelNote && <span className="block text-slate-500" data-ics-labelonly>{c[info.labelNote]}</span>}
                   {martMax && count > martMax && <span className="block font-semibold text-red-700">{c.martMax(count, martMax)}</span>}
                   {lm && <span data-ics-max={overMax ? 'over' : 'ok'} className={`block ${overMax ? 'font-semibold text-red-700' : 'text-slate-500'}`}>{overMax ? c.maxOver(c.maxAmount(lm), lm.src) : c.maxInfo(c.maxAmount(lm), lm.src)}</span>}
                 </div>
@@ -5620,7 +5751,8 @@ const inferGinaFromRegimen = (rows) => {
   const byKey = {}; let neb = false;
   maint.forEach(x => { const info = icsInfo(x.med); if (!info) return; if (info.neb) { neb = true; return; } byKey[info.key] = (byKey[info.key] || 0) + info.mcg * maintOf(x); });
   const grades = Object.keys(byKey).map(k => ({ k, mcg: byKey[k], grade: gradeIcs(k, byKey[k]) }));
-  const rank = { below: 1, low: 1, medium: 2, high: 3, above: 3, na: 1 };
+  // lowmed: GINA's single low-to-medium band (fluticasone furoate 100, mometasone pMDI 200-400) counts as the lower step
+  const rank = { below: 1, low: 1, lowmed: 1, medium: 2, high: 3, above: 3, na: 1 };
   const lvl = grades.length ? ['', 'low', 'medium', 'high'][Math.max(...grades.map(g => rank[g.grade]))] : (neb ? 'low' : null);
   const track = martRel ? 1 : 2;
   let step, basis;
@@ -6372,6 +6504,11 @@ const REFERENCES = [
   { key: 'weers', cite: 'Weers J. Suboptimal inspiratory flow rates with passive dry powder inhalers: big issue or overstated problem? Front Drug Deliv. 2022;2:855234.', url: 'https://doi.org/10.3389/fddev.2022.855234' },
   { key: 'grant', cite: 'Grant AC, Walker R, Hamilton M, Garrill K. The ELLIPTA® dry powder inhaler: design, functionality, in vitro dosing performance and critical task compliance by patients and caregivers. J Aerosol Med Pulm Drug Deliv. 2015;28(6):474–485.', url: 'https://doi.org/10.1089/jamp.2015.1223' },
   { key: 'haikarainen', cite: 'Haikarainen J, Rytilä P, Roos S, Metsärinne S, Happonen A. Dose uniformity of budesonide Easyhaler® under simulated real-life conditions and with low inspiration flow rates. Chron Respir Dis. 2018;15(3):265–271.', url: 'https://doi.org/10.1177/1479972317745733' },
+  { key: 'corradi', cite: 'Corradi M, Chrystyn H, Cosio BG, Pirozynski M, Loukides S, Louis R, Spinola M, Usmani OS. NEXThaler, an innovative dry powder inhaler delivering an extrafine fixed combination of beclometasone and formoterol to treat large and small airways in asthma. Expert Opin Drug Deliv. 2014;11(9):1497–1506.', url: 'https://doi.org/10.1517/17425247.2014.928282' },
+  { key: 'ghosh', cite: 'Ghosh S, Ohar JA, Drummond MB. Peak inspiratory flow rate in chronic obstructive pulmonary disease: implications for dry powder inhalers. J Aerosol Med Pulm Drug Deliv. 2017;30(6):381–387.', url: 'https://doi.org/10.1089/jamp.2017.1416' },
+  { key: 'clark', cite: 'Clark AR, Weers JG, Dhand R. The confusing world of dry powder inhalers: it is all about inspiratory pressures, not inspiratory flow rates. J Aerosol Med Pulm Drug Deliv. 2020;33(1):1–11.', url: 'https://doi.org/10.1089/jamp.2019.1556' },
+  { key: 'laube', cite: 'Laube BL, Janssens HM, de Jongh FHC, Devadason SG, Dhand R, Diot P, Everard ML, Horvath I, Navalesi P, Voshaar T, Chrystyn H. What the pulmonary specialist should know about the new inhalation therapies. Eur Respir J. 2011;37(6):1308–1331.', url: 'https://doi.org/10.1183/09031936.00166410' },
+  { key: 'wu', cite: 'Wu Y, Zhang J. Standardized inhalation capability assessment: a key to optimal inhaler selection for inhalation therapy. J Transl Intern Med. 2023;11(1):26–29.', url: 'https://doi.org/10.2478/jtim-2022-0073' },
   { key: 'fda', cite: 'สำนักงานคณะกรรมการอาหารและยา. ระบบค้นหาข้อมูลผลิตภัณฑ์ยา (accessed 7 October 2026).', url: 'https://pertento.fda.moph.go.th/FDA_SEARCH_DRUG/SEARCH_DRUG/FRM_SEARCH_DRUG.aspx' },
   { key: 'bts', cite: "O'Driscoll BR, Howard LS, Earis J, Mak V; British Thoracic Society Emergency Oxygen Guideline Group. BTS guideline for oxygen use in adults in healthcare and emergency settings. Thorax. 2017;72(Suppl 1):ii1–ii90.", url: 'https://doi.org/10.1136/thoraxjnl-2016-209729' },
   { key: 'labels', cite: 'US FDA drug labels (openFDA, Drugs@FDA); UK Summaries of Product Characteristics (electronic medicines compendium); EMA European public assessment reports; HPRA (Ireland) SmPCs (accessed 8 October 2026).', url: 'https://open.fda.gov/apis/drug/label/' },
@@ -6603,13 +6740,14 @@ const StatusChip = ({ med, r, t }) => {
   );
 };
 // Country block on cards and list rows. One line per country selected in the Countries filter where the product
-// is or was registered: status chip, licence holder there, and on the Thailand line the NLEM type. Every other
-// country (not selected, or not registered) sits as a chip on one last row, with any extra controls (children).
-// With holders hidden, all four chips share that one row.
+// is or was registered: status chip, licence holder there, and on the Thailand line the NLEM type. The other
+// chips sit on one last row, with any extra controls (children): a selected country where the product is not
+// registered (grey), and any unselected country where it is or was registered. An unselected country where it
+// was never registered gets no chip (the detail view lists all five). With holders hidden, every chip is on that row.
 const CountryLines = ({ med, t, regions = ['th'], showHolder = true, className = '', listRow = false, children = null }) => {
   const all = LABEL_REGIONS.map(r => [r, statusIn(med, r)]);
   const lined = showHolder ? all.filter(([r, st]) => regions.includes(r) && st !== 'never') : [];
-  const rest = all.filter(([r]) => !lined.some(([x]) => x === r));
+  const rest = all.filter(([r, st]) => !lined.some(([x]) => x === r) && (st !== 'never' || regions.includes(r)));
   // NLEM is Thailand's list: its type sits next to the TH chip, and only while Thailand is selected
   const nlem = (r, st) => (r === 'th' && st !== 'never' && regions.includes('th') ? <NlemBadge med={med} t={t} compact={true} /> : null);
   return (
@@ -6814,6 +6952,62 @@ const LegendModal = ({ t, onClose }) => {
     </div>
   );
 };
+// ---- Sources shown in the detail view ----
+// Search words checked on 13 Oct 2026: a search of that register for the word returns this product (same active
+// substances). US = DailyMed, UK = MHRA Products, EU = the Irish HPRA list. A product with no word here gets the
+// register's front page instead (its name differs in that country, or the register returned nothing).
+const SRC_TERM = (() => {
+  const src = {
+    us: { 'Ventolin': [1], 'Anoro': [11], 'Trelegy': [12, 103], 'Spiriva': [13, 15, 546], 'Combivent': [16], 'Salbutamol': [17], 'Pulmicort': [19, 91, 92], 'Breztri': [21], 'Stiolto Respimat': [22], 'Atrovent': [23], 'Serevent': [24], 'Advair HFA': [41, 42, 43], 'Symbicort': [51, 52, 529, 530], 'Advair Diskus': [61, 62, 63], 'Breo Ellipta': [101, 102], 'Flovent HFA': [201, 202, 203], 'QVAR': [261, 504], 'ProAir': [501, 524], 'Xopenex': [502], 'Airsupra': [503], 'Alvesco': [505, 506], 'Arnuity': [507, 508], 'Asmanex': [509, 510, 511], 'AirDuo': [512, 513, 514], 'Dulera': [515, 516], 'Striverdi': [517], 'Perforomist': [518], 'Incruse': [519], 'Tudorza': [520], 'Yupelri': [521], 'Bevespi': [522], 'Duaklir': [523], 'Proventil': [525], 'Flovent': [526, 527, 528] },
+    uk: { 'Ventolin': [1], 'Bricanyl': [8], 'Anoro': [11], 'Trelegy': [12], 'Spiriva': [13, 15], 'Ultibro': [14], 'Pulmicort': [19, 91, 92], 'Spiolto': [22], 'Atrovent': [23], 'Serevent': [24], 'Trimbow': [25, 531], 'Symbicort': [31, 52, 71, 72], 'Seretide': [41, 42, 43, 61, 62, 63], 'Relvar': [101, 102], 'Flixotide': [201, 202, 203], 'Flutiform': [302], 'Onbrez': [303, 304], 'Seebri': [305], 'DuoResp': [405, 406], 'Combivent': [421], 'Alvesco': [505, 506], 'Asmanex': [511], 'Striverdi': [517], 'Incruse': [519], 'Bevespi': [522], 'Duaklir': [523], 'Qvar': [535, 536], 'Atectura': [537, 538, 539], 'Enerzair': [541] },
+    eu: { 'Ventolin': [1], 'Bricanyl': [8], 'Anoro': [11], 'Trelegy': [12], 'Spiriva': [13, 15], 'Ultibro': [14], 'Salbutamol': [17], 'Pulmicort': [19, 91, 92], 'Spiolto': [22], 'Atrovent': [23], 'Serevent': [24], 'Trimbow': [25, 531], 'Symbicort': [31, 52, 71, 72], 'Seretide': [41, 42, 43, 61, 62, 63], 'Relvar': [101, 102], 'Flixotide': [201, 202, 203], 'Bufomix': [291], 'Flutiform': [302], 'Onbrez': [303, 304], 'Seebri': [305], 'DuoResp': [405, 406], 'Combivent': [421], 'Alvesco': [505, 506], 'Asmanex': [511], 'Striverdi': [517], 'Incruse': [519], 'Bevespi': [522], 'Duaklir': [523], 'Qvar': [535, 536], 'Atectura': [537, 538, 539], 'Enerzair': [541], 'Berotec': [545] },
+  };
+  const out = {};
+  for (const r in src) { out[r] = {}; for (const q in src[r]) src[r][q].forEach(id => { out[r][id] = q; }); }
+  return out;
+})();
+const refUrl = (key) => (REFERENCES.find(r => r.key === key) || {}).url;
+const hpraUrl = (q, past) => 'https://www.hpra.ie/find-a-medicine/for-human-use/' + (past ? 'withdrawn-medicines' : 'authorised-medicines') + (q ? '?data=' +
+  btoa(JSON.stringify({ id: null, skip: 0, take: 10, query: q, order: 'LastUpdated DESC', status: past ? 'Withdrawn' : 'Authorised', filters: { from: null, to: null, routes: null, placeOfSale: null, advertisingConditions: null, marketingAvailability: null, atcCode: null, medicineType: null } })) : '');
+// Register links for one country: the register itself, plus a search for the product where a search word is verified
+const registerSources = (med, r, t) => {
+  const q = statusIn(med, r) === 'never' ? null : (SRC_TERM[r] || {})[med.id];
+  if (r === 'th') return [{ label: t.srcThFda, url: refUrl('fda') }];
+  if (r === 'us') return [{ label: 'Drugs@FDA', url: 'https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm' }, ...(q ? [{ label: t.srcSearch('DailyMed', q), url: 'https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=human&query=' + encodeURIComponent(q) }] : [])];
+  if (r === 'uk') return [{ label: q ? t.srcSearch('MHRA Products', q) : 'MHRA Products', url: 'https://products.mhra.gov.uk/' + (q ? 'search/?search=' + encodeURIComponent(q) + '&page=1&doc=Spc' : '') }];
+  if (r === 'eu') { const past = statusIn(med, r) === 'past'; return [{ label: q ? t.srcSearch('HPRA', q) : 'HPRA', url: hpraUrl(q, past) }]; }
+  return [{ label: 'PMDA', url: 'https://www.pmda.go.jp/PmdaSearch/iyakuSearch/' }];
+};
+// Minimum inspiratory flow: the reference behind each device's value (see pifNeeded above)
+const flowSources = (med, t) => {
+  if (flowUnknown(med)) return null;
+  const R = (key, label) => ({ label, url: refUrl(key) });
+  const G = R('ghosh', 'Ghosh 2017'); // table of minimal and optimal flow for each dry-powder inhaler
+  if (med.type === 'Nebulizer') return [R('laube', 'Laube 2011'), { label: t.srcFlowNeb }];
+  if (med.type === 'MDI') return [R('laube', 'Laube 2011'), { label: t.srcFlowMdi }];
+  if (med.type === 'SMI') return [R('wu', 'Wu 2023'), { label: t.srcFlowSmi }];
+  if (['Turbuhaler', 'Diskus', 'Handihaler', 'Breezhaler'].includes(med.shape)) return [G, R('weers', 'Weers 2022')];
+  if (med.shape === 'Ellipta') return [G, R('grant', 'Grant 2015')];
+  if (med.shape === 'Easyhaler') return [G, R('haikarainen', 'Haikarainen 2018')];
+  if (med.shape === 'NEXThaler') return [G, R('corradi', 'Corradi 2014')];
+  if (med.shape === 'Spiromax') return [G, ...(SHAPE_LABEL[med.id] === 'RespiClick' ? [{ label: t.srcFlowRespiClick }] : [])];
+  if (med.shape === 'Pressair') return [G, { label: t.srcFlowGenuair }];
+  if (med.shape === 'Twisthaler') return [R('clark', 'Clark 2020'), { label: t.srcFlowTwist }];
+  return [];
+};
+const isUnknownText = (x) => /^unknown$/i.test(String(x || '').trim());
+// One "Source:" line. items: [{ label, url? }] (no url = plain text); [] = no source recorded; null = the value is Unknown.
+const SourceLine = ({ items, t, k }) => (
+  <p className="text-[10px] font-medium text-slate-400 leading-snug pt-1 break-words text-left" data-src={k}>
+    <span className="font-bold">{t.srcLabel}:</span>{' '}
+    {items == null ? <span data-src-unknown>{t.srcUnknown}</span> : items.length === 0 ? <span data-src-none>{t.srcNone}</span> : items.map((it, i) => (
+      <span key={i}>{i > 0 && ' · '}{it.url
+        ? <a href={it.url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline decoration-dotted hover:decoration-solid" data-src-link>{it.label}</a>
+        : <span data-src-text>{it.label}</span>}</span>
+    ))}
+  </p>
+);
+
 const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   const section = (title, children, attrs = {}) => (
     <section className="bg-slate-50 rounded-xl border border-slate-200 p-3 sm:p-4" {...attrs}>
@@ -6821,12 +7015,19 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
       {children}
     </section>
   );
-  const row = (label, value, attrs = {}) => (
-    <div className="flex justify-between items-start gap-3 py-1.5 border-b border-slate-200 last:border-b-0 text-xs min-w-0" {...attrs}>
-      <span className="text-slate-500 font-medium break-words min-w-0">{label}</span>
-      <span className="font-bold text-slate-700 text-right break-words shrink-0 max-w-[65%]">{value}</span>
+  const row = (label, value, attrs = {}, src = null) => (
+    <div className="py-1.5 border-b border-slate-200 last:border-b-0 text-xs min-w-0">
+      <div className="flex justify-between items-start gap-3 min-w-0" {...attrs}>
+        <span className="text-slate-500 font-medium break-words min-w-0">{label}</span>
+        <span className="font-bold text-slate-700 text-right break-words shrink-0 max-w-[65%]">{value}</span>
+      </div>
+      {src}
     </div>
   );
+  // Source lines are folded away until asked for (remembered on this device)
+  const [showSrc, setShowSrc] = useState(() => { try { return localStorage.getItem('bdg-show-sources') === '1'; } catch (e) { return false; } });
+  const toggleSrc = () => setShowSrc(v => { try { localStorage.setItem('bdg-show-sources', v ? '0' : '1'); } catch (e) {} return !v; });
+  const src = (k, items) => (showSrc ? <SourceLine k={k} items={items} t={t} /> : null);
   const statusLabel = { current: [t.regNow, 'text-emerald-700'], past: [t.regPast, 'text-amber-700'], never: [t.regNever, 'text-slate-400'] };
   const statusDetail = (r, st) => {
     if (st === 'current') return t.detailCurrent((licenceIn(med, r) || []).map(x => t.countryInd[x]).join(', '));
@@ -6836,6 +7037,9 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   };
   const nlemNote = nlemNoteOf(med, t);
   const sf = spacerFit(med);
+  const ventSrc = !med.ventCompatible ? [] : med.type === 'MDI' ? [{ label: 'Dhand 1996', url: refUrl('dhand') }, { label: t.srcVentMdiNote }] : med.type === 'SMI' ? [{ label: 'Fang 2020', url: refUrl('fang') }, { label: t.srcVentSmiNote }] : [];
+  const priceSrc = med.priceLevel == null ? null : med.priceEst ? [{ label: t.priceEstNote }] : [{ label: t.srcRefPrice, url: refUrl('refprice') }];
+  const infoSrc = (value) => (isUnknownText(value) ? null : [{ label: t.srcProductInfoShort }]);
   return (
     <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} data-detail-modal>
       <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" role="dialog" aria-modal="true" aria-label={med.marketName}>
@@ -6855,33 +7059,39 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
         </div>
 
         <div className="p-3 sm:p-5 flex-grow overflow-y-auto flex flex-col gap-3 bg-white">
-          <DiagnosticBadges indications={med.indications} t={t} med={med} className="" />
+          <div>
+            <DiagnosticBadges indications={med.indications} t={t} med={med} className="" />
+            {src('indications', [{ label: t.srcIndications }])}
+          </div>
           {exacNoteOf(med, t) && <p className="text-xs font-medium leading-snug text-rose-700" data-exac-note>{exacNoteOf(med, t)}</p>}
 
           {section(t.detailDose, (
-            <div className="text-xs" data-detail-dose>
-              <DoseRangeDisplay doseRange={med.doseRange} viewType="grid" isMart={med.isMart} martMax={med.martMax} t={t} />
-            </div>
+            <>
+              <div className="text-xs" data-detail-dose>
+                <DoseRangeDisplay doseRange={med.doseRange} viewType="grid" isMart={med.isMart} martMax={med.martMax} t={t} />
+              </div>
+              {src('dose', [{ label: t.srcProductInfo }, ...(icsLevels(med).length ? [{ label: t.srcGinaLevels, url: refUrl('gina') }] : [])])}
+            </>
           ))}
 
           {section(t.detailDevice, (
             <>
-              {row(t.peakFlow, <span className="text-cyan-700" data-flow>{flowText(med, t)}</span>)}
-              {sf && row(t.spacerLabel, <SpacerFit med={med} t={t} />)}
+              {row(t.peakFlow, <span className="text-cyan-700" data-flow>{flowText(med, t)}</span>, {}, src('flow', flowSources(med, t)))}
+              {sf && row(t.spacerLabel, <SpacerFit med={med} t={t} />, {}, src('spacer', sf.kind === 'named' ? [{ label: t.srcNamedLabel(sf.src) }] : []))}
               {row(t.ventilator, (
                 <span className={med.ventCompatible ? 'text-cyan-700' : 'text-rose-700'} data-detail-vent>
                   {med.ventCompatible ? t.compatible : t.notCompatible}
                   <span className="block text-[11px] font-medium opacity-90 leading-snug"><VentNote med={med} t={t} /></span>
                 </span>
-              ))}
+              ), {}, src('vent', ventSrc))}
             </>
           ))}
 
           {section(t.detailPack, (
             <>
-              {row(t.estCost, <PriceTag med={med} t={t} className="text-[12px]" />)}
-              {row(t.totalDosesExp, packText(med, t), { 'data-card-pack': '' })}
-              {row(t.expLabel, <span className="text-rose-600">{expText(med, t)}</span>, { 'data-card-exp': '' })}
+              {row(t.estCost, <PriceTag med={med} t={t} className="text-[12px]" />, {}, src('price', priceSrc))}
+              {row(t.totalDosesExp, packText(med, t), { 'data-card-pack': '' }, src('pack', infoSrc(med.totalDoses)))}
+              {row(t.expLabel, <span className="text-rose-600">{expText(med, t)}</span>, { 'data-card-exp': '' }, src('expiry', infoSrc(med.expiration)))}
             </>
           ))}
 
@@ -6902,11 +7112,11 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
                     <p className="text-[11px] text-slate-500 mt-0.5 leading-snug break-words" data-detail-status>{statusDetail(r, st)}</p>
                     {r === 'th' && nlemNote && <p className="text-[11px] text-amber-700 font-medium mt-0.5 leading-snug break-words" data-detail-nlem>{t.nlemTitle}: {nlemNote}</p>}
                     {r === 'jp' && st !== 'never' && JP_NAME[med.id] && <p className="text-[11px] text-violet-700 font-medium mt-0.5 leading-snug break-words" data-detail-jpname>{t.jpName(JP_NAME[med.id])}</p>}
+                    {src('reg-' + r, [...registerSources(med, r, t), ...(r === 'th' && nlemOf(med) ? [{ label: t.srcNlem, url: refUrl('nlem') }] : [])])}
                   </div>
                 );
               })}
-              {row(t.makerLabel, makerOf(med) || t.unknown, { 'data-detail-maker': '' })}
-              <p className="text-[10px] text-slate-400 leading-snug pt-1.5">{t.detailSources}</p>
+              {row(t.makerLabel, makerOf(med) || t.unknown, { 'data-detail-maker': '' }, src('maker', makerOf(med) ? [{ label: t.srcThFda, url: refUrl('fda') }] : null))}
             </>
           ), { 'data-detail-reg': '' })}
 
@@ -6917,7 +7127,10 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 p-3 sm:p-4 border-t border-slate-100 shrink-0">
+        <div className="flex flex-wrap items-center justify-end gap-2 p-3 sm:p-4 border-t border-slate-100 shrink-0">
+          <button onClick={toggleSrc} aria-pressed={showSrc} data-src-toggle className={`mr-auto flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${showSrc ? 'bg-slate-100 text-slate-800 border-slate-300' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'}`}>
+            <BookOpen className="w-3.5 h-3.5" /> {showSrc ? t.srcHide : t.srcShow}
+          </button>
           <button onClick={onToggleSelect} data-detail-select className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${isSelected ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'}`}>
             {isSelected ? <Check className="w-3.5 h-3.5" /> : <CompareIcon className="w-3.5 h-3.5" />} {isSelected ? t.selected : t.select}
           </button>
@@ -7207,6 +7420,17 @@ function App() {
 
   // Phone width (below 640 px): shorter search placeholder, and the filter panel starts closed
   const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  // Phones: the search box is a magnifier button until tapped; it closes again when focus leaves it (the text stays)
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchRef = React.useRef(null);
+  useEffect(() => {
+    if (!searchOpen) return;
+    if (searchRef.current) searchRef.current.focus();
+    // a tap anywhere outside the bar closes it too (the keyboard's focus does not always report leaving)
+    const outside = (e) => { if (!e.target.closest('[data-search-box]')) setSearchOpen(false); };
+    document.addEventListener('pointerdown', outside);
+    return () => document.removeEventListener('pointerdown', outside);
+  }, [searchOpen]);
   // Filter panel: open by default on tablet and desktop, closed by default on phones; the Filters button toggles it
   const [filtersOpen, setFiltersOpen] = useState(() => !(typeof window !== 'undefined' && window.innerWidth < 640));
   // Product detail view: opened from a card or list row (anywhere that is not itself a control)
@@ -7680,7 +7904,7 @@ function App() {
           key={compareList[0].id}
           med={compareList[0]}
           t={t}
-          pool={rxData}
+          countries={countries}
           onClose={() => setIsEquivOpen(false)}
           onConvert={(target) => { setCompareList([compareList[0], target]); setIsEquivOpen(false); setIsConvertOpen(true); }}
         />
@@ -8319,32 +8543,29 @@ function App() {
 
         <header className="mb-4 md:mb-6">
           <div className="mb-3">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 mb-1 md:mb-2 leading-tight pr-32 md:pr-48">{t.title}</h1>
-            <p className="text-xs md:text-sm text-slate-600">{t.subtitle}</p>
-            <p className="text-[10px] md:text-xs font-semibold text-indigo-500 mt-1">Made by Warodom Phaenthong, M.D.</p>
-            <a href="#disclaimer-heading" onClick={(e) => { e.preventDefault(); document.getElementById('disclaimer-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="block mt-1 text-[11px] md:text-xs font-semibold text-amber-700 hover:underline print:hidden">{t.discLink}</a>
+            {/* Phones: one-line title, no tagline, credit and disclaimer link on one line, so the list starts higher */}
+            <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-800 mb-1 md:mb-2 leading-tight sm:pr-32 md:pr-48">{t.title}</h1>
+            <p className="hidden sm:block text-xs md:text-sm text-slate-600" data-subtitle>{t.subtitle}</p>
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 sm:block" data-credit-line>
+              <p className="text-[10px] md:text-xs font-semibold text-indigo-500 sm:mt-1">Made by Warodom Phaenthong, M.D.</p>
+              <a href="#disclaimer-heading" onClick={(e) => { e.preventDefault(); document.getElementById('disclaimer-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }} className="block sm:mt-1 text-[11px] md:text-xs font-semibold text-amber-700 hover:underline print:hidden">{t.discLink}</a>
+            </div>
           </div>
 
-          {/* Guides: three compact buttons per row on phones (two rows), a normal button row from tablet width up */}
-          <div className="grid grid-cols-3 gap-1.5 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 print:hidden w-full" data-guide-buttons>
-            <button onClick={() => { setIsExacModalOpen(true); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-rose-600 hover:bg-rose-700 border border-rose-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <ActivityIcon className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{t.exacGuide}</span>
-            </button>
-            <button onClick={() => { setIsWizardOpen(true); setIsExacModalOpen(false); setIsDeviceGuideOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-emerald-600 hover:bg-emerald-700 border border-emerald-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <Stethoscope className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{t.maintenanceGuide}</span>
-            </button>
-            <button onClick={() => { setIsFollowOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-violet-600 hover:bg-violet-700 border border-violet-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <FollowIcon className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{FOLLOW_TEXT[lang].btn}</span>
-            </button>
-            <button onClick={() => { setIsDeviceGuideOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-blue-600 hover:bg-blue-700 border border-blue-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{t.deviceGuide}</span>
-            </button>
-            <button onClick={() => { setIsSpacerOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-teal-600 hover:bg-teal-700 border border-teal-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <SpacerIcon className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{SPACER_TEXT[lang].btn}</span>
-            </button>
-            <button onClick={() => { setIsIcsCalcOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }} className="flex min-w-0 sm:flex-grow-0 items-center justify-center gap-1 sm:gap-1.5 md:gap-2 bg-fuchsia-600 hover:bg-fuchsia-700 border border-fuchsia-700 text-white px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm">
-              <CalcIcon className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="text-[11px] leading-tight text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 break-words">{ICS_TEXT[lang].btn}</span>
-            </button>
+          {/* Guides: on phones one row of six icon tiles with short names; a normal button row from tablet width up */}
+          <div className="grid grid-cols-6 gap-1 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 print:hidden w-full" data-guide-buttons>
+            {[
+              ['exac', t.exacGuide, 'bg-rose-600 hover:bg-rose-700 border-rose-700', ActivityIcon, () => { setIsExacModalOpen(true); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['maint', t.maintenanceGuide, 'bg-emerald-600 hover:bg-emerald-700 border-emerald-700', Stethoscope, () => { setIsWizardOpen(true); setIsExacModalOpen(false); setIsDeviceGuideOpen(false); }],
+              ['follow', FOLLOW_TEXT[lang].btn, 'bg-violet-600 hover:bg-violet-700 border-violet-700', FollowIcon, () => { setIsFollowOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['device', t.deviceGuide, 'bg-blue-600 hover:bg-blue-700 border-blue-700', BookOpen, () => { setIsDeviceGuideOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); }],
+              ['spacer', SPACER_TEXT[lang].btn, 'bg-teal-600 hover:bg-teal-700 border-teal-700', SpacerIcon, () => { setIsSpacerOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['steroid', ICS_TEXT[lang].btn, 'bg-fuchsia-600 hover:bg-fuchsia-700 border-fuchsia-700', CalcIcon, () => { setIsIcsCalcOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+            ].map(([k, label, tone, Icon, open]) => (
+              <button key={k} onClick={open} data-guide={k} aria-label={label} title={label} className={`flex flex-col sm:flex-row min-w-0 sm:flex-grow-0 items-center justify-center gap-0.5 sm:gap-1.5 md:gap-2 ${tone} border text-white px-0.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm`}>
+                <Icon className="w-4 h-4 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" /> <span className="text-[10px] max-[359px]:text-[9px] leading-[1.15] text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 max-w-full break-words">{narrow ? t.guideShort[k] : label}</span>
+              </button>
+            ))}
           </div>
         </header>
 
@@ -8353,12 +8574,18 @@ function App() {
 
           {/* Row 1: Search + Sort + View Mode (+ Filters button on phones) */}
           <div className="flex gap-2 md:gap-3 w-full h-9 md:h-10">
-            <div className="relative flex-1 min-w-0 sm:flex-none sm:w-[45%] md:w-[35%] lg:w-1/3 h-full">
-              <input type="text" placeholder={narrow ? t.searchPlaceholderShort : t.searchPlaceholder} className="w-full h-full pl-3 pr-8 md:pl-4 md:pr-10 rounded-lg border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-xs md:text-sm transition-shadow" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-              <Search className="absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5 md:w-4 md:h-4 pointer-events-none" />
+            <button onClick={() => setSearchOpen(true)} aria-label={t.searchOpen} title={t.searchOpen} aria-expanded={searchOpen} data-search-open
+              className={`${searchOpen ? 'hidden' : 'flex sm:hidden'} shrink-0 h-full w-9 items-center justify-center rounded-lg border shadow-sm transition-colors ${searchTerm !== '' ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-500' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+              <Search className="w-4 h-4" />
+            </button>
+            <div className={`${searchOpen ? 'block flex-1' : 'hidden sm:block'} relative min-w-0 sm:flex-none sm:w-[45%] md:w-[35%] lg:w-1/3 h-full`} data-search-box>
+              <input ref={searchRef} type="text" placeholder={t.searchPlaceholder} className="w-full h-full pl-3 pr-9 md:pl-4 md:pr-10 rounded-lg border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-base sm:text-xs md:text-sm transition-shadow" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onBlur={() => setSearchOpen(false)} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }} />
+              <Search className="hidden sm:block absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5 md:w-4 md:h-4 pointer-events-none" />
+              <button onMouseDown={(e) => e.preventDefault()} onClick={() => { setSearchTerm(''); setSearchOpen(false); if (searchRef.current) searchRef.current.blur(); }} aria-label={t.searchClose} title={t.searchClose} data-search-close
+                className="flex sm:hidden absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="relative w-[104px] max-[359px]:w-[88px] shrink-0 sm:w-auto sm:shrink sm:flex-grow h-full" data-sort>
+            <div className={`${searchOpen ? 'hidden sm:block' : 'block'} relative flex-1 min-w-0 sm:basis-auto h-full`} data-sort>
               <div className="absolute inset-y-0 left-0 pl-2 sm:pl-2.5 flex items-center pointer-events-none">
                 <SortIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-400" />
               </div>
@@ -8372,7 +8599,7 @@ function App() {
               </select>
             </div>
 
-            <div className="flex bg-white rounded-lg border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-full">
+            <div className={`${searchOpen ? 'hidden sm:flex' : 'flex'} bg-white rounded-lg border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-full`}>
               <button onClick={() => setViewMode('grid')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'grid' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.gridView}>
                 <LayoutGrid className="w-3.5 h-3.5 md:w-4 md:h-4" />
               </button>

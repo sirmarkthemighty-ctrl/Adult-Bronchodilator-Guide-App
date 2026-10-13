@@ -161,7 +161,7 @@ async function main() {
       // the bar and the dialog slide in: wait until their entry animations have finished
       const settled = async (el) => { for (let i = 0; i < 50 && el.getAnimations().some(a => a.playState !== 'finished'); i++) await wait(100); return el.getBoundingClientRect(); };
       const bar = await settled(d.querySelector('[data-select-bar]').parentElement).then(() => d.querySelector('[data-select-bar]').getBoundingClientRect());
-      [...d.querySelectorAll('button')].find(b => /Device Guide/.test(b.textContent)).click(); await wait(600);
+      d.querySelector('[data-guide="device"]').click(); await wait(600);
       const ov = d.querySelector('.fixed.inset-0'), o = ov.getBoundingClientRect(), p = await settled(ov.firstElementChild);
       return { screen: window.innerHeight, frame: w.innerHeight, clip: clip(), bar: [Math.round(bar.top), Math.round(bar.bottom)], overlay: Math.round(o.bottom), panel: [Math.round(p.top), Math.round(p.bottom)] };
     })()`, 60000); } finally { clearInterval(draw); }
