@@ -109,6 +109,13 @@ window.__uiAudit = (root = document.body) => {
     const r = b.getBoundingClientRect();
     const x = r.left + r.width / 2, y = r.top + r.height / 2;
     if (r.width < 8 || r.height < 8 || x < 0 || y < 0 || x > vw || y > window.innerHeight) continue;
+    // centre scrolled out of a scrolling box (for example under a dialog's footer): not drawn there, so not covered
+    let outOfScroll = false;
+    for (let e = b.parentElement; e && e !== document.body; e = e.parentElement) {
+      const cs = getComputedStyle(e);
+      if (/auto|scroll/.test(cs.overflowY) && e.scrollHeight > e.clientHeight + 1) { const s = e.getBoundingClientRect(); if (y < s.top + 1 || y > s.bottom - 1) { outOfScroll = true; break; } }
+    }
+    if (outOfScroll) continue;
     const top = document.elementFromPoint(x, y);
     if (!top || top === b || b.contains(top) || top.contains(b)) continue;
     const layer = top.closest('.fixed, .sticky');
