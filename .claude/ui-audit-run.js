@@ -55,6 +55,7 @@ window.__uiAuditRun = async () => {
       b.click(); await wait(600);
       const m = modal();
       if (m) { openAll(m); await wait(200); audit(lang + ' ' + name, m); }
+      if (m && name === 'Exacerbation') { const fb = document.querySelector('[data-figures-btn="exac"]'); if (fb) { fb.click(); await wait(300); const fm = document.querySelector('[data-figures-modal]'); if (fm) audit(lang + ' guideline figures', fm); await esc(); } }
       if (name === 'Exacerbation' && m) {
         const copd = [...m.querySelectorAll('button')].find((x) => /COPD/.test(x.textContent) && /GOLD/.test(x.textContent));
         if (copd) { copd.click(); await wait(400); openAll(m); await wait(200); audit(lang + ' Exacerbation COPD', m); }

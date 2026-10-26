@@ -92,7 +92,7 @@ async function main() {
     if (!ready) throw new Error('App did not render within 30 s (check network access to cdnjs).');
 
     await evaluate(fs.readFileSync(TEST, 'utf8'));
-    const results = await evaluate('window.__bdgE2E()');
+    const results = await evaluate('window.__bdgE2E()', 480000); // the e2e walk now takes more than 4 minutes on this machine
     console.error('[runner] e2e finished: ' + results.length + ' checks');
 
     // UI audits on a fresh page: desktop (light), phone 375 px (light and dark), English and Thai

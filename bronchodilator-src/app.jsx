@@ -2265,6 +2265,14 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.6",
+    date: "October 26, 2026",
+    features: [
+      "Guide windows have a Figures button (Exacerbation, Initial Maintenance, Follow-up, Device Guide, Spacer & Mask, Steroid Dose). It lists the matching diagrams from GINA 2026 (for example Box 4-6, the main treatment figure, and Box 9-4, exacerbations in primary care) and GOLD 2026 (for example Figures 3.8 and 3.9, initial and follow-up treatment, and Figure 4.2, exacerbation severity), and each opens the official report at that figure's page. The figures are copyrighted, so they are linked, not copied into the app.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.5",
     date: "October 14, 2026",
     features: [
@@ -2624,6 +2632,12 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.6": {
+  "features": [
+    "หน้าต่างคู่มือมีปุ่ม แผนภาพ (กำเริบ, ยาควบคุมเริ่มต้น, ติดตามผล, วิธีใช้อุปกรณ์, Spacer และหน้ากาก, ขนาดสเตียรอยด์) แสดงรายการแผนภาพที่เกี่ยวข้องจาก GINA 2026 (เช่น Box 4-6 แผนภาพการรักษาหลัก และ Box 9-4 การดูแลภาวะกำเริบในหน่วยบริการปฐมภูมิ) และ GOLD 2026 (เช่น Figure 3.8 และ 3.9 การรักษาเริ่มต้นและการติดตาม และ Figure 4.2 ความรุนแรงของภาวะกำเริบ) แต่ละรายการเปิดเอกสารฉบับทางการที่หน้าของแผนภาพนั้น แผนภาพมีลิขสิทธิ์ จึงใช้การเชื่อมโยงแทนการคัดลอกมาไว้ในแอป"
+  ],
+  "bugs": []
+ },
  "v1.12.5": {
   "features": [
     "ช่องค้นหาค้นได้ตามสีของอุปกรณ์ด้วย (เช่น ม่วง, ส้ม, green) และตามบริษัท ได้แก่ ผู้รับอนุญาตในไทย ผู้รับอนุญาตในประเทศอื่น และผู้ผลิต (เช่น GlaxoSmithKline, Inpac, แอสตร้าเซนเนก้า) สีอ้างอิงตามรูปอุปกรณ์ ยาที่ยังไม่ได้ยืนยันสีจะไม่ถูกค้นพบด้วยสี",
@@ -4518,7 +4532,7 @@ const DeviceTechniqueModal = ({ t, lang, onClose, onToast = () => {} }) => {
               <p className="text-xs text-slate-500">{t.devGuideSub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="device" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
 
         {/* Device picker */}
@@ -4901,6 +4915,118 @@ const CautionsPanel = ({ med, t }) => {
   );
 };
 
+
+// ---- Official guideline figures ----
+// The GINA and GOLD reports are copyrighted ("do not copy or distribute"), so their figures are not copied into the app:
+// each entry opens the official PDF at the figure's page (PDF page numbers, checked 26 Oct 2026 against the files
+// below; GINA 2026 Strategy Report, GOLD 2026 Report v1.3).
+const GUIDELINE_DOCS = {
+  gina: { name: 'GINA 2026', url: 'https://ginasthma.org/wp-content/uploads/2026/05/GINA-2026-Strategy-Report-WMS.pdf', mb: 17 },
+  gold: { name: 'GOLD 2026', url: 'https://goldcopd.org/wp-content/uploads/2026/01/GOLD-REPORT-2026-v1.3-8Dec2025_WMV2.pdf', mb: 20 },
+};
+// key: [document, figure label, PDF page, title as printed in the report]
+const GUIDELINE_FIGURES = {
+  'gina-2-4': ['gina', 'Box 2-4', 53, 'Investigating poor symptom control and/or exacerbations despite ICS-containing treatment'],
+  'gina-4-2': ['gina', 'Box 4-2', 78, 'Low, medium and high daily metered doses of inhaled corticosteroids (alone or with LABA)'],
+  'gina-4-3': ['gina', 'Box 4-3', 81, 'Asthma treatment tracks for adults and adolescents'],
+  'gina-4-4': ['gina', 'Box 4-4', 82, 'Initial asthma treatment for adults and adolescents with a diagnosis of asthma'],
+  'gina-4-5': ['gina', 'Box 4-5', 83, 'Flowchart for selecting initial treatment in adults and adolescents with a diagnosis of asthma'],
+  'gina-4-6': ['gina', 'Box 4-6', 84, 'Personalized management for adults and adolescents to control symptoms and minimize future risk'],
+  'gina-4-7': ['gina', 'Box 4-7', 85, 'Track 1 (preferred) treatment Steps 1–4 for adults and adolescents'],
+  'gina-4-13': ['gina', 'Box 4-13', 113, 'Options for stepping down treatment in adults and adolescents once asthma is well controlled'],
+  'gina-5-1': ['gina', 'Box 5-1', 119, 'Shared decision-making between healthcare provider and patient about choice of inhalers'],
+  'gina-5-2': ['gina', 'Box 5-2', 120, 'Choice and effective use of inhaler devices'],
+  'gina-9-2': ['gina', 'Box 9-2', 175, 'Medication options for written asthma action plans for adults and adolescents'],
+  'gina-9-4': ['gina', 'Box 9-4', 182, 'Management of asthma exacerbations in primary care (adults, adolescents, children 6–11 years)'],
+  'gina-9-5': ['gina', 'Box 9-5', 184, 'Discharge management after primary care visit for an asthma exacerbation'],
+  'gina-9-6': ['gina', 'Box 9-6', 187, 'Management of asthma exacerbations in acute care facility'],
+  'gina-9-7': ['gina', 'Box 9-7', 192, 'Discharge management after acute care or ED management for an asthma exacerbation'],
+  'gold-3-7': ['gold', 'Figure 3.7', 72, 'Diagnosis and Management Cycle'],
+  'gold-3-8': ['gold', 'Figure 3.8', 73, 'Initial Pharmacological Treatment'],
+  'gold-3-9': ['gold', 'Figure 3.9', 74, 'Follow-up Pharmacological Treatment'],
+  'gold-3-10': ['gold', 'Figure 3.10', 78, 'Factors to Consider when Initiating ICS Treatment'],
+  'gold-4-2': ['gold', 'Figure 4.2', 107, 'Classification of the Severity of COPD Exacerbations'],
+  'gold-4-3': ['gold', 'Figure 4.3', 108, 'Conditions That May Mimic or Worsen Exacerbation-like Symptoms'],
+  'gold-4-4': ['gold', 'Figure 4.4', 109, 'Assessing the Appropriate Place of Management During COPD Exacerbation'],
+  'gold-4-5': ['gold', 'Figure 4.5', 113, 'Management of Severe but not Life-threatening Exacerbations'],
+};
+// figures shown for each guide window
+const GUIDE_FIGURE_SETS = {
+  exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-5'],
+  maint: ['gina-4-3', 'gina-4-4', 'gina-4-5', 'gina-4-6', 'gina-4-7', 'gina-4-2', 'gold-3-7', 'gold-3-8', 'gold-3-10'],
+  follow: ['gina-4-6', 'gina-4-13', 'gina-2-4', 'gina-9-2', 'gold-3-7', 'gold-3-9', 'gold-3-10'],
+  device: ['gina-5-1', 'gina-5-2'],
+  spacer: ['gina-5-2'],
+  steroid: ['gina-4-2'],
+};
+const FIG_TEXT = {
+  en: { btn: 'Figures', title: 'Guideline figures', sub: 'The original diagrams, opened in the official report', asthma: 'Asthma: GINA 2026', copd: 'COPD: GOLD 2026',
+    open: (p) => `Open (PDF page ${p})`,
+    note: 'GINA and GOLD figures are copyrighted, so they are not copied into this app: each link opens the official report at that page (a large PDF, 17 to 20 MB). If your browser opens the report at its first page, go to the PDF page shown.' },
+  th: { btn: 'แผนภาพ', title: 'แผนภาพจากแนวทางเวชปฏิบัติ', sub: 'แผนภาพต้นฉบับ เปิดในเอกสารฉบับทางการ', asthma: 'โรคหืด: GINA 2026', copd: 'COPD: GOLD 2026',
+    open: (p) => `เปิด (หน้า PDF ${p})`,
+    note: 'แผนภาพของ GINA และ GOLD มีลิขสิทธิ์ จึงไม่ได้คัดลอกมาไว้ในแอปนี้ ลิงก์แต่ละรายการเปิดเอกสารฉบับทางการที่หน้านั้น (ไฟล์ PDF ขนาดใหญ่ 17 ถึง 20 MB) หากเบราว์เซอร์เปิดที่หน้าแรก ให้ไปที่หน้า PDF ที่ระบุ' },
+};
+const GuidelineFiguresButton = ({ set, lang }) => {
+  const [open, setOpen] = useState(false);
+  const c = FIG_TEXT[lang] || FIG_TEXT.en;
+  const keys = GUIDE_FIGURE_SETS[set] || [];
+  useEffect(() => {
+    if (!open) return;
+    // Escape closes this list first, not the guide window under it
+    const esc = (e) => { if (e.key === 'Escape') { e.stopImmediatePropagation(); setOpen(false); } };
+    window.addEventListener('keydown', esc, true);
+    return () => window.removeEventListener('keydown', esc, true);
+  }, [open]);
+  if (!keys.length) return null;
+  const group = (doc, heading) => {
+    const items = keys.filter(k => GUIDELINE_FIGURES[k][0] === doc);
+    if (!items.length) return null;
+    return (
+      <section className="flex flex-col gap-2">
+        <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">{heading}</h3>
+        {items.map(k => {
+          const [d, label, page, title] = GUIDELINE_FIGURES[k];
+          return (
+            <a key={k} href={`${GUIDELINE_DOCS[d].url}#page=${page}`} target="_blank" rel="noopener noreferrer" data-figure={k}
+              className="block bg-white rounded-xl border border-slate-200 p-3 hover:border-indigo-300 hover:bg-indigo-50/40 transition-colors min-w-0">
+              <span className="block text-[11px] font-bold text-indigo-600">{GUIDELINE_DOCS[d].name} · {label}</span>
+              <span className="block text-sm font-bold text-slate-800 leading-snug break-words">{title}</span>
+              <span className="mt-1 inline-flex items-center gap-1 text-xs font-bold text-indigo-700">{c.open(page)} <span aria-hidden="true">↗</span></span>
+            </a>
+          );
+        })}
+      </section>
+    );
+  };
+  return (
+    <>
+      <button onClick={() => setOpen(true)} data-figures-btn={set} aria-label={c.title} title={c.title}
+        className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold text-slate-600 hover:border-indigo-300 hover:text-indigo-600 transition-colors shrink-0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7 15l3-4 3 3 4-5" /><circle cx="8" cy="8" r="1.5" /></svg>
+        <span className="hidden sm:inline">{c.btn}</span>
+      </button>
+      {open && ReactDOM.createPortal(
+        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[60] flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }} data-figures-modal>
+          <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh]" role="dialog" aria-modal="true" aria-label={c.title}>
+            <div className="flex items-start justify-between gap-3 p-4 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
+              <div className="min-w-0">
+                <h2 className="text-base sm:text-lg font-bold text-slate-800 leading-tight">{c.title}</h2>
+                <p className="text-xs text-slate-500">{c.sub}</p>
+              </div>
+              <button onClick={() => setOpen(false)} className="p-2 -m-1 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label="Close"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="p-3 sm:p-4 overflow-y-auto flex flex-col gap-4 bg-slate-50">
+              {group('gina', c.asthma)}
+              {group('gold', c.copd)}
+              <p className="text-[11px] text-slate-500 leading-snug">{c.note}</p>
+            </div>
+          </div>
+        </div>, document.body)}
+    </>
+  );
+};
+
 // --- Steroid-dose calculator ---
 // GINA 2026 Summary Guide Table 6 (adults and adolescents): low / medium / high total daily METERED ICS doses (mcg).
 // lo–hi = low, >hi–med = medium, >med = high. med null: nothing above hi is graded
@@ -5116,7 +5242,7 @@ const IcsCalculatorModal = ({ lang, onClose }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="steroid" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-4">
           <div className="flex flex-col gap-3">
@@ -5360,7 +5486,7 @@ const SpacerGuideModal = ({ lang, onClose }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="spacer" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-4">
           <Card title={c.whoTitle} items={c.who} />
@@ -6075,7 +6201,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="follow" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="shrink-0 flex gap-2 px-4 sm:px-6 py-3 border-b border-slate-100 bg-white" role="tablist">
           {[['asthma', c.tabAsthma, 'bg-indigo-600 border-indigo-600'], ['copd', c.tabCopd, 'bg-emerald-600 border-emerald-600']].map(([k, lbl, on]) => (
@@ -7708,6 +7834,8 @@ function App() {
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key !== 'Escape') return;
+      // a guideline-figures list open over a guide closes itself; the guide stays open
+      if (document.querySelector('[data-figures-modal]')) return;
       if (detailId != null) setDetailId(null);
       else if (isLegendOpen) setIsLegendOpen(false);
       else if (isConvertOpen) setIsConvertOpen(false);
@@ -8144,9 +8272,12 @@ function App() {
                   <p className="text-xs text-slate-500">{t.exacGuideSub}</p>
                 </div>
               </div>
-              <button onClick={() => setIsExacModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors">
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center gap-1 shrink-0">
+                <GuidelineFiguresButton set="exac" lang={lang} />
+                <button onClick={() => setIsExacModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
             {/* Tabs */}
@@ -8407,9 +8538,12 @@ function App() {
                   <p className="text-xs text-slate-500">{t.maintGuideSub}</p>
                 </div>
               </div>
-              <button onClick={() => {setIsWizardOpen(false); resetWizard();}} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
-                <X className="w-6 h-6" />
-              </button>
+              <div className="flex items-center gap-1 shrink-0">
+                <GuidelineFiguresButton set="maint" lang={lang} />
+                <button onClick={() => {setIsWizardOpen(false); resetWizard();}} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
             </div>
 
             <div className="p-5 flex-grow overflow-y-auto flex flex-col gap-8 bg-slate-50">

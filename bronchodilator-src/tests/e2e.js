@@ -82,6 +82,7 @@ window.__bdgE2E = async function () {
     const fb = document.querySelector('[data-filter-bar]').getBoundingClientRect();
     log('guide buttons are pinned with the search row: still at the top after scrolling, with the filter panel right under the bar', bar.querySelectorAll('[data-guide]').length === 6 && !document.querySelector('header [data-guide]') && Math.abs(br.top) < 2 && g.top >= 0 && g.bottom < br.bottom && Math.abs(fb.top - (br.bottom - 1)) < 3, [br.top, g.top, br.bottom, fb.top]);
     window.scrollTo(0, 0); await wait(200); }
+  log('every guide figure set points at a known figure with a PDF page, and every guide window set exists', Object.values(GUIDE_FIGURE_SETS).flat().every(k => GUIDELINE_FIGURES[k] && GUIDELINE_FIGURES[k][2] > 0 && GUIDELINE_DOCS[GUIDELINE_FIGURES[k][0]]) && ['exac', 'maint', 'follow', 'device', 'spacer', 'steroid'].every(k => GUIDE_FIGURE_SETS[k].length > 0), '');
   log('count shows the database total', /\(131 in database\)/.test(countText()), countText());
   { const fc = cardFor('Ventolin Evohaler 100 mcg');
     log('tile cards keep the full facts: flow, spacer, price, pack, expiry, dose, last-checked and ventilator use, plus a Details button', !!fc.querySelector('[data-card-facts]') && !!fc.querySelector('[data-flow]') && !!fc.querySelector('[data-card-pack]') && !!fc.querySelector('[data-card-exp]') && /Volumatic/.test(fc.querySelector('[data-spacer]').textContent) && !!fc.querySelector('[data-checked]') && /Ventilator/.test(fc.textContent) && /Rec. Dose/.test(fc.textContent) && !!fc.querySelector('[data-details]'), fc.textContent.slice(0, 200));
@@ -508,6 +509,14 @@ window.__bdgE2E = async function () {
 
   // --- Exacerbation Guide device lists (chosen by rule)
   btnExact('Exacerbation').click(); await wait(400);
+  { const fb = document.querySelector('[data-figures-btn="exac"]');
+    log('Exacerbation guide has a Figures button', !!fb, '');
+    fb.click(); await wait(300);
+    const fm = document.querySelector('[data-figures-modal]');
+    const href = (k) => { const a = fm && fm.querySelector('[data-figure="' + k + '"]'); return a ? a.getAttribute('href') : ''; };
+    log('Figures list opens the official GINA and GOLD reports at the figure page (Box 9-4 page 182, Figure 4.2 page 107), in a new tab', !!fm && /ginasthma\.org\/.*GINA-2026-Strategy-Report.*\.pdf#page=182$/.test(href('gina-9-4')) && /goldcopd\.org\/.*GOLD-REPORT-2026.*\.pdf#page=107$/.test(href('gold-4-2')) && fm.querySelectorAll('a[data-figure]').length === 8 && [...fm.querySelectorAll('a[data-figure]')].every(a => a.target === '_blank' && /noopener/.test(a.rel)) && /copyrighted/.test(fm.textContent), [href('gina-9-4'), href('gold-4-2')]);
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(300);
+    log('Escape closes the figures list first and leaves the guide open', !document.querySelector('[data-figures-modal]') && !!document.querySelector('[data-figures-btn="exac"]'), ''); }
   let ex = modalDrugNames();
   const exLists = () => [...document.querySelectorAll('.fixed [data-exac-groups]')].filter(x => x.offsetParent);
   const exCheck = (rule, el) => {
