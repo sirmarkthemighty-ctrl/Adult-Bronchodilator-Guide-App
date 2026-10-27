@@ -3,6 +3,7 @@ const { useState, useEffect, useMemo } = React;
 // --- Native SVG Icons ---
 const Search = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>);
 const LayoutGrid = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>);
+const TableIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="4" width="18" height="16" rx="2" /><line x1="3" y1="10" x2="21" y2="10" /><line x1="3" y1="15" x2="21" y2="15" /><line x1="9" y1="4" x2="9" y2="20" /></svg>);
 const ListIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>);
 const SortIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="15" y1="18" x2="15" y2="6"></line><polyline points="11 10 15 6 19 10"></polyline><line x1="9" y1="6" x2="9" y2="18"></line><polyline points="5 14 9 18 13 14"></polyline></svg>);
 const ActivityIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>);
@@ -657,6 +658,9 @@ const translations = {
     toastFail: "Failed to export images. Please check your network.",
     gridView: "Grid View",
     listView: "List View",
+    tableView: "Table View",
+    colProduct: "Product", colComponents: "Components", colUse: "Use", colIcs: "ICS level", colFlow: "Min. flow", colReg: "Registration", colActions: "Actions",
+    tableHint: "One row per product and strength. The table scrolls sideways; the product column stays in place. Tap a row for its details.",
     themeToDark: "Switch to dark mode",
     themeToLight: "Switch to light mode",
     countShowing: "Showing",
@@ -1239,6 +1243,9 @@ const translations = {
     toastFail: "บันทึกรูปภาพไม่สำเร็จ กรุณาตรวจสอบการเชื่อมต่อ",
     gridView: "มุมมองตาราง",
     listView: "มุมมองรายการ",
+    tableView: "ตารางเปรียบเทียบ",
+    colProduct: "ยา", colComponents: "ส่วนประกอบ", colUse: "ใช้สำหรับ", colIcs: "ระดับ ICS", colFlow: "แรงสูดขั้นต่ำ", colReg: "ทะเบียน", colActions: "ปุ่ม",
+    tableHint: "หนึ่งแถวต่อยาหนึ่งขนาด เลื่อนตารางไปด้านข้างได้ โดยคอลัมน์ชื่อยาอยู่กับที่ แตะแถวเพื่อดูรายละเอียด",
     themeToDark: "เปลี่ยนเป็นโหมดมืด",
     themeToLight: "เปลี่ยนเป็นโหมดสว่าง",
     countShowing: "แสดง",
@@ -2265,6 +2272,14 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.7",
+    date: "October 27, 2026",
+    features: [
+      "Table view: a third view button beside Grid and List shows the list as a table, one row per product and strength, with components, use (asthma / COPD, exacerbation), recommended dose, ICS level, minimum inspiratory flow, spacer, ventilator use, price, registration chips with the NLEM type, and the Select and Details buttons. The product column stays in place while the table scrolls sideways, so the page itself never scrolls sideways; a click on a row opens the details.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.6",
     date: "October 26, 2026",
     features: [
@@ -2632,6 +2647,12 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.7": {
+  "features": [
+    "มุมมองตาราง: ปุ่มมุมมองที่สามถัดจากปุ่มการ์ดและรายการ แสดงรายการยาเป็นตาราง หนึ่งแถวต่อยาหนึ่งขนาด มีส่วนประกอบ ข้อบ่งใช้ (หืด / COPD ภาวะกำเริบ) ขนาดยาแนะนำ ระดับ ICS แรงสูดขั้นต่ำ spacer การใช้กับเครื่องช่วยหายใจ ราคา ป้ายทะเบียนพร้อมประเภทบัญชียาหลัก และปุ่มเลือกกับรายละเอียด คอลัมน์ชื่อยาอยู่กับที่ขณะเลื่อนตารางไปด้านข้าง หน้าเว็บจึงไม่เลื่อนไปด้านข้าง และแตะแถวเพื่อเปิดรายละเอียด"
+  ],
+  "bugs": []
+ },
  "v1.12.6": {
   "features": [
     "หน้าต่างคู่มือมีปุ่ม แผนภาพ (กำเริบ, ยาควบคุมเริ่มต้น, ติดตามผล, วิธีใช้อุปกรณ์, Spacer และหน้ากาก, ขนาดสเตียรอยด์) แสดงรายการแผนภาพที่เกี่ยวข้องจาก GINA 2026 (เช่น Box 4-6 แผนภาพการรักษาหลัก และ Box 9-4 การดูแลภาวะกำเริบในหน่วยบริการปฐมภูมิ) และ GOLD 2026 (เช่น Figure 3.8 และ 3.9 การรักษาเริ่มต้นและการติดตาม และ Figure 4.2 ความรุนแรงของภาวะกำเริบ) แต่ละรายการเปิดเอกสารฉบับทางการที่หน้าของแผนภาพนั้น แผนภาพมีลิขสิทธิ์ จึงใช้การเชื่อมโยงแทนการคัดลอกมาไว้ในแอป"
@@ -7229,6 +7250,87 @@ const SourceLine = ({ items, t, k }) => (
   </p>
 );
 
+// Table view: every product in the current list, one row each (strengths are not grouped: each has its own dose).
+// The product column is pinned (sticky) while the table scrolls sideways inside its own box; a row click opens the
+// detail view, like a card.
+const DrugTable = ({ meds, t, regions, compareList, highlightId, onToggleCompare, onDetails, onRowClick }) => {
+  const th = 'px-2.5 py-2 text-left text-[10px] font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap border-b border-slate-200 bg-slate-50';
+  const td = 'px-2.5 py-2 align-top border-b border-slate-100';
+  return (
+    <div className="rounded-xl md:rounded-2xl border border-slate-200 bg-white shadow-sm overflow-x-auto relative" data-drug-table>
+      <table className="w-full min-w-[1180px] text-xs border-separate border-spacing-0">
+        <thead>
+          <tr>
+            <th className={th + ' sticky left-0 z-10 min-w-[170px]'}>{t.colProduct}</th>
+            <th className={th + ' min-w-[190px]'}>{t.colComponents}</th>
+            <th className={th}>{t.colUse}</th>
+            <th className={th + ' min-w-[170px]'}>{t.recDose}</th>
+            <th className={th}>{t.colIcs}</th>
+            <th className={th}>{t.colFlow}</th>
+            <th className={th}>{t.spacerLabel}</th>
+            <th className={th}>{t.ventilator}</th>
+            <th className={th}>{t.estCost}</th>
+            <th className={th}>{t.colReg}</th>
+            <th className={th}><span className="sr-only">{t.colActions}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {meds.map(med => {
+            const sel = compareList.some(c => c.id === med.id);
+            const bg = sel ? 'bg-indigo-50' : highlightId === med.id ? 'bg-sky-50' : 'bg-white';
+            const lv = icsLevels(med);
+            return (
+              <tr key={med.id} id={'drug-' + med.id} onClick={(e) => onRowClick(e, med)} className={`cursor-pointer ${sel ? '' : 'hover:[&>td]:bg-slate-50'}`} data-table-row={med.id}>
+                <td className={`${td} ${bg} sticky left-0 z-[1] min-w-[170px] max-w-[210px] border-r border-slate-100`}>
+                  <div className="flex items-start gap-2 min-w-0">
+                    <div className="shrink-0">{medIcon(med, 'w-7 h-7 text-slate-700')}</div>
+                    <div className="min-w-0">
+                      <span className="block font-extrabold text-slate-800 leading-tight break-words" data-table-name>{med.marketName}</span>
+                      <span className="flex flex-wrap items-center gap-1 mt-0.5">
+                        <span className={`text-[9px] font-bold px-1 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(med)}</span>
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className={`${td} ${bg}`}><RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className="text-[11px]" /></td>
+                <td className={`${td} ${bg}`}>
+                  <div className="flex flex-col items-start gap-0.5">
+                    {med.indications.map(ind => <span key={ind} className={`text-[10px] font-bold px-1.5 rounded border whitespace-nowrap ${ind === 'Asthma' ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-emerald-200 bg-emerald-50 text-emerald-700'}`}>{ind}</span>)}
+                    <ExacBadge med={med} t={t} />
+                  </div>
+                </td>
+                <td className={`${td} ${bg} min-w-[170px] max-w-[240px]`}><DoseRangeDisplay doseRange={med.doseRange} viewType="compact" isMart={med.isMart} martMax={med.martMax} t={t} full={true} /></td>
+                <td className={`${td} ${bg} font-bold text-purple-700 whitespace-nowrap`}>{lv.length ? lv.map(l => t.convertLevel[l]).join(' / ') : <span className="text-slate-400">-</span>}</td>
+                <td className={`${td} ${bg} font-bold text-cyan-700 whitespace-nowrap`} data-flow>{flowText(med, t)}</td>
+                <td className={`${td} ${bg} min-w-[110px]`}>{spacerFit(med) ? <SpacerFit med={med} t={t} className="text-[11px]" /> : <span className="text-slate-400">-</span>}</td>
+                <td className={`${td} ${bg} font-bold whitespace-nowrap ${med.ventCompatible ? 'text-cyan-700' : 'text-rose-700'}`}>{med.ventCompatible ? t.compatible : t.notCompatible}</td>
+                <td className={`${td} ${bg} whitespace-nowrap`}><PriceTag med={med} t={t} className="text-[12px]" /></td>
+                <td className={`${td} ${bg}`}>
+                  <div className="flex flex-wrap gap-1 w-[124px]" data-table-reg>
+                    {LABEL_REGIONS.filter(r => regions.includes(r) || statusIn(med, r) !== 'never').map(r => <StatusChip key={r} med={med} r={r} t={t} />)}
+                    {regions.includes('th') && thaiStatus(med) !== 'never' && <NlemBadge med={med} t={t} compact={true} />}
+                  </div>
+                </td>
+                <td className={`${td} ${bg}`}>
+                  <div className="flex flex-col gap-1 items-stretch" data-card-actions>
+                    <button onClick={() => onToggleCompare(med)} className={`flex items-center justify-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase whitespace-nowrap transition-colors border ${sel ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-600'}`}>
+                      {sel ? <Check className="w-3 h-3" /> : <CompareIcon className="w-3 h-3" />} {sel ? t.selected : t.select}
+                    </button>
+                    <button onClick={() => onDetails(med)} data-details className="flex items-center justify-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase whitespace-nowrap transition-colors border border-indigo-100 bg-indigo-50 text-indigo-700 hover:bg-indigo-100">
+                      {t.detailBtn} <span aria-hidden="true">›</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   const section = (title, children, attrs = {}) => (
     <section className="bg-slate-50 rounded-xl border border-slate-200 p-3 sm:p-4" {...attrs}>
@@ -8852,6 +8954,9 @@ function App() {
               <button onClick={() => setViewMode('list')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'list' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.listView}>
                 <ListIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
               </button>
+              <button onClick={() => setViewMode('table')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'table' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.tableView} title={t.tableView} aria-pressed={viewMode === 'table'} data-view-table>
+                <TableIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+              </button>
             </div>
 
             {/* Opens and closes the filter panel. Blue while any filter is on, so a closed panel still says filters apply. */}
@@ -9093,7 +9198,7 @@ function App() {
           )}
           <div className="flex items-start justify-between gap-2">
             <div className="text-[11px] md:text-xs text-slate-500 min-w-0 pt-0.5" aria-live="polite">
-              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-400" data-count-total>{t.countTotal(deviceData.length)}</span>{groupBrands && brandGroups.size < filteredAndSortedData.length && <span className="text-slate-400" data-brand-rows> · {t.brandRows(brandGroups.size)}</span>}
+              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-400" data-count-total>{t.countTotal(deviceData.length)}</span>{groupBrands && viewMode !== 'table' && brandGroups.size < filteredAndSortedData.length && <span className="text-slate-400" data-brand-rows> · {t.brandRows(brandGroups.size)}</span>}
               {pifActive && (
                 <span className="block mt-0.5 text-cyan-700 font-medium">{pifHiddenSummary ? t.pifHidden(pifValue, pifHiddenSummary) : t.pifAllOk(pifValue)}{filteredAndSortedData.some(flowUnknown) && <span data-pif-unknown> {t.pifUnknown(filteredAndSortedData.filter(flowUnknown).length)}</span>}</span>
               )}
@@ -9111,6 +9216,12 @@ function App() {
             <Search className="w-8 h-8 md:w-10 md:h-10 text-slate-300 mx-auto mb-3 md:mb-4" />
             <p className="text-base md:text-lg font-medium" data-empty-note>{countries.length ? t.noMeds : t.noCountry}</p>
             <button onClick={clearFilters} className="mt-2 text-blue-600 hover:underline text-sm md:text-base">{t.clearFilters}</button>
+          </div>
+        ) : viewMode === 'table' ? (
+          <div id="printable-drug-list" data-all-cards="1" data-view="table">
+            <p className="text-[11px] text-slate-500 mb-2 print:hidden" data-table-hint>{t.tableHint}</p>
+            <DrugTable meds={filteredAndSortedData} t={t} regions={countries} compareList={compareList} highlightId={highlightId}
+              onToggleCompare={toggleCompare} onDetails={(m) => setDetailId(m.id)} onRowClick={openDetailFrom} />
           </div>
         ) : (
           <div id="printable-drug-list" data-all-cards={showAllCards ? '1' : '0'} className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5" : "flex flex-col gap-2 md:gap-3"}>

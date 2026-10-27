@@ -1039,6 +1039,25 @@ window.__bdgE2E = async function () {
     log('components sit under the product name and above the country lines, in tile and list view', !!g && !!l && g[0] <= g[1] + 1 && g[1] < g[2] && l[0] <= l[1] + 1 && l[1] < l[2], [g, l]);
     document.querySelector('button[aria-label="Grid View"]').click(); await wait(400); }
 
+  // --- Table view
+  { document.querySelector('[data-view-table]').click(); await wait(500);
+    const box = document.querySelector('[data-drug-table]'), rows = [...document.querySelectorAll('[data-table-row]')];
+    const shownIds = rows.map(r => +r.dataset.tableRow);
+    log('table view: one row per product in the list (strengths not grouped), with every column header', !!box && rows.length > 40 && new Set(shownIds).size === rows.length && box.querySelectorAll('thead th').length === 11 && !document.querySelector('#printable-drug-list [data-brand-group]'), rows.length);
+    const vent = rows.find(r => r.dataset.tableRow === '1');
+    log('table row for Ventolin: components, dose, flow, ventilator, registration chips', !!vent && /Salbutamol 100 mcg/.test(vent.textContent) && /puffs/.test(vent.textContent) && /< 30 L\/min/.test(vent.textContent) && /Compatible/.test(vent.textContent) && !!vent.querySelector('[data-table-reg] [data-country="th"]'), vent && vent.textContent.slice(0, 160));
+    box.scrollLeft = 600; await wait(150);
+    const first = vent.querySelector('td'), br = box.getBoundingClientRect(), fr = first.getBoundingClientRect();
+    log('table scrolls sideways inside its box with the product column pinned; the page does not scroll sideways', box.scrollWidth > box.clientWidth && box.scrollLeft > 0 && Math.abs(fr.left - br.left) < 3 && document.documentElement.scrollWidth <= window.innerWidth, [box.scrollLeft, fr.left, br.left, document.documentElement.scrollWidth]);
+    box.scrollLeft = 0;
+    vent.querySelector('td:nth-child(2)').click(); await wait(400);
+    log('a row click opens the details', document.querySelector('[data-detail-modal] h2') && document.querySelector('[data-detail-modal] h2').textContent === 'Ventolin Evohaler 100 mcg', '');
+    await esc();
+    vent.querySelector('[data-card-actions] button').click(); await wait(300);
+    log('Select in a table row adds the product to the selection', !!document.querySelector('[data-select-bar]'), '');
+    vent.querySelector('[data-card-actions] button').click(); await wait(300);
+    document.querySelector('button[aria-label="Grid View"]').click(); await wait(400); }
+
   // --- Dark mode toggle
   document.querySelector('button[aria-label="Switch to dark mode"]').click(); await wait(300);
   log('dark mode toggles on', document.documentElement.classList.contains('dark'), '');

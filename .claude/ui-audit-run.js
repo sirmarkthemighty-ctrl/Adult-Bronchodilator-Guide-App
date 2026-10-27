@@ -23,6 +23,10 @@ window.__uiAuditRun = async () => {
     audit(lang + ' main grid');
     document.querySelector('button[aria-label="List View"], button[aria-label="มุมมองรายการ"]')?.click(); await wait(300);
     audit(lang + ' main list');
+    document.querySelector('[data-view-table]')?.click(); await wait(400);
+    audit(lang + ' main table');
+    if (document.documentElement.scrollWidth > window.innerWidth + 1) out[lang + ' main table page width'] = [{ type: 'page-wider-than-screen', w: document.documentElement.scrollWidth }];
+    document.querySelector('button[aria-label="List View"], button[aria-label="มุมมองรายการ"]')?.click(); await wait(300);
     // brand rows: open the first one, audit the list with its strengths showing, close it
     { const bt = document.querySelector('#printable-drug-list [data-brand-toggle]'); if (bt) { bt.click(); await wait(400); audit(lang + ' main list, brand row open'); const b2 = document.querySelector('#printable-drug-list [data-brand-group][data-open="1"] [data-brand-toggle]'); if (b2) { b2.click(); await wait(300); } } }
     // product detail view (a product with a past registration and several countries, then a plain one)
