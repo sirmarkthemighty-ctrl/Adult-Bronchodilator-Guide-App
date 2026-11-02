@@ -2305,6 +2305,7 @@ const changelogData = [
     date: "November 2, 2026",
     features: [
       "Soft mist inhalers on a ventilator now show a dose: 6-8 puffs (not validated) for two-puff products such as Spiriva Respimat, and 3-4 puffs for Combivent Respimat (one puff). Tap or hover over it for the in-line adapter dose (3x the usual dose, sprayed at the start of expiration) and the T-adapter dose (4x), with the references (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) and a disclaimer: the doses are extrapolated from bench studies, untested in patients and above the labelled dose, and the T-adapter study advises against T-adapters.",
+      "Calmer, more uniform buttons: the six guide buttons are soft tints of their own colour instead of solid colours, and every switched-on filter without a meaning of its own (All countries, registration status, NLEM only, Licence holder, Group strengths, device) now uses the same indigo. Colours that carry meaning are unchanged: countries, asthma / COPD, drug classes, roles, MART and extra-fine, and the inhaler pictures.",
     ],
     bugs: [],
   },
@@ -2686,7 +2687,8 @@ const APP_VERSION = changelogData[0].version;
 const CHANGELOG_TH = {
  "v1.12.8": {
   "features": [
-    "ยาสูด soft mist กับเครื่องช่วยหายใจแสดงขนาดยาแล้ว: 6-8 พัฟ (ยังไม่ผ่านการพิสูจน์) สำหรับยาที่ใช้ครั้งละ 2 พัฟ เช่น Spiriva Respimat และ 3-4 พัฟ สำหรับ Combivent Respimat (ครั้งละ 1 พัฟ) แตะหรือชี้ที่ขนาดยาเพื่อดูขนาดสำหรับ in-line adapter (3 เท่าของขนาดปกติ กดพ่นตอนเริ่มหายใจออก) และ T-adapter (4 เท่า) พร้อมเอกสารอ้างอิง (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) และข้อจำกัด: ขนาดยาคำนวณจากการศึกษาในห้องปฏิบัติการ ยังไม่ได้ทดสอบในผู้ป่วย สูงกว่าขนาดตามฉลาก และการศึกษา T-adapter แนะนำไม่ให้ใช้ T-adapter"
+    "ยาสูด soft mist กับเครื่องช่วยหายใจแสดงขนาดยาแล้ว: 6-8 พัฟ (ยังไม่ผ่านการพิสูจน์) สำหรับยาที่ใช้ครั้งละ 2 พัฟ เช่น Spiriva Respimat และ 3-4 พัฟ สำหรับ Combivent Respimat (ครั้งละ 1 พัฟ) แตะหรือชี้ที่ขนาดยาเพื่อดูขนาดสำหรับ in-line adapter (3 เท่าของขนาดปกติ กดพ่นตอนเริ่มหายใจออก) และ T-adapter (4 เท่า) พร้อมเอกสารอ้างอิง (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) และข้อจำกัด: ขนาดยาคำนวณจากการศึกษาในห้องปฏิบัติการ ยังไม่ได้ทดสอบในผู้ป่วย สูงกว่าขนาดตามฉลาก และการศึกษา T-adapter แนะนำไม่ให้ใช้ T-adapter",
+    "ปุ่มดูสบายตาและเป็นแบบเดียวกันมากขึ้น: ปุ่มคู่มือทั้งหกเป็นสีอ่อนของสีประจำปุ่มแทนสีทึบ และตัวกรองที่เปิดอยู่ซึ่งไม่มีความหมายเฉพาะของสี (ทุกประเทศ สถานะทะเบียน บัญชียาหลัก ผู้รับอนุญาต รวมขนาดยา อุปกรณ์) ใช้สีคราม (indigo) เดียวกัน ส่วนสีที่มีความหมายยังคงเดิม: ประเทศ หืด / COPD กลุ่มยา บทบาทยา MART extra-fine และรูปอุปกรณ์"
   ],
   "bugs": []
  },
@@ -8953,14 +8955,14 @@ function App() {
           {/* Guides: pinned with the search row. On phones one row of six icon tiles with short names; a normal button row from tablet width up */}
           <div className="grid grid-cols-6 gap-1 sm:flex sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 print:hidden w-full mb-2" data-guide-buttons>
             {[
-              ['exac', t.exacGuide, 'bg-rose-600 hover:bg-rose-700 border-rose-700', ActivityIcon, () => { setIsExacModalOpen(true); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
-              ['maint', t.maintenanceGuide, 'bg-emerald-600 hover:bg-emerald-700 border-emerald-700', Stethoscope, () => { setIsWizardOpen(true); setIsExacModalOpen(false); setIsDeviceGuideOpen(false); }],
-              ['follow', FOLLOW_TEXT[lang].btn, 'bg-violet-600 hover:bg-violet-700 border-violet-700', FollowIcon, () => { setIsFollowOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
-              ['device', t.deviceGuide, 'bg-blue-600 hover:bg-blue-700 border-blue-700', BookOpen, () => { setIsDeviceGuideOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); }],
-              ['spacer', SPACER_TEXT[lang].btn, 'bg-teal-600 hover:bg-teal-700 border-teal-700', SpacerIcon, () => { setIsSpacerOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
-              ['steroid', ICS_TEXT[lang].btn, 'bg-fuchsia-600 hover:bg-fuchsia-700 border-fuchsia-700', CalcIcon, () => { setIsIcsCalcOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['exac', t.exacGuide, 'bg-rose-50 hover:bg-rose-100 border-rose-200 text-rose-700', ActivityIcon, () => { setIsExacModalOpen(true); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['maint', t.maintenanceGuide, 'bg-emerald-50 hover:bg-emerald-100 border-emerald-200 text-emerald-700', Stethoscope, () => { setIsWizardOpen(true); setIsExacModalOpen(false); setIsDeviceGuideOpen(false); }],
+              ['follow', FOLLOW_TEXT[lang].btn, 'bg-violet-50 hover:bg-violet-100 border-violet-200 text-violet-700', FollowIcon, () => { setIsFollowOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['device', t.deviceGuide, 'bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700', BookOpen, () => { setIsDeviceGuideOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); }],
+              ['spacer', SPACER_TEXT[lang].btn, 'bg-teal-50 hover:bg-teal-100 border-teal-200 text-teal-700', SpacerIcon, () => { setIsSpacerOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
+              ['steroid', ICS_TEXT[lang].btn, 'bg-fuchsia-50 hover:bg-fuchsia-100 border-fuchsia-200 text-fuchsia-700', CalcIcon, () => { setIsIcsCalcOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
             ].map(([k, label, tone, Icon, open]) => (
-              <button key={k} onClick={open} data-guide={k} aria-label={label} title={label} className={`flex flex-col sm:flex-row min-w-0 sm:flex-grow-0 items-center justify-center gap-0.5 sm:gap-1.5 md:gap-2 ${tone} border text-white px-0.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm`}>
+              <button key={k} onClick={open} data-guide={k} aria-label={label} title={label} className={`flex flex-col sm:flex-row min-w-0 sm:flex-grow-0 items-center justify-center gap-0.5 sm:gap-1.5 md:gap-2 ${tone} border px-0.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm`}>
                 <Icon className="w-4 h-4 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" /> <span className="text-[10px] max-[359px]:text-[9px] leading-[1.15] text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 max-w-full break-words">{narrow ? t.guideShort[k] : label}</span>
               </button>
             ))}
@@ -9025,7 +9027,7 @@ function App() {
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7 gap-0.5" role="group" aria-label={t.countriesLabel} title={t.countriesTitle}>
               <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-400 whitespace-nowrap">{t.countriesLabel}:</span>
               <button onClick={toggleAllCountries} aria-pressed={allCountries} title={t.countriesAllTitle} data-country-all
-                className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${allCountries ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}>
+                className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${allCountries ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}>
                 {t.countriesAll}
               </button>
               {LABEL_REGIONS.map(key => (
@@ -9040,7 +9042,7 @@ function App() {
               <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-400 whitespace-nowrap inline-flex items-center gap-0.5" data-threg-label>{t.thRegLabel}<Check className="w-2.5 h-2.5 md:w-3 md:h-3 text-emerald-600" /></span>
               {TH_STATUSES.map(k => {
                 const on = thStatus.includes(k);
-                const tone = k === 'current' ? ['bg-emerald-600 text-white shadow-sm', 'text-emerald-700 hover:bg-emerald-50'] : k === 'past' ? ['bg-amber-500 text-white shadow-sm', 'text-amber-700 hover:bg-amber-50'] : ['bg-slate-600 text-white shadow-sm', 'text-slate-600 hover:bg-slate-50'];
+                const tone = k === 'current' ? ['bg-indigo-600 text-white shadow-sm', 'text-emerald-700 hover:bg-emerald-50'] : k === 'past' ? ['bg-indigo-600 text-white shadow-sm', 'text-amber-700 hover:bg-amber-50'] : ['bg-indigo-600 text-white shadow-sm', 'text-slate-600 hover:bg-slate-50'];
                 return (
                   <button key={k} onClick={() => toggleThStatus(k)} aria-pressed={on} data-threg={k}
                     className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${on ? tone[0] : tone[1]}`}>
@@ -9055,7 +9057,7 @@ function App() {
                 <button
                   onClick={() => setNlemOnly(!nlemOnly)}
                   title={t.nlemTitle}
-                  className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${nlemOnly ? 'bg-emerald-600 text-white shadow-sm' : 'text-emerald-700 hover:bg-emerald-50'}`}
+                  className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${nlemOnly ? 'bg-indigo-600 text-white shadow-sm' : 'text-emerald-700 hover:bg-emerald-50'}`}
                 >
                   <Check className="w-2.5 h-2.5 md:w-3 md:h-3" /> {t.nlemOnly}
                 </button>
@@ -9068,7 +9070,7 @@ function App() {
                   onClick={toggleHolder}
                   aria-pressed={showHolder}
                   title={t.holderToggleTitle}
-                  className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${showHolder ? 'bg-slate-600 text-white shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
+                  className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center gap-1 text-[10px] font-bold transition-all whitespace-nowrap ${showHolder ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
                 >
                   {showHolder ? <Check className="w-2.5 h-2.5 md:w-3 md:h-3" /> : <X className="w-2.5 h-2.5 md:w-3 md:h-3" />} {t.holderLabel}
                 </button>
@@ -9214,7 +9216,7 @@ function App() {
                   {availableShapes.map(shape => {
                     const isSelected = selectedShapes.includes(shape);
                     return (
-                      <button key={shape} onClick={() => { if (isSelected) { setSelectedShapes(selectedShapes.filter(s => s !== shape)); } else { setSelectedShapes([...selectedShapes, shape]); } }} className={`h-full px-1.5 md:px-2 mx-0.5 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${isSelected ? 'bg-cyan-600 text-white shadow-sm' : 'text-cyan-700 hover:bg-cyan-100'}`}>
+                      <button key={shape} onClick={() => { if (isSelected) { setSelectedShapes(selectedShapes.filter(s => s !== shape)); } else { setSelectedShapes([...selectedShapes, shape]); } }} className={`h-full px-1.5 md:px-2 mx-0.5 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${isSelected ? 'bg-indigo-600 text-white shadow-sm' : 'text-cyan-700 hover:bg-cyan-100'}`}>
                         {shapeName(shape)}
                       </button>
                     );
