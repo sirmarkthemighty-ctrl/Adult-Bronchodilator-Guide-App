@@ -648,9 +648,13 @@ const translations = {
     latest: "Latest",
     dose: "Dose:",
     ventShortMdi: "2x puffs",
-    ventShortSmi: "No set dose",
+    ventShortSmi: (lo, hi) => `${lo}-${hi} puffs (not validated)`,
+    ventSmiTitle: "Soft mist inhaler on a ventilator: doses not validated",
+    ventSmiInline: (n) => `In-line adapter: ${n} puffs (3x the usual dose). Spray at the start of expiration, about 15 cm from the Y-piece. Bench studies delivered about one third of the dose of spontaneous breathing.`,
+    ventSmiTee: (n) => `T-adapter: ${n} puffs (4x the usual dose). In the bench study a T-adapter delivered only about 1/20 of the spontaneous dose and leaked over half of each breath; its authors advise against T-adapters.`,
+    ventSmiRefs: "References",
+    ventSmiDisc: "Disclaimer: these doses are extrapolated from bench (in vitro) studies, have not been tested in patients and exceed the labelled dose. Prefer an MDI with an in-line spacer or a nebuliser; use clinical judgement.",
     ventDoseMdi: "Use an in-line spacer and actuate at the start of inspiration. 4 puffs of salbutamol gave near-maximal bronchodilation in ventilated COPD (about 2x the usual 2 puffs); higher doses added tachycardia without more benefit.",
-    ventDoseSmi: "No validated dose adjustment. Even with an in-line adapter (actuated at the start of expiration) delivery is about 3x lower than with spontaneous breathing; the study authors advise avoiding SMI on a ventilator. Prefer MDI + in-line spacer or a nebuliser.",
     exporting: "Exporting...",
     toastPreparing: "Preparing export...",
     toastSuccess: (n) => `Successfully exported ${n} image(s)!`,
@@ -812,7 +816,7 @@ const translations = {
     srcIndications: "Licensed indications in each country's label; see Registration below",
     srcGinaLevels: "GINA 2026 (low, medium and high ICS dose levels)",
     srcVentMdiNote: "salbutamol MDI study, applied to MDIs as a class",
-    srcVentSmiNote: "tiotropium soft mist study in vitro, applied to soft mist inhalers as a class",
+    srcVentSmiNote: "bench (in vitro) studies of tiotropium soft mist through ventilator circuits; the 3x / 4x doses are extrapolated, not validated",
     makerLabel: "Manufacturer",
     holderLabel: "Licence holder",
     holderNone: "Not registered in Thailand",
@@ -883,7 +887,10 @@ const translations = {
       nlem: "NLEM status and conditions.",
       refprice: "cost range of each product (reference price per pack).",
       dhand: "MDI dosing through a ventilator circuit.",
-      fang: "SMI use through a ventilator circuit.",
+      fang: "SMI use through a ventilator circuit (in-line adapter vs T-adapter).",
+      mehri: "SMI dose through in-line ventilator adapters (about one third of direct use).",
+      ke: "SMI actuation timing and position in a ventilator circuit.",
+      hsiao: "Respiratory mechanics after the usual SMI dose via an in-line adapter in ventilated COPD patients.",
       cat: "CAT score in the Initial Maintenance Guide.",
       mmrc: "mMRC dyspnoea grades in the Initial Maintenance Guide.",
       usmani: "common mistakes in the device technique cards.",
@@ -1233,9 +1240,13 @@ const translations = {
     latest: "ล่าสุด",
     dose: "ขนาดยา:",
     ventShortMdi: "2 เท่าของจำนวนพัฟ",
-    ventShortSmi: "ไม่มีขนาดที่กำหนด",
+    ventShortSmi: (lo, hi) => `${lo}-${hi} พัฟ (ยังไม่ผ่านการพิสูจน์)`,
+    ventSmiTitle: "ยาสูด soft mist กับเครื่องช่วยหายใจ: ขนาดยายังไม่ผ่านการพิสูจน์",
+    ventSmiInline: (n) => `In-line adapter: ${n} พัฟ (3 เท่าของขนาดปกติ) กดพ่นตอนเริ่มหายใจออก ห่างจาก Y-piece ประมาณ 15 ซม. การศึกษาในห้องปฏิบัติการพบว่ายาถึงปอดประมาณหนึ่งในสามของการหายใจเอง`,
+    ventSmiTee: (n) => `T-adapter: ${n} พัฟ (4 เท่าของขนาดปกติ) ในการศึกษาในห้องปฏิบัติการ T-adapter ส่งยาได้เพียงประมาณ 1/20 ของการหายใจเอง และมีลมรั่วมากกว่าครึ่งของแต่ละครั้งที่หายใจ ผู้วิจัยแนะนำไม่ให้ใช้ T-adapter`,
+    ventSmiRefs: "เอกสารอ้างอิง",
+    ventSmiDisc: "ข้อจำกัด: ขนาดยานี้คำนวณจากการศึกษาในห้องปฏิบัติการ ยังไม่ได้ทดสอบในผู้ป่วย และสูงกว่าขนาดตามฉลาก ควรใช้ MDI ต่อ spacer ในวงจร หรือ nebulizer แทนหากทำได้ และใช้วิจารณญาณทางคลินิก",
     ventDoseMdi: "ใช้ spacer ต่อในวงจร และกดพ่นตอนเริ่มหายใจเข้า salbutamol 4 พัฟให้ผลขยายหลอดลมเกือบสูงสุดในผู้ป่วย COPD ที่ใช้เครื่องช่วยหายใจ (ประมาณ 2 เท่าของ 2 พัฟตามปกติ) ขนาดสูงกว่านี้เพิ่มหัวใจเต้นเร็วโดยไม่ได้ผลเพิ่ม",
-    ventDoseSmi: "ไม่มีขนาดยาที่ปรับแล้วผ่านการพิสูจน์ แม้ใช้ adapter ในวงจร (กดพ่นตอนเริ่มหายใจออก) ยาก็ถึงปอดน้อยกว่าการหายใจเองประมาณ 3 เท่า ผู้วิจัยแนะนำให้หลีกเลี่ยง SMI กับเครื่องช่วยหายใจ ควรใช้ MDI + spacer ในวงจร หรือ nebulizer แทน",
     exporting: "กำลังบันทึก...",
     toastPreparing: "กำลังเตรียมไฟล์...",
     toastSuccess: (n) => `บันทึกรูปภาพสำเร็จ ${n} ไฟล์`,
@@ -1397,7 +1408,7 @@ const translations = {
     srcIndications: "ข้อบ่งใช้ตามฉลากของแต่ละประเทศ ดูหัวข้อทะเบียนด้านล่าง",
     srcGinaLevels: "GINA 2026 (ระดับขนาด ICS ต่ำ กลาง สูง)",
     srcVentMdiNote: "การศึกษา salbutamol MDI ใช้กับ MDI ทั้งกลุ่ม",
-    srcVentSmiNote: "การศึกษา tiotropium soft mist ในหลอดทดลอง ใช้กับยาสูดชนิด soft mist ทั้งกลุ่ม",
+    srcVentSmiNote: "การศึกษา tiotropium soft mist ผ่านวงจรเครื่องช่วยหายใจในห้องปฏิบัติการ ขนาดยา 3 และ 4 เท่าเป็นการคำนวณ ยังไม่ผ่านการพิสูจน์",
     makerLabel: "ผู้ผลิต",
     holderLabel: "ผู้รับอนุญาต",
     holderNone: "ไม่ได้ขึ้นทะเบียนในไทย",
@@ -1468,7 +1479,10 @@ const translations = {
       nlem: "สถานะบัญชียาหลักและเงื่อนไข",
       refprice: "ช่วงราคาของยาแต่ละรายการ (ราคากลางต่อหน่วยบรรจุ)",
       dhand: "การให้ยา MDI ผ่านวงจรเครื่องช่วยหายใจ",
-      fang: "การใช้ SMI ผ่านวงจรเครื่องช่วยหายใจ",
+      fang: "การใช้ SMI ผ่านวงจรเครื่องช่วยหายใจ (in-line adapter เทียบกับ T-adapter)",
+      mehri: "ปริมาณยา SMI ผ่าน in-line adapter ของเครื่องช่วยหายใจ (ประมาณหนึ่งในสามของการใช้โดยตรง)",
+      ke: "จังหวะการกดพ่นและตำแหน่งของ SMI ในวงจรเครื่องช่วยหายใจ",
+      hsiao: "กลไกการหายใจหลังให้ SMI ขนาดปกติผ่าน in-line adapter ในผู้ป่วย COPD ที่ใช้เครื่องช่วยหายใจ",
       cat: "คะแนน CAT ในแนวทางยาควบคุมเริ่มต้น",
       mmrc: "ระดับ mMRC ในแนวทางยาควบคุมเริ่มต้น",
       usmani: "ข้อผิดพลาดที่พบบ่อยในคู่มือการใช้อุปกรณ์",
@@ -1888,14 +1902,17 @@ const DiagnosticBadges = ({ indications, t, className = "mt-3 mb-2", med = null 
 
 // Short ventilator dose label ("2x" / "No set dose"); hover or click shows the full,
 // referenced note. The popover is portalled to <body> so card overflow can't clip it.
-const VentDosePopover = ({ label, full }) => {
+const VentDosePopover = ({ label, full, body = null }) => {
   const [pos, setPos] = useState(null);
   const [pinned, setPinned] = useState(false);
   const ref = React.useRef(null);
   const place = () => {
     const r = ref.current.getBoundingClientRect();
     const w = Math.min(288, window.innerWidth - 16);
-    setPos({ left: Math.max(8, Math.min(r.left, window.innerWidth - w - 8)), top: r.bottom + 6, width: w });
+    // open below the label, or above it when there is more room there; never taller than the space (it scrolls inside)
+    const below = window.innerHeight - r.bottom - 14, above = r.top - 14;
+    const left = Math.max(8, Math.min(r.left, window.innerWidth - w - 8));
+    setPos(below >= 260 || below >= above ? { left, top: r.bottom + 6, width: w, maxHeight: below } : { left, bottom: window.innerHeight - r.top + 6, width: w, maxHeight: above });
   };
   useEffect(() => {
     if (!pinned) return;
@@ -1914,9 +1931,9 @@ const VentDosePopover = ({ label, full }) => {
         {label}
       </button>
       {pos && ReactDOM.createPortal(
-        <div role="tooltip" style={{ position: 'fixed', left: pos.left, top: pos.top, width: pos.width, zIndex: 1000 }}
-          className="rounded-lg border border-cyan-200 bg-white p-3 text-xs font-medium leading-relaxed text-slate-700 shadow-xl">
-          {full}
+        <div role="tooltip" style={{ position: 'fixed', left: pos.left, top: pos.top, bottom: pos.bottom, width: pos.width, maxHeight: pos.maxHeight, overflowY: 'auto', zIndex: 1000 }}
+          className="rounded-lg border border-cyan-200 bg-white p-3 text-xs font-medium leading-relaxed text-slate-700 shadow-xl" data-vent-pop>
+          {body || full}
         </div>, document.body)}
     </>
   );
@@ -1925,8 +1942,20 @@ const VentDosePopover = ({ label, full }) => {
 // Shared ventilator strip: same copy in grid card, compare panel and export card.
 const VentNote = ({ med, t }) => {
   if (med.ventCompatible && (med.type === 'MDI' || med.type === 'SMI')) {
-    const isMdi = med.type === 'MDI';
-    return <><strong>{t.dose}</strong> <VentDosePopover label={isMdi ? t.ventShortMdi : t.ventShortSmi} full={isMdi ? t.ventDoseMdi : t.ventDoseSmi} /></>;
+    if (med.type === 'MDI') return <><strong>{t.dose}</strong> <VentDosePopover label={t.ventShortMdi} full={t.ventDoseMdi} /></>;
+    // Soft mist: 3x (in-line adapter) to 4x (T-adapter) the usual puffs per dose, extrapolated from bench studies
+    const n = defaultRegimen(med).per, lo = 3 * n, hi = 4 * n;
+    const ref = (key, label) => <a href={refUrl(key)} target="_blank" rel="noopener noreferrer" className="text-indigo-600 underline decoration-dotted">{label}</a>;
+    const body = (
+      <span className="flex flex-col gap-1.5">
+        <strong className="text-slate-800">{t.ventSmiTitle}</strong>
+        <span>{t.ventSmiInline(lo)}</span>
+        <span>{t.ventSmiTee(hi)}</span>
+        <span className="text-[11px]">{t.ventSmiRefs}: {ref('fang', 'Fang 2020')} · {ref('mehri', 'Mehri 2021')} · {ref('ke', 'Ke 2020')} · {ref('hsiao', 'Hsiao 2026')}</span>
+        <span className="text-[11px] text-rose-700">{t.ventSmiDisc}</span>
+      </span>
+    );
+    return <><strong>{t.dose}</strong> <VentDosePopover label={t.ventShortSmi(lo, hi)} full={[t.ventSmiTitle, t.ventSmiInline(lo), t.ventSmiTee(hi), t.ventSmiDisc].join(' ')} body={body} /></>;
   }
   if (!med.ventCompatible) return <>{t.ventChangeAlt}</>;
   return null;
@@ -2271,6 +2300,14 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 };
 
 const changelogData = [
+  {
+    version: "v1.12.8",
+    date: "November 2, 2026",
+    features: [
+      "Soft mist inhalers on a ventilator now show a dose: 6-8 puffs (not validated) for two-puff products such as Spiriva Respimat, and 3-4 puffs for Combivent Respimat (one puff). Tap or hover over it for the in-line adapter dose (3x the usual dose, sprayed at the start of expiration) and the T-adapter dose (4x), with the references (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) and a disclaimer: the doses are extrapolated from bench studies, untested in patients and above the labelled dose, and the T-adapter study advises against T-adapters.",
+    ],
+    bugs: [],
+  },
   {
     version: "v1.12.7",
     date: "October 27, 2026",
@@ -2647,6 +2684,12 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.8": {
+  "features": [
+    "ยาสูด soft mist กับเครื่องช่วยหายใจแสดงขนาดยาแล้ว: 6-8 พัฟ (ยังไม่ผ่านการพิสูจน์) สำหรับยาที่ใช้ครั้งละ 2 พัฟ เช่น Spiriva Respimat และ 3-4 พัฟ สำหรับ Combivent Respimat (ครั้งละ 1 พัฟ) แตะหรือชี้ที่ขนาดยาเพื่อดูขนาดสำหรับ in-line adapter (3 เท่าของขนาดปกติ กดพ่นตอนเริ่มหายใจออก) และ T-adapter (4 เท่า) พร้อมเอกสารอ้างอิง (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) และข้อจำกัด: ขนาดยาคำนวณจากการศึกษาในห้องปฏิบัติการ ยังไม่ได้ทดสอบในผู้ป่วย สูงกว่าขนาดตามฉลาก และการศึกษา T-adapter แนะนำไม่ให้ใช้ T-adapter"
+  ],
+  "bugs": []
+ },
  "v1.12.7": {
   "features": [
     "มุมมองตาราง: ปุ่มมุมมองที่สามถัดจากปุ่มการ์ดและรายการ แสดงรายการยาเป็นตาราง หนึ่งแถวต่อยาหนึ่งขนาด มีส่วนประกอบ ข้อบ่งใช้ (หืด / COPD ภาวะกำเริบ) ขนาดยาแนะนำ ระดับ ICS แรงสูดขั้นต่ำ spacer การใช้กับเครื่องช่วยหายใจ ราคา ป้ายทะเบียนพร้อมประเภทบัญชียาหลัก และปุ่มเลือกกับรายละเอียด คอลัมน์ชื่อยาอยู่กับที่ขณะเลื่อนตารางไปด้านข้าง หน้าเว็บจึงไม่เลื่อนไปด้านข้าง และแตะแถวเพื่อเปิดรายละเอียด"
@@ -6722,6 +6765,9 @@ const REFERENCES = [
   { key: 'refprice', cite: 'คณะกรรมการพัฒนาระบบยาแห่งชาติ. ประกาศคณะกรรมการพัฒนาระบบยาแห่งชาติ เรื่อง กำหนดราคากลางยา. ฐานข้อมูลราคากลาง (ยา), ศูนย์ข้อมูลข่าวสารด้านเวชภัณฑ์ กระทรวงสาธารณสุข (accessed 7 October 2026).', url: 'https://dmsic.moph.go.th/index/drugsearch/3' },
   { key: 'dhand', cite: 'Dhand R, Duarte AG, Jubran A, Jenne JW, Fink JB, Fahey PJ, Tobin MJ. Dose-response to bronchodilator delivered by metered-dose inhaler in ventilator-supported patients. Am J Respir Crit Care Med. 1996;154(2 Pt 1):388–393.', url: 'https://doi.org/10.1164/ajrccm.154.2.8756811' },
   { key: 'fang', cite: 'Fang TP, Lin HL, Chiu SH, Wang SH, DiBlasi RM, Tsai YH, Fink JB. Optimal connection for tiotropium SMI delivery through mechanical ventilation: an in vitro study. Pharmaceutics. 2020;12(3):291.', url: 'https://doi.org/10.3390/pharmaceutics12030291' },
+  { key: 'mehri', cite: 'Mehri R, Alatrash A, Ogrodnik N, Matida EA, Fiorenza F. Measurements of Spiriva Respimat dose delivery in mechanically ventilated tracheostomy patients. J Aerosol Med Pulm Drug Deliv. 2021;34(4):242–250.', url: 'https://doi.org/10.1089/jamp.2019.1570' },
+  { key: 'ke', cite: 'Ke WR, Wang WJ, Lin TH, Wu CL, Huang SH, Wu HD, Chen CC. In vitro evaluation of aerosol performance and delivery efficiency during mechanical ventilation between soft mist inhaler and pressurized metered-dose inhaler. Respir Care. 2020;65(7):1001–1010.', url: 'https://doi.org/10.4187/respcare.06993' },
+  { key: 'hsiao', cite: 'Hsiao HY, Hung SY, Lin SL, Huang XH, Cheng YC. Respiratory mechanics after inline delivery of tiotropium/olodaterol during mechanical ventilation. Respir Care. 2026.', url: 'https://doi.org/10.1177/19433654261475761' },
   { key: 'weers', cite: 'Weers J. Suboptimal inspiratory flow rates with passive dry powder inhalers: big issue or overstated problem? Front Drug Deliv. 2022;2:855234.', url: 'https://doi.org/10.3389/fddev.2022.855234' },
   { key: 'grant', cite: 'Grant AC, Walker R, Hamilton M, Garrill K. The ELLIPTA® dry powder inhaler: design, functionality, in vitro dosing performance and critical task compliance by patients and caregivers. J Aerosol Med Pulm Drug Deliv. 2015;28(6):474–485.', url: 'https://doi.org/10.1089/jamp.2015.1223' },
   { key: 'haikarainen', cite: 'Haikarainen J, Rytilä P, Roos S, Metsärinne S, Happonen A. Dose uniformity of budesonide Easyhaler® under simulated real-life conditions and with low inspiration flow rates. Chron Respir Dis. 2018;15(3):265–271.', url: 'https://doi.org/10.1177/1479972317745733' },
@@ -7363,7 +7409,7 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   // Laube 2011: ventilated patients receive aerosols by pMDI with an in-line spacer, or by nebuliser (so not by DPI or breath-actuated inhaler)
   const laubeVent = [{ label: 'Laube 2011', url: refUrl('laube') }, { label: t.srcVentLaube }];
   const ventSrc = med.ventCompatible && med.type === 'MDI' ? [{ label: 'Dhand 1996', url: refUrl('dhand') }, { label: t.srcVentMdiNote }, ...laubeVent]
-    : med.ventCompatible && med.type === 'SMI' ? [{ label: 'Fang 2020', url: refUrl('fang') }, { label: t.srcVentSmiNote }] : laubeVent;
+    : med.ventCompatible && med.type === 'SMI' ? [{ label: 'Fang 2020', url: refUrl('fang') }, { label: 'Mehri 2021', url: refUrl('mehri') }, { label: 'Ke 2020', url: refUrl('ke') }, { label: t.srcVentSmiNote }] : laubeVent;
   const priceSrc = med.priceLevel == null ? null : med.priceEst ? [{ label: t.priceEstNote }] : [{ label: t.srcRefPrice, url: refUrl('refprice') }];
   const infoSrc = (value) => (isUnknownText(value) ? null : [{ label: t.srcProductInfoShort }]);
   return (

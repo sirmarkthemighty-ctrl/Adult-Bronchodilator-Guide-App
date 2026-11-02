@@ -211,9 +211,9 @@ window.__bdgE2E = async function () {
   const disc = document.getElementById('disclaimer-heading');
   log('disclaimer section with 5 points', disc && disc.parentElement.querySelectorAll('li').length === 5, '');
   log('header links to disclaimer', !!document.querySelector('header a[href="#disclaimer-heading"]'), '');
-  log('references collapsed by default', !document.getElementById('refs-list') && document.getElementById('refs-heading').textContent.includes('(22)'), '');
+  log('references collapsed by default', !document.getElementById('refs-list') && document.getElementById('refs-heading').textContent.includes('(25)'), '');
   document.querySelector('#refs-heading button').click(); await wait(250);
-  log('22 references listed when opened', document.querySelectorAll('#refs-list ol > li').length === 22, '');
+  log('25 references listed when opened', document.querySelectorAll('#refs-list ol > li').length === 25, '');
   document.querySelector('#refs-heading button').click(); await wait(200);
 
   // --- One drug selected: Patient Sheet + Equivalent Drugs
@@ -646,7 +646,7 @@ window.__bdgE2E = async function () {
   log('MIMS: Pulvisonide 200 costs band 2 (≈300 THB/month), salbutamol solutions priced per pack', lvl(404) === 2 && byId(426).priceBasis === 'pack' && byId(421).hiddenPrice === 27.5, '');
   log('monthly cost bands: Ventolin 1, Spiriva HandiHaler 2, Relvar 100 3, Spiriva Respimat 4', lvl(1) === 1 && lvl(13) === 2 && lvl(101) === 3 && lvl(15) === 4, [lvl(1), lvl(13), lvl(101), lvl(15)]);
   log('a price level is shown only where there is a reference price: 68 products priced, 63 Unknown (46 newer additions and the 17 that used to be estimates), no estimates left', deviceData.filter(d => d.priceLevel >= 1 && d.priceLevel <= 4 && d.hiddenPrice > 0).length === 68 && deviceData.filter(d => d.priceLevel == null && d.hiddenPrice == null).length === 63 && deviceData.filter(d => d.priceEst).length === 0 && [8, 16, 23, 201, 203, 437, 439, 261, 51, 440, 407, 33, 21, 25, 12, 103, 24].every(id => deviceData.find(d => d.id === id).priceLevel == null) && lastChecked(deviceData.find(d => d.id === 21)).price === null, [deviceData.filter(d => d.priceLevel >= 1).length, deviceData.filter(d => d.priceLevel == null).length]);
-  log('SMI ventilator note gives no dose multiplier', !/2-4x|Multiply/.test(translations.en.ventDoseSmi) && /nebuli/.test(translations.en.ventDoseSmi), '');
+  log('SMI ventilator dose: 3x (in-line) to 4x (T-adapter) the usual puffs, marked not validated', translations.en.ventShortSmi(6, 8) === '6-8 puffs (not validated)' && /nebuliser/.test(translations.en.ventSmiDisc) && /advise against T-adapters/.test(translations.en.ventSmiTee(8)) && defaultRegimen(byId(15)).per === 2 && defaultRegimen(byId(16)).per === 1, '');
 
   // --- Ventilator strip: short label, full note on hover/click
   const vdm = await openDetail('Ventolin Evohaler 100 mcg');
@@ -659,7 +659,12 @@ window.__bdgE2E = async function () {
   log('clicking elsewhere closes the note', !document.querySelector('[role="tooltip"]'), '');
   await esc();
   { const sdm = await openDetail('Spiriva Respimat 2.5 mcg');
-    log('SMI ventilator note in the detail view shows "No set dose"', [...sdm.querySelectorAll('button')].some(b => b.textContent.trim() === 'No set dose'), '');
+    const sb = [...sdm.querySelectorAll('button')].find(b => b.textContent.trim() === '6-8 puffs (not validated)');
+    log('SMI ventilator note in the detail view shows "6-8 puffs (not validated)" for Spiriva Respimat', !!sb, '');
+    if (sb) { sb.click(); await wait(200); }
+    const sp = document.querySelector('[data-vent-pop]');
+    log('its pop-up gives the in-line (6 puffs) and T-adapter (8 puffs) doses, four reference links and the disclaimer', !!sp && /In-line adapter: 6 puffs/.test(sp.textContent) && /T-adapter: 8 puffs/.test(sp.textContent) && sp.querySelectorAll('a[href*="doi.org"]').length === 4 && /not been tested in patients/.test(sp.textContent), sp && sp.textContent.slice(0, 120));
+    document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); await wait(200);
     await esc(); }
 
   // --- Thai UI
