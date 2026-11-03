@@ -701,7 +701,8 @@ window.__bdgE2E = async function () {
   log('Xalflu Airmaster 50/100 stays current with an awaiting-status note; 50/250 has none', thaiStatus(byId(413)) === 'current' && /awaiting status check/.test(thAwaitingNote(byId(413), { thAwaiting: (d) => 'awaiting status check ' + d, isTh: false })) && thAwaitingNote(byId(414), { thAwaiting: () => 'x', isTh: false }) === null, '');
   log('mometasone pMDI (GINA 2026: 200-400 low to medium, >400 high): Asmanex HFA 100 and Dulera 100/5 are Low / Medium, the 200 strengths High; the DPIs have no level', icsLevels(byId(509)).join() === 'low,medium' && icsLevels(byId(515)).join() === 'low,medium' && icsLevels(byId(510)).join() === 'high' && icsLevels(byId(516)).join() === 'high' && [511, 537, 538, 539, 540, 541].every(id => icsLevels(byId(id)).length === 0 && icsInfo(byId(id)) === null), [509, 510, 515, 516].map(id => icsLevels(byId(id)).join('/')));
   log('steroid calculator: mometasone pMDI graded 400 = low to medium, 800 = high, 100 = below; label maximum 4 inhalations a day', icsInfo(byId(509)).key === 'mom' && icsInfo(byId(509)).mcg === 100 && icsInfo(byId(516)).mcg === 200 && gradeIcs('mom', 400) === 'lowmed' && gradeIcs('mom', 200) === 'lowmed' && gradeIcs('mom', 800) === 'high' && gradeIcs('mom', 401) === 'high' && gradeIcs('mom', 100) === 'below' && [509, 510, 515, 516].every(id => LABEL_MAX[id].n === 4) && /low to medium 200–400, high >400/.test(ICS_TEXT.en.band(ICS_BANDS.adult.mom)), [gradeIcs('mom', 400), gradeIcs('mom', 800), ICS_TEXT.en.band(ICS_BANDS.adult.mom)]);
-  log('ciclesonide (GINA 2026: 80-160 low, >160-320 medium, >320 high): Alvesco 80 Low / Medium / High, Alvesco 160 Medium / High; calculator grades 160 low, 320 medium, 640 high; label maximum 640 mcg a day', icsLevels(byId(505)).join() === 'low,medium,high' && icsLevels(byId(506)).join() === 'medium,high' && byId(505).doseRange.low === '1 puff BID' && byId(506).doseRange.medium === '1 puff BID' && icsInfo(byId(505)).key === 'cic' && icsInfo(byId(506)).mcg === 160 && gradeIcs('cic', 160) === 'low' && gradeIcs('cic', 320) === 'medium' && gradeIcs('cic', 640) === 'high' && gradeIcs('cic', 40) === 'below' && LABEL_MAX[505].mcg === 640 && LABEL_MAX[506].mcg === 640, [icsLevels(byId(505)).join('/'), icsLevels(byId(506)).join('/'), gradeIcs('cic', 320)]);
+  log('ciclesonide (GINA 2026: 80-160 low, >160-320 medium, >320 high): Alvesco 80 and 160 Low / Medium / High (160 once daily from the UK SmPC); calculator grades 160 low, 320 medium, 640 high; label maximum 640 mcg a day', icsLevels(byId(505)).join() === 'low,medium,high' && icsLevels(byId(506)).join() === 'low,medium,high' && byId(505).doseRange.low === '1 puff BID' && byId(506).doseRange.low === '1 puff ONCE daily' && byId(506).doseRange.medium === '1 puff BID' && /once daily/.test(byId(506).instructions) && icsInfo(byId(505)).key === 'cic' && icsInfo(byId(506)).mcg === 160 && gradeIcs('cic', 160) === 'low' && gradeIcs('cic', 320) === 'medium' && gradeIcs('cic', 640) === 'high' && gradeIcs('cic', 40) === 'below' && LABEL_MAX[505].mcg === 640 && LABEL_MAX[506].mcg === 640, [icsLevels(byId(505)).join('/'), icsLevels(byId(506)).join('/'), gradeIcs('cic', 320)]);
+  log('AirDuo RespiClick (GINA 2026, fluticasone propionate DPI: 100-250 low, >250-500 medium): 55/14 and 113/14 Low, 232/14 Medium; the calculator agrees', icsLevels(byId(512)).join() === 'low' && icsLevels(byId(513)).join() === 'low' && icsLevels(byId(514)).join() === 'medium' && [512, 513, 514].every(id => icsInfo(byId(id)).key === 'fp' && gradeIcs('fp', icsInfo(byId(id)).mcg * 2) === icsLevels(byId(id))[0]), [512, 513, 514].map(id => icsLevels(byId(id)).join() + ' ' + icsInfo(byId(id)).mcg * 2));
   location.hash = '#drug=261'; await wait(900);
   log('deep link to QVAR (not in TH) adds a licensed country and highlights it', btnExact('US').getAttribute('aria-pressed') === 'true' && !!document.getElementById('drug-261') && /ring-4/.test(document.getElementById('drug-261').className), '');
   location.hash = ''; await wait(200);
@@ -908,6 +909,7 @@ window.__bdgE2E = async function () {
     document.body.dispatchEvent(new MouseEvent('mousedown', { bubbles: true })); await wait(200);
     return txt;
   };
+  log('cautions button carries its name on wide screens', cardFor('Spiriva HandiHaler').querySelector('[data-cautions-btn]').textContent.trim() === 'Cautions', '');
   log('cautions collapsed to a symbol on cards (no text until clicked)', !!cardFor('Spiriva HandiHaler').querySelector('[data-cautions-btn]') && !/glaucoma/.test(cardFor('Spiriva HandiHaler').textContent), '');
   await wait(1200); // let any smooth scroll from earlier steps finish (scrolling closes the popover)
   const lamaC = await cautionText('Spiriva HandiHaler');
@@ -981,6 +983,7 @@ window.__bdgE2E = async function () {
     document.querySelector('[data-legend-btn]').click(); await wait(400);
     const lg = document.querySelector('[data-legend-modal]');
     log('Key button opens the key with every section', !!lg && ['reg', 'nlem', 'price', 'class', 'device', 'badges'].every(k => lg.querySelector('[data-legend-' + k + ']')) && /TH †/.test(lg.textContent) && /TH ⊘/.test(lg.textContent) && /NLEM · Basic \(b\)/.test(lg.textContent) && /Long-acting muscarinic antagonist/.test(lg.textContent) && /Soft mist inhaler/.test(lg.textContent) && !!lg.querySelector('[data-icon-na]'), lg && lg.textContent.slice(0, 200));
+    log('Key explains the ? mark on a Thai registration', /TH \?/.test(lg.textContent) && /awaiting status check/.test(lg.textContent), '');
     await esc();
     log('Escape closes the key', !document.querySelector('[data-legend-modal]'), '');
 
@@ -993,6 +996,8 @@ window.__bdgE2E = async function () {
     log('list rows: product name at least 13px, holder and flow at least 11px', sizes[0] >= 13 && sizes[1] >= 11 && sizes[2] >= 11, sizes);
     { const ls = row.querySelector('[data-list-select]'), sb = ls.querySelector('button').getBoundingClientRect(), db = ls.querySelector('[data-details]').getBoundingClientRect();
       log('list rows: Details button sits directly under the Select button, not in the facts line', db.top >= sb.bottom && db.top - sb.bottom < 12 && Math.abs(db.right - sb.right) < 2 && !row.querySelector('[data-list-details] [data-details]') && row.querySelectorAll('[data-details]').length === 1, [sb.bottom, db.top, sb.right, db.right]); }
+    log('list rows: one frame, no box inside the row card', parseFloat(getComputedStyle(row.querySelector('[data-list-details]').parentElement.parentElement).borderTopWidth) === 0 && parseFloat(getComputedStyle(row).borderTopWidth) > 0, '');
+    { const vl = document.querySelectorAll('[data-view-label]'); log('view buttons: only the one in use shows its name, and both grid and list have a tooltip', vl.length === 1 && vl[0].textContent.trim() === 'List View' && getComputedStyle(vl[0]).display !== 'none' && document.querySelector('button[aria-label="List View"]').title === 'List View' && document.querySelector('button[aria-label="Grid View"]').title === 'Grid View', vl.length); }
     document.querySelector('button[aria-label="Grid View"]').click(); await wait(400); }
 
   // --- US products added from the FDA list and US labels
@@ -1028,12 +1033,11 @@ window.__bdgE2E = async function () {
       log('Meptin Swinghaler has its own picture in its teal colour, not N/A', !ICON_UNKNOWN.has(533) && ICON_SHAPE[533] === 'Swinghaler' && IconMap.Swinghaler === SwinghalerIcon && iconHex(byId(533)) === '#5ecfc9' && !COLOUR_UNKNOWN.has(533), '');
     log('Feedback button sits right after the version button and opens the form in a new tab', !!fb && fb.previousElementSibling === vb && fb.getAttribute('href') === 'https://forms.gle/ZMWtPk3WEjFvbkfj6' && fb.target === '_blank' && /noopener/.test(fb.rel) && /Feedback/.test(fb.textContent), fb && fb.outerHTML.slice(0, 120)); } }
 
-  // --- Device filter: sub-types in A-Z order, Other DPI last
+  // --- Device filter: sub-types in A-Z order, Other DPI in its A-Z place
   { const fbtn = (txt) => [...document.querySelectorAll('[data-filter-bar] button')].find(b => b.textContent.trim() === txt);
     fbtn('DPI').click(); await wait(400);
     const names = [...document.querySelectorAll('[data-shape-group] button')].map(b => b.textContent.trim());
-    const az = names.slice(0, -1);
-    log('DPI device names are A-Z with Other DPI last; no Capsule entry', names.length > 8 && names[names.length - 1] === 'Other DPI' && !names.includes('Capsule') && az.join() === [...az].sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' })).join(), names);
+    log('DPI device names are all A-Z, Other DPI in its place (not last); no Capsule entry', names.length > 8 && names.includes('Other DPI') && names[names.length - 1] !== 'Other DPI' && !names.includes('Capsule') && names.join() === [...names].sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' })).join(), names);
     fbtn('DPI').click(); await wait(300); }
 
   // --- Components directly under the name, above the country lines

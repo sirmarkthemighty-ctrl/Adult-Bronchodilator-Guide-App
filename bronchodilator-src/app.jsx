@@ -425,9 +425,9 @@ const ICON_UNKNOWN = new Set([404, 542, 543, 544]); // also the BudeForu devices
 const ICON_SHAPE = { 415: 'LupinHaler', 533: 'Swinghaler' };
 // Teva's RespiClick (US) is the Spiromax inhaler under its US name: same picture and technique card, own label
 const SHAPE_LABEL = { 501: 'RespiClick', 512: 'RespiClick', 513: 'RespiClick', 514: 'RespiClick', 533: 'Swinghaler' };
-// Device names as shown in the filter and on cards; A-Z order with Other DPI last
+// Device names as shown in the filter and on cards; A-Z order (Other DPI sorts as "Other DPI")
 const shapeName = (shape) => (shape === 'OtherDPI' ? 'Other DPI' : shape);
-const shapeSort = (a, b) => (a === 'OtherDPI') - (b === 'OtherDPI') || shapeName(a).localeCompare(shapeName(b), 'en', { sensitivity: 'base' });
+const shapeSort = (a, b) => shapeName(a).localeCompare(shapeName(b), 'en', { sensitivity: 'base' });
 const shapeLabel = (med) => SHAPE_LABEL[med.id] || ICON_SHAPE[med.id] || shapeName(med.shape);
 
 // Pressair (Genuair in Europe) traced from pack photos: white body lying flat, a `color` press button on top at
@@ -758,6 +758,7 @@ const translations = {
     legendRegNow: "Registered there now. The chip takes the country's colour.",
     legendRegPast: "Registered before; now cancelled, expired, withdrawn or discontinued.",
     legendRegNever: "No registration found in that country.",
+    legendRegAwaiting: "The Thai FDA register lists this registration as \"awaiting status check\". It is shown as registered: confirm in the register before relying on it.",
     legendCountries: "TH = Thailand, US = United States, UK = United Kingdom, EU = European Union (EMA, or the Irish label for nationally licensed products), JP = Japan.",
     legendNlem: "NLEM (Thailand)",
     legendNlemNote: "The type sits on the Thailand line of each product.",
@@ -1350,6 +1351,7 @@ const translations = {
     legendRegNow: "ขึ้นทะเบียนอยู่ในปัจจุบัน ป้ายเป็นสีของประเทศนั้น",
     legendRegPast: "เคยขึ้นทะเบียน ปัจจุบันถูกยกเลิก หมดอายุ ถอนทะเบียน หรือเลิกจำหน่ายแล้ว",
     legendRegNever: "ไม่พบการขึ้นทะเบียนในประเทศนั้น",
+    legendRegAwaiting: "ทะเบียน อย. ระบุทะเบียนนี้ว่า \"รอตรวจสอบสถานะ\" ในที่นี้ยังแสดงว่ามีทะเบียน ควรยืนยันกับทะเบียนก่อนใช้ข้อมูล",
     legendCountries: "TH = ไทย, US = สหรัฐฯ, UK = สหราชอาณาจักร, EU = สหภาพยุโรป (EMA หรือฉลากของไอร์แลนด์สำหรับยาที่ขึ้นทะเบียนรายประเทศ), JP = ญี่ปุ่น",
     legendNlem: "บัญชียาหลักแห่งชาติ (ไทย)",
     legendNlemNote: "ประเภทบัญชีแสดงอยู่ในบรรทัดประเทศไทยของยาแต่ละรายการ",
@@ -2130,7 +2132,7 @@ const DeviceListSnippet = ({ med, getIcon, t, large = false, showHolder = false,
     </div>
   );
   if (large) return (
-    <div className="rounded border border-slate-200 bg-white p-2 shadow-sm transition-all flex flex-col gap-2 relative w-full min-w-0">
+    <div className="flex flex-col gap-2 relative w-full min-w-0">
       <div className="flex flex-col md:flex-row md:items-center gap-2 w-full min-w-0">{nameBlock}{details}</div>
       {note}
     </div>
@@ -2300,6 +2302,18 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 };
 
 const changelogData = [
+  {
+    version: "v1.12.9",
+    date: "November 3, 2026",
+    features: [
+      "Alvesco 160 now shows its once-daily dose (1 puff = 160 mcg a day, a low dose) from the UK label, next to the US twice-daily doses, and is graded Low / Medium / High. AirDuo RespiClick now has dose levels: 55/14 and 113/14 are low, 232/14 is medium. The label strength is graded as it stands, because it is the dose in each actuation, the metered dose GINA uses; the mouthpiece delivers 49, 100 and 202 mcg.",
+      "The Key to symbols now explains the ? mark on a Thai registration (the register says awaiting status check).",
+      "Icon-only buttons now carry a word: the view button in use (grid, list, table) shows its name, and the Cautions button shows Cautions on larger screens. The grid and list buttons also got tooltips.",
+      "The device filter lists Other DPI in its A to Z place instead of last.",
+      "List rows lose the double frame: the box inside each row card is gone, so a row has one frame like the tile and table views.",
+    ],
+    bugs: [],
+  },
   {
     version: "v1.12.8",
     date: "November 2, 2026",
@@ -2685,6 +2699,16 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.9": {
+  "features": [
+    "Alvesco 160 แสดงขนาดยาวันละครั้งแล้ว (1 พัฟ = 160 mcg ต่อวัน ระดับต่ำ) ตามฉลากสหราชอาณาจักร ควบคู่กับขนาดวันละ 2 ครั้งของฉลากสหรัฐฯ และจัดระดับต่ำ / กลาง / สูง ส่วน AirDuo RespiClick มีระดับขนาดยาแล้ว: 55/14 และ 113/14 ระดับต่ำ 232/14 ระดับกลาง ใช้ความแรงตามฉลากตามที่เป็น เพราะเป็นขนาดในแต่ละการกดพ่น (metered dose) ซึ่ง GINA ใช้ ส่วนปากเป่าปล่อยยา 49, 100 และ 202 mcg",
+    "คำอธิบายสัญลักษณ์อธิบายเครื่องหมาย ? ที่ทะเบียนไทยแล้ว (ทะเบียน อย. ระบุว่ารอตรวจสอบสถานะ)",
+    "ปุ่มที่เป็นไอคอนล้วนมีคำกำกับ: ปุ่มมุมมองที่ใช้อยู่ (ตาราง รายการ ตารางเปรียบเทียบ) แสดงชื่อ และปุ่มข้อควรระวังแสดงคำว่า ข้อควรระวัง บนหน้าจอใหญ่ ปุ่มมุมมองแบบตารางและรายการมีข้อความอธิบายเมื่อชี้ด้วย",
+    "ตัวกรองอุปกรณ์เรียง Other DPI ตามลำดับ A ถึง Z แทนที่จะอยู่ท้ายสุด",
+    "แถวในมุมมองรายการไม่มีกรอบซ้อนกันแล้ว: ตัดกล่องที่อยู่ในการ์ดแถวออก ทำให้แถวมีกรอบเดียวเหมือนมุมมองการ์ดและตาราง"
+  ],
+  "bugs": []
+ },
  "v1.12.8": {
   "features": [
     "ยาสูด soft mist กับเครื่องช่วยหายใจแสดงขนาดยาแล้ว: 6-8 พัฟ (ยังไม่ผ่านการพิสูจน์) สำหรับยาที่ใช้ครั้งละ 2 พัฟ เช่น Spiriva Respimat และ 3-4 พัฟ สำหรับ Combivent Respimat (ครั้งละ 1 พัฟ) แตะหรือชี้ที่ขนาดยาเพื่อดูขนาดสำหรับ in-line adapter (3 เท่าของขนาดปกติ กดพ่นตอนเริ่มหายใจออก) และ T-adapter (4 เท่า) พร้อมเอกสารอ้างอิง (Fang 2020, Mehri 2021, Ke 2020, Hsiao 2026) และข้อจำกัด: ขนาดยาคำนวณจากการศึกษาในห้องปฏิบัติการ ยังไม่ได้ทดสอบในผู้ป่วย สูงกว่าขนาดตามฉลาก และการศึกษา T-adapter แนะนำไม่ให้ใช้ T-adapter",
@@ -3076,15 +3100,15 @@ const deviceData = [
   { id: 503, type: 'MDI', shape: 'MDI', marketName: 'Airsupra', substance: 'Salbutamol (albuterol) 90 mcg / Budesonide 80 mcg', class: 'SABA / ICS', instructions: 'As-needed reliever with ICS, adults 18+: 2 puffs PRN, maximum 6 doses (12 puffs) in 24 hours. Shake well.', hex: '#e2e8f0', tagColor: 'bg-teal-100 text-teal-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: '12 months after opening the foil pouch', doseRange: '2 puffs PRN (Max 12/day)', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 504, type: 'MDI', shape: 'MDI', marketName: 'QVAR RediHaler 80', substance: 'Beclomethasone 80 mcg', class: 'ICS', instructions: 'Breath-actuated. Do not use with a spacer. 1-4 puffs BID.', hex: '#7f1d1d', tagColor: 'bg-red-100 text-red-900', indications: ['Asthma'], ventCompatible: false, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', isExtraFine: true, icsDoseLevel: 'Low / Medium / High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 505, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 80', substance: 'Ciclesonide 80 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#7c4a2d', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 506, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 160', substance: 'Ciclesonide 160 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: 'Not appropriate', medium: '1 puff BID', high: '2 puffs BID' }, icsDoseLevel: 'Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 506, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 160', substance: 'Ciclesonide 160 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID (US label). UK SmPC: 160 mcg (1 puff) once daily, preferably in the evening; up to 640 mcg a day (320 mcg BID) in severe asthma. Rinse mouth after.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff ONCE daily', medium: '1 puff BID', high: '2 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); once daily from the UK SmPC (emc 13890, 5 Oct 2026); no Thai price recorded
   { id: 507, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 100 mcg', substance: 'Fluticasone furoate 100 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: '1 inhalation ONCE daily', medium: '1 inhalation ONCE daily', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Low / Medium' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 508, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 200 mcg', substance: 'Fluticasone furoate 200 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: 'Not appropriate', medium: 'Not appropriate', high: '1 inhalation ONCE daily' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 509, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 100 mcg', substance: 'Mometasone 100 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'Low / Medium', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 510, type: 'MDI', shape: 'MDI', marketName: 'Asmanex HFA 200 mcg', substance: 'Mometasone 200 mcg', class: 'ICS', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 511, type: 'DPI', shape: 'Twisthaler', marketName: 'Asmanex Twisthaler 220 mcg', substance: 'Mometasone 220 mcg', class: 'ICS', instructions: '1 inhalation once daily in the evening; highest 440 mcg a day. Inhale fast and deep. Rinse mouth after. UK/EU label: 200 mcg (delivered dose).', hex: '#ec4899', tagColor: 'bg-pink-100 text-pink-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30, 60 or 120 doses', expiration: '45 days after opening the foil pouch', doseRange: '1 inhalation ONCE daily (Max 2/day)', isMart: false, role: ['Controller'], flowRate: '≥ 28 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 512, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 55/14', substance: 'Fluticasone propionate 55 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 513, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 113/14', substance: 'Fluticasone propionate 113 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/100.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 514, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 232/14', substance: 'Fluticasone propionate 232 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/202.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: '1 inhalation BID', isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 512, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 55/14', substance: 'Fluticasone propionate 55 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: { low: '1 inhalation BID', medium: 'Not appropriate', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min', icsDoseLevel: 'Low' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 513, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 113/14', substance: 'Fluticasone propionate 113 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/100.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: { low: '1 inhalation BID', medium: 'Not appropriate', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min', icsDoseLevel: 'Low' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 514, type: 'DPI', shape: 'Spiromax', marketName: 'AirDuo RespiClick 232/14', substance: 'Fluticasone propionate 232 mcg / Salmeterol 14 mcg', class: 'ICS / LABA', instructions: '1 inhalation BID. Open the yellow cap until it clicks. No spacer. Rinse mouth after. EU name: Seffalair Spiromax 12.75/202.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '60 doses', expiration: '30 days after opening the foil pouch', doseRange: { low: 'Not appropriate', medium: '1 inhalation BID', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 40 L/min', icsDoseLevel: 'Medium' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 515, type: 'MDI', shape: 'MDI', marketName: 'Dulera 100/5', substance: 'Mometasone 100 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'Low / Medium', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 516, type: 'MDI', shape: 'MDI', marketName: 'Dulera 200/5', substance: 'Mometasone 200 mcg / Formoterol 5 mcg', class: 'ICS / LABA', instructions: '2 puffs BID. Shake well. Rinse mouth after.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs BID', icsDoseLevel: 'High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 517, type: 'SMI', shape: 'Respimat', marketName: 'Striverdi Respimat 2.5 mcg', substance: 'Olodaterol 2.5 mcg', class: 'LABA', instructions: '2 actuations ONCE daily. TOP: Turn, Open, Press. COPD only.', hex: '#facc15', tagColor: 'bg-yellow-100 text-yellow-800', indications: ['COPD'], ventCompatible: true, totalDoses: '60 puffs (30 doses)', expiration: '3 months after first use', doseRange: '2 actuations ONCE daily', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
@@ -4960,8 +4984,9 @@ const CautionsPanel = ({ med, t }) => {
   return (
     <>
       <button type="button" ref={ref} onClick={toggle} title={t.cautionsTitle} aria-label={t.cautionsTitle} aria-expanded={!!pos} data-cautions-btn
-        className="inline-flex items-center justify-center w-6 h-6 rounded-md border border-orange-200 bg-orange-50 text-orange-600 hover:bg-orange-100 transition-colors shrink-0 print:hidden">
+        className="inline-flex items-center justify-center gap-1 min-w-[1.5rem] h-6 px-1 sm:px-1.5 rounded-md border border-orange-200 bg-orange-50 text-orange-600 hover:bg-orange-100 transition-colors shrink-0 print:hidden">
         <AlertTriangle className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline text-[10px] font-bold leading-none whitespace-nowrap">{t.cautionsTitle}</span>
       </button>
       {pos && ReactDOM.createPortal(
         <div data-cautions-pop role="dialog" aria-label={t.cautionsTitle} style={{ position: 'fixed', left: pos.left, top: pos.top, width: pos.width, maxHeight: pos.maxH, zIndex: 1000 }}
@@ -5124,6 +5149,8 @@ const gradeIcs = (key, mcg, age = 'adult') => {
 };
 // Labels that state the DELIVERED dose, converted to the metered dose GINA uses:
 // budesonide-formoterol 80/4.5 = 100/6, 160/4.5 = 200/6, 320/9 = 400/12; Trimbow 87/5/9 = 100/6/10.
+// AirDuo RespiClick 55/14, 113/14, 232/14: the US label gives these as the dose in each actuation (metered, the basis GINA grades); the
+// mouthpiece delivers 49 / 100 / 202 mcg of fluticasone propionate. The label strength is graded as it stands (not in the list below).
 const ICS_METERED = { 51: 100, 52: 200, 71: 100, 72: 200, 31: 400, 291: 200, 25: 100, 405: 200, 406: 400, 531: 200, 542: 200, 543: 200, 544: 200 };
 const NEB_STRENGTHS = [250, 500, 1000];
 // Adult label maximum per product, checked 8 Oct 2026: n = inhalations a day, mcg = labelled ICS
@@ -7194,6 +7221,7 @@ const LegendModal = ({ t, onClose }) => {
             {row(chip(COUNTRY_COLORS.th.chip, t.countryCodes.th), t.legendRegNow, 'now')}
             {row(chip('border-amber-300 bg-amber-50 text-amber-800', `${t.countryCodes.th} †`), t.legendRegPast, 'past')}
             {row(chip('border-slate-200 text-slate-400', `${t.countryCodes.th} ⊘`), t.legendRegNever, 'never')}
+            {row(chip(COUNTRY_COLORS.th.chip, `${t.countryCodes.th} ?`), t.legendRegAwaiting, 'awaiting')}
             {row(LABEL_REGIONS.map(r => chip(COUNTRY_COLORS[r].chip, t.countryCodes[r], r)), t.legendCountries, 'codes')}
           </>, { 'data-legend-reg': '' })}
           {section(t.legendNlem, <>
@@ -8996,14 +9024,17 @@ function App() {
             </div>
 
             <div className={`${searchOpen ? 'hidden sm:flex' : 'flex'} bg-white rounded-lg border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-full`}>
-              <button onClick={() => setViewMode('grid')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'grid' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.gridView}>
+              <button onClick={() => setViewMode('grid')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'grid' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.gridView} title={t.gridView} aria-pressed={viewMode === 'grid'}>
                 <LayoutGrid className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                {viewMode === 'grid' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.gridView}</span>}
               </button>
-              <button onClick={() => setViewMode('list')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'list' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.listView}>
+              <button onClick={() => setViewMode('list')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'list' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.listView} title={t.listView} aria-pressed={viewMode === 'list'}>
                 <ListIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                {viewMode === 'list' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.listView}</span>}
               </button>
               <button onClick={() => setViewMode('table')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'table' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.tableView} title={t.tableView} aria-pressed={viewMode === 'table'} data-view-table>
                 <TableIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                {viewMode === 'table' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.tableView}</span>}
               </button>
             </div>
 
