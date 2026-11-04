@@ -212,8 +212,18 @@ window.__bdgE2E = async function () {
   log('disclaimer section with 5 points', disc && disc.parentElement.querySelectorAll('li').length === 5, '');
   log('header links to disclaimer', !!document.querySelector('header a[href="#disclaimer-heading"]'), '');
   log('references collapsed by default', !document.getElementById('refs-list') && document.getElementById('refs-heading').textContent.includes('(25)'), '');
+  { const db = document.querySelector('[data-donate-btn]'); db.click(); await wait(400);
+    const dm = document.querySelector('[data-donate-modal]'), img = dm && dm.querySelector('[data-donate-qr]');
+    if (img && !img.complete) await new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 2000); });
+    log('Donate button opens a pop-up with the PromptPay QR image (embedded, loads, sits inside the screen)', !!dm && !!img && /^data:image\/jpeg;base64,/.test(img.src) && img.naturalWidth > 300 && img.getBoundingClientRect().right <= innerWidth && img.getBoundingClientRect().bottom <= innerHeight && /PromptPay/.test(dm.textContent) && /voluntary/.test(dm.textContent), img && [img.naturalWidth, img.naturalHeight]);
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await wait(300);
+    log('Escape closes only the donate pop-up', !document.querySelector('[data-donate-modal]') && !!document.querySelector('[data-donate-btn]'), '');
+    db.click(); await wait(300); document.querySelector('[data-donate-modal] button[aria-label="Close"]').click(); await wait(300);
+    log('Close button and backdrop close the donate pop-up', !document.querySelector('[data-donate-modal]'), ''); }
   document.querySelector('#refs-heading button').click(); await wait(250);
   log('25 references listed when opened', document.querySelectorAll('#refs-list ol > li').length === 25, '');
+  { const ids = REF_GROUPS.flatMap(g => g.keys), keys = REFERENCES.map(r => r.key); const gt = [...document.querySelectorAll('[data-ref-group-title]')].map(h => h.textContent.trim()); const nums = [...document.querySelectorAll('#refs-list ol > li > span:first-child')].map(x => x.textContent.trim()).join();
+    log('references grouped by topic: every reference in exactly one group, 6 headings with counts, numbered 1 to 25 straight through', ids.length === keys.length && new Set(ids).size === ids.length && keys.every(k => ids.includes(k)) && gt.length === 6 && gt[0] === 'Guidelines (3)' && nums === Array.from({ length: 25 }, (_, i) => (i + 1) + '.').join(), [gt.join(' | '), ids.length]); }
   document.querySelector('#refs-heading button').click(); await wait(200);
 
   // --- One drug selected: Patient Sheet + Equivalent Drugs

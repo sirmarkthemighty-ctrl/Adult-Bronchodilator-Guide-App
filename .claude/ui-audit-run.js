@@ -32,6 +32,7 @@ window.__uiAuditRun = async () => {
     // product detail view (a product with a past registration and several countries, then a plain one)
     for (const id of [303, 1]) { const b = document.querySelector('#drug-' + id + ' [data-details]') || document.querySelector('[data-details]'); if (b) { b.click(); await wait(400); const st = document.querySelector('[data-src-toggle][aria-pressed="false"]'); if (st) { st.click(); await wait(250); } if (modal()) audit(lang + ' detail view ' + id, modal()); await esc(); } }
     // key to symbols
+    { const db = document.querySelector('[data-donate-btn]'); if (db) { db.click(); await wait(500); const dm = document.querySelector('[data-donate-modal]'); if (dm) audit(lang + ' donate', dm); await esc(); await wait(200); if (document.querySelector('[data-donate-modal]')) document.querySelector('[data-donate-modal] button[aria-label]')?.click(); await wait(200); } }
     { const lb = document.querySelector('[data-legend-btn]'); if (lb) { lb.click(); await wait(400); if (modal()) audit(lang + ' key', modal()); await esc(); } }
     // phones: the filters sit behind the Filters button; open the panel, audit it, close it
     { const ft = document.querySelector('[data-filters-toggle]'); if (ft && ft.getBoundingClientRect().width > 0) { ft.click(); await wait(300); audit(lang + ' filter panel (phone)', document.querySelector('[data-filter-bar]')); audit(lang + ' search row (phone)', document.querySelector('[data-search-bar]')); ft.click(); await wait(200); } }
