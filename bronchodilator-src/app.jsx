@@ -715,11 +715,11 @@ const translations = {
     checkedPrice: "price",
     checkedTitle: "When this product's Thai FDA registration, licensed indications (labels) and national reference price were last verified.",
     thRegLabel: "FDA",
-    thRegTitle: "Registration status in the selected countries. Currently: registered now. Past: registered before, now cancelled, expired, withdrawn or discontinued (†). Never: no registration found in that country (⊘).",
+    thRegTitle: "Registration status in the selected countries. Currently: registered now. Past: registered before, now cancelled, expired, withdrawn or discontinued (†). Not found: no registration found in that country (⊘). This is not proof that it was never registered.",
     usGoneTitle: "United States: previously marketed, now discontinued (marketing status Discontinued in the FDA's Drugs@FDA data).",
     euGoneTitle: (date) => `EU (Ireland): previously licensed; licence withdrawn on ${date} (HPRA withdrawn list).`,
-    thRegOpts: { current: "Currently", past: "Past", never: "Never" },
-    thNever: "Never registered in Thailand",
+    thRegOpts: { current: "Currently", past: "Past", never: "Not found" },
+    thNever: "No registration found in Thailand",
     thAwaiting: (d) => `The Thai FDA register shows this registration as "awaiting status check" (seen ${d}). It is still listed here as registered: confirm in the register before relying on it.`,
     thAwaitingShort: "status check pending",
     thGoneTitle: (g) => `Thailand: previously registered, no current registration. Thai FDA registration ${g.lic} ${g.kind === 'expired' ? 'expired' : g.kind === 'smp' ? 'ended after safety monitoring (SMP) with no full registration' : 'cancelled'} on ${g.date}. Previously sold in Thailand; old stock or MIMS listings may remain. Not suggested by the guides.`,
@@ -781,7 +781,7 @@ const translations = {
     detailReg: "Registration and licence holder",
     regNow: "Registered",
     regPast: "Previously registered",
-    regNever: "Not registered",
+    regNever: "Not found",
     detailCurrent: (inds) => `Licensed for: ${inds}.`,
     detailThPast: (g) => `Thai FDA registration ${g.lic} ${g.kind === 'expired' ? 'expired' : 'cancelled'} on ${g.date}.`,
     detailUsPast: "Marketing status Discontinued in the FDA's Drugs@FDA data.",
@@ -820,7 +820,7 @@ const translations = {
     srcVentSmiNote: "bench (in vitro) studies of tiotropium soft mist through ventilator circuits; the 3x / 4x doses are extrapolated, not validated",
     makerLabel: "Manufacturer",
     holderLabel: "Licence holder",
-    holderNone: "Not registered in Thailand",
+    holderNone: "No registration found in Thailand",
     holderTitle: "One line for each country selected in the Countries filter: registration status († = previously registered, ⊘ = not registered) and licence holder. TH: Thai FDA register. US: Drugs@FDA. UK: SmPC. EU: Irish (HPRA) lists.",
     holderToggleTitle: "Show or hide the licence holder names. Hidden: each product shows one row of country chips.",
     colourUnknown: "Colour not verified",
@@ -1308,11 +1308,11 @@ const translations = {
     checkedPrice: "ราคา",
     checkedTitle: "วันที่ตรวจสอบทะเบียน อย. ข้อบ่งใช้ตามฉลาก และราคากลางของผลิตภัณฑ์นี้ครั้งล่าสุด",
     thRegLabel: "อย.",
-    thRegTitle: "สถานะทะเบียนในประเทศที่เลือก ปัจจุบัน: มีทะเบียนอยู่ เคยมี: เคยมีทะเบียนแต่ถูกยกเลิก หมดอายุ ถอนทะเบียน หรือเลิกจำหน่าย (†) ไม่เคยมี: ไม่พบทะเบียนในประเทศนั้น (⊘)",
+    thRegTitle: "สถานะทะเบียนในประเทศที่เลือก ปัจจุบัน: มีทะเบียนอยู่ เคยมี: เคยมีทะเบียนแต่ถูกยกเลิก หมดอายุ ถอนทะเบียน หรือเลิกจำหน่าย (†) ไม่พบ: ไม่พบทะเบียนในประเทศนั้น (⊘) ไม่ใช่หลักฐานว่าไม่เคยขึ้นทะเบียน",
     usGoneTitle: "สหรัฐฯ: เคยจำหน่าย ปัจจุบันเลิกจำหน่ายแล้ว (สถานะ Discontinued ในข้อมูล Drugs@FDA)",
     euGoneTitle: (date) => `สหภาพยุโรป (ไอร์แลนด์): เคยมีทะเบียน ถอนทะเบียนเมื่อ ${date} (รายการถอนทะเบียนของ HPRA)`,
-    thRegOpts: { current: "ปัจจุบัน", past: "เคยมี", never: "ไม่เคยมี" },
-    thNever: "ไม่เคยขึ้นทะเบียนในไทย",
+    thRegOpts: { current: "ปัจจุบัน", past: "เคยมี", never: "ไม่พบ" },
+    thNever: "ไม่พบทะเบียนในไทย",
     thAwaiting: (d) => `ทะเบียน อย. แสดงสถานะทะเบียนนี้ว่า "รอตรวจสอบสถานะ" (ตรวจเมื่อ ${d}) ในที่นี้ยังแสดงว่ามีทะเบียน ควรยืนยันกับทะเบียนก่อนใช้ข้อมูล`,
     thAwaitingShort: "รอตรวจสอบสถานะ",
     thGoneTitle: (g) => `ไทย: เคยมีทะเบียน ปัจจุบันไม่มีทะเบียน ทะเบียน อย. ${g.lic} ${g.kind === 'expired' ? 'หมดอายุ' : g.kind === 'smp' ? 'สิ้นสุดการติดตามความปลอดภัย (SMP) โดยไม่ได้ทะเบียนถาวร' : 'ถูกยกเลิก'} เมื่อ ${thaiDate(g.date)} เคยจำหน่ายในไทย อาจยังพบในคลังยาหรือใน MIMS ไม่ถูกแนะนำในแนวทางต่างๆ`,
@@ -1374,7 +1374,7 @@ const translations = {
     detailReg: "ทะเบียนและผู้รับอนุญาต",
     regNow: "มีทะเบียน",
     regPast: "เคยมีทะเบียน",
-    regNever: "ไม่มีทะเบียน",
+    regNever: "ไม่พบ",
     detailCurrent: (inds) => `ข้อบ่งใช้ตามทะเบียน: ${inds}`,
     detailThPast: (g) => `ทะเบียน อย. ${g.lic} ${g.kind === 'expired' ? 'หมดอายุ' : 'ถูกยกเลิก'}เมื่อ ${g.date}`,
     detailUsPast: "สถานะ Discontinued ในข้อมูล Drugs@FDA ของ FDA สหรัฐฯ",
@@ -1413,8 +1413,8 @@ const translations = {
     srcVentSmiNote: "การศึกษา tiotropium soft mist ผ่านวงจรเครื่องช่วยหายใจในห้องปฏิบัติการ ขนาดยา 3 และ 4 เท่าเป็นการคำนวณ ยังไม่ผ่านการพิสูจน์",
     makerLabel: "ผู้ผลิต",
     holderLabel: "ผู้รับอนุญาต",
-    holderNone: "ไม่ได้ขึ้นทะเบียนในไทย",
-    holderTitle: "หนึ่งบรรทัดต่อประเทศที่เลือกในตัวกรองประเทศ: สถานะทะเบียน († = เคยมีทะเบียน, ⊘ = ไม่มีทะเบียน) และผู้รับอนุญาต TH: ทะเบียน อย. US: Drugs@FDA UK: SmPC EU: รายการของ HPRA ไอร์แลนด์",
+    holderNone: "ไม่พบทะเบียนในไทย",
+    holderTitle: "หนึ่งบรรทัดต่อประเทศที่เลือกในตัวกรองประเทศ: สถานะทะเบียน († = เคยมีทะเบียน, ⊘ = ไม่พบทะเบียน) และผู้รับอนุญาต TH: ทะเบียน อย. US: Drugs@FDA UK: SmPC EU: รายการของ HPRA ไอร์แลนด์",
     holderToggleTitle: "แสดงหรือซ่อนชื่อผู้รับอนุญาต เมื่อซ่อน แต่ละรายการจะแสดงป้ายประเทศแถวเดียว",
     colourUnknown: "ยังไม่ยืนยันสี",
     nFlowUnknown: (t) => `ไม่มีข้อมูลแรงสูดขั้นต่ำของ ${t} (ไม่มีตัวเลขที่ตีพิมพ์) ตรวจสอบว่าผู้ป่วยใช้ได้`,
@@ -2303,6 +2303,14 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.11",
+    date: "November 5, 2026",
+    features: [
+      "The registration status “Never” is renamed “Not found” (the ⊘ symbol, the filter, the product rows and the licence-holder line). It means no registration was found in that country’s register, which is not proof that the product was never registered.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.10",
     date: "November 4, 2026",
     features: [
@@ -2708,6 +2716,12 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.11": {
+  "features": [
+    "สถานะทะเบียน “ไม่เคยมี” เปลี่ยนชื่อเป็น “ไม่พบ” (สัญลักษณ์ ⊘ ตัวกรอง แถวผลิตภัณฑ์ และบรรทัดผู้รับอนุญาต) หมายถึงไม่พบทะเบียนในทะเบียนของประเทศนั้น ไม่ใช่หลักฐานว่าไม่เคยขึ้นทะเบียน"
+  ],
+  "bugs": []
+ },
  "v1.12.10": {
   "features": [
     "เอกสารอ้างอิงจัดกลุ่มตามหัวข้อ: แนวทางเวชปฏิบัติ บัญชียา ทะเบียนยา และข้อมูลผลิตภัณฑ์ของไทย ยาสูดผงแห้งและแรงสูด การเลือกและการใช้ยาสูด ยาสูดกับเครื่องช่วยหายใจ และแบบประเมินอาการ เลขลำดับต่อเนื่องกันตลอด",
