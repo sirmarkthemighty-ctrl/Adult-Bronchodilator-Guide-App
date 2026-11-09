@@ -524,7 +524,7 @@ window.__bdgE2E = async function () {
     fb.click(); await wait(300);
     const fm = document.querySelector('[data-figures-modal]');
     const href = (k) => { const a = fm && fm.querySelector('[data-figure="' + k + '"]'); return a ? a.getAttribute('href') : ''; };
-    log('Figures list opens the official GINA and GOLD reports at the figure page (Box 9-4 page 182, Figure 4.2 page 107), in a new tab', !!fm && /ginasthma\.org\/.*GINA-2026-Strategy-Report.*\.pdf#page=182$/.test(href('gina-9-4')) && /goldcopd\.org\/.*GOLD-REPORT-2026.*\.pdf#page=107$/.test(href('gold-4-2')) && fm.querySelectorAll('a[data-figure]').length === 8 && [...fm.querySelectorAll('a[data-figure]')].every(a => a.target === '_blank' && /noopener/.test(a.rel)) && /copyrighted/.test(fm.textContent), [href('gina-9-4'), href('gold-4-2')]);
+    log('Figures list opens the official GINA and GOLD reports at the figure page (Box 9-4 page 182, Figure 4.2 page 107), in a new tab', !!fm && /ginasthma\.org\/.*GINA-2026-Strategy-Report.*\.pdf#page=182$/.test(href('gina-9-4')) && /goldcopd\.org\/.*GOLD-REPORT-2026.*\.pdf#page=107$/.test(href('gold-4-2')) && fm.querySelectorAll('a[data-figure]').length === 9 && [...fm.querySelectorAll('a[data-figure]')].every(a => a.target === '_blank' && /noopener/.test(a.rel)) && /copyrighted/.test(fm.textContent), [href('gina-9-4'), href('gold-4-2')]);
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(300);
     log('Escape closes the figures list first and leaves the guide open', !document.querySelector('[data-figures-modal]') && !!document.querySelector('[data-figures-btn="exac"]'), ''); }
   let ex = modalDrugNames();
@@ -549,6 +549,8 @@ window.__bdgE2E = async function () {
     log('COPD groups follow the text: SABA, SABA + SAMA, SAMA, nebulised budesonide (mild-moderate and severe)', a.keys === 'saba,sabaSama,sama,icsNeb' && b.keys === 'saba,sabaSama,sama,icsNeb' && a.ok && b.ok, { a, b });
     log('COPD: SABA includes pMDI and nebulised salbutamol', ['Ventolin Evohaler 100 mcg', 'Salbutamol Nebules 2.5 mg'].every(n => [...sv.querySelectorAll('[data-exac-group="saba"] h3')].some(h => h.textContent.trim() === n)), ''); }
   log('COPD exacerbation: SABA ± SAMA, no asthma-only drugs', ['Berodual Inhaler', 'Combivent Respimat', 'Atrovent HFA', 'Pulmicort Respules', 'Berodual Nebules / Drops'].every(n => ex.includes(n)) && ex.includes('Aerotamol MDI 100 mcg') && !ex.includes('Flixotide Evohaler 125 mcg'), ex);
+  { const bt = document.body.innerText;
+    log('COPD exacerbation: When to Discharge (GOLD Figure 4.10) and When to Admit (Figure 4.4) boxes are shown', /when to discharge/i.test(bt) && /discharged on LABA \+ LAMA \+ ICS/.test(bt) && /Follow-up at 1–4 weeks/.test(bt) && /Follow-up at 12–16 weeks/.test(bt) && /when to admit/i.test(bt) && /Insufficient home support\./.test(bt) && /Respiratory or medical ICU/.test(bt), ''); }
   await esc();
 
   // --- Maintenance Guide ranking (COPD Group A)
@@ -757,6 +759,12 @@ window.__bdgE2E = async function () {
     log('Steroid calc: + 1 MART inhalation = 1000 mcg, high', res().dataset.grade === 'high' && m.querySelector('[data-ics-overall]').dataset.icsOverall === 'high', res().textContent);
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     log('Escape closes the Steroid calc', !document.querySelector('[data-ics-calc]'), ''); }
+  // selected inhalers are imported into the Steroid calc (ICS ones only)
+  { sel('Ventolin Evohaler 100 mcg'); sel('Seretide Evohaler 25/125'); await wait(300);
+    [...document.querySelectorAll('[data-guide]')].find(x => x.textContent.includes('Steroid Dose')).click(); await wait(400);
+    const rows = [...document.querySelectorAll('[data-ics-row]')];
+    log('Steroid calc imports the selected ICS inhaler (Seretide) and skips the reliever', rows.length === 1 && /Seretide/.test(rows[0].querySelector('select').selectedOptions[0].textContent), rows.map(r => r.querySelector('select').selectedOptions[0].textContent));
+    await esc(); btnByText('Clear').click(); await wait(300); }
 
   // --- Step-down content inside the Follow-up Guide (GINA Box 4-13, GOLD 2026)
   { log('header: Step Down Guide button removed (merged into Follow-up)', ![...document.querySelectorAll('[data-guide]')].some(x => x.textContent.includes('Step Down')), '');

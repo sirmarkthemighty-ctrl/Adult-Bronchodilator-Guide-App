@@ -1126,6 +1126,19 @@ const translations = {
     astAdm2: "Severe attack: needed resuscitation or rapid intervention, RR > 22/min, O₂ Sat < 95%, final PEF < 50% predicted.",
     astAdm3: "Past severe attacks (intubation, admissions), recent unscheduled or ED visits needing oral steroids, or > 8 reliever puffs in the previous 24 h.",
     astAdm4: "Female sex, older age, socio-economic disadvantage; poor support or resources at home.",
+    copdAdmAmb: "Ambulatory care suits a mild exacerbation with minimal comorbidity, a cooperative patient and good home support.",
+    copdAdm1: "Signs of respiratory failure: faster breathing, accessory muscle use, worsening hypoxaemia and/or hypercapnia, mental status changes.",
+    copdAdm2: "The exacerbation does not respond to initial medical management.",
+    copdAdm3: "Serious comorbidity (e.g. heart failure, cardiac arrhythmias).",
+    copdAdm4: "Insufficient home support.",
+    copdAdmIcu: "Respiratory or medical ICU: persistent or worsening hypoxaemia and/or hypercapnia despite ventilator support; worsening mental status (confusion, lethargy, coma); need for invasive mechanical ventilation; haemodynamic instability (vasopressor support, cardiac arrhythmias).",
+    copdDis1: "Full review of all clinical and laboratory data.",
+    copdDis2: "Check maintenance therapy: patients with raised blood eosinophils should be discharged on LABA + LAMA + ICS.",
+    copdDis3: "Reassess inhaler technique.",
+    copdDis4: "Make sure the patient understands how the acute medicines (steroids and/or antibiotics) are stopped.",
+    copdDis5: "Assess the need for continuing supplemental oxygen, give a management plan, and follow up comorbidities such as cardiovascular disease.",
+    copdDisFu1: "Follow-up at 1–4 weeks: coping in the usual environment, understanding of treatment, inhaler technique, need for long-term oxygen, physical activity and eligibility for pulmonary rehabilitation, symptoms (CAAT™ or mMRC), comorbidities.",
+    copdDisFu2: "Follow-up at 12–16 weeks: the same review, plus spirometry (FEV1).",
 
     // Exac Details - COPD
     copdMildCrit: "GOLD 2026 (Rome) mild: dyspnoea VAS < 5, RR < 24/min, HR < 95/min, SpO₂ ≥ 92% on air (or usual O₂) with a fall ≤ 3% if known, CRP < 10 mg/L if available. Moderate: at least 3 of VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% and/or a fall > 3%, CRP ≥ 10. No signs of acute respiratory failure.",
@@ -1719,6 +1732,19 @@ const translations = {
     astAdm2: "กำเริบรุนแรง: ต้องกู้ชีพหรือรักษาเร่งด่วนเมื่อแรกรับ, อัตราหายใจ > 22 ครั้ง/นาที, O₂ Sat < 95%, PEF สุดท้าย < 50% ของค่าคาดการณ์",
     astAdm3: "เคยกำเริบรุนแรง (ใส่ท่อช่วยหายใจ นอนโรงพยาบาล) เคยมาห้องฉุกเฉิน/นอกนัดที่ต้องใช้สเตียรอยด์ชนิดกิน หรือใช้ยาบรรเทาอาการ > 8 พัฟใน 24 ชม. ที่ผ่านมา",
     astAdm4: "เพศหญิง อายุมาก ฐานะทางเศรษฐกิจด้อย หรือขาดผู้ดูแล/ทรัพยากรที่บ้าน",
+    copdAdmAmb: "ดูแลแบบผู้ป่วยนอกได้เมื่อกำเริบเล็กน้อย โรคร่วมน้อย ผู้ป่วยให้ความร่วมมือ และมีผู้ดูแลที่บ้านดี",
+    copdAdm1: "มีอาการและอาการแสดงของระบบหายใจล้มเหลว: หายใจเร็วขึ้น ใช้กล้ามเนื้อช่วยหายใจ ออกซิเจนต่ำและ/หรือคาร์บอนไดออกไซด์คั่งแย่ลง ระดับความรู้สึกตัวเปลี่ยน",
+    copdAdm2: "อาการกำเริบไม่ตอบสนองต่อการรักษาเบื้องต้น",
+    copdAdm3: "มีโรคร่วมที่รุนแรง (เช่น หัวใจล้มเหลว หัวใจเต้นผิดจังหวะ)",
+    copdAdm4: "ขาดผู้ดูแลหรือการช่วยเหลือที่บ้าน",
+    copdAdmIcu: "รับเข้าหอผู้ป่วยวิกฤตระบบหายใจ/อายุรกรรม: ออกซิเจนต่ำและ/หรือคาร์บอนไดออกไซด์คั่งไม่ดีขึ้นหรือแย่ลงแม้ใช้เครื่องช่วยหายใจ ระดับความรู้สึกตัวแย่ลง (สับสน ซึม โคมา) ต้องใช้เครื่องช่วยหายใจแบบใส่ท่อ หรือระบบไหลเวียนไม่คงที่ (ต้องใช้ยากระตุ้นความดัน หัวใจเต้นผิดจังหวะ)",
+    copdDis1: "ทบทวนข้อมูลทางคลินิกและผลตรวจทางห้องปฏิบัติการทั้งหมด",
+    copdDis2: "ตรวจยารักษาระยะยาว: ผู้ป่วยที่มีอีโอซิโนฟิลในเลือดสูงควรกลับบ้านด้วย LABA + LAMA + ICS",
+    copdDis3: "ประเมินเทคนิคการพ่นยาซ้ำ",
+    copdDis4: "ให้ผู้ป่วยเข้าใจวิธีหยุดยาที่ใช้ในช่วงกำเริบ (สเตียรอยด์และ/หรือยาปฏิชีวนะ)",
+    copdDis5: "ประเมินความจำเป็นของการให้ออกซิเจนต่อ ให้แผนการดูแล และติดตามโรคร่วม เช่น โรคหัวใจและหลอดเลือด",
+    copdDisFu1: "นัดติดตามที่ 1–4 สัปดาห์: การปรับตัวในสภาพแวดล้อมปกติ ความเข้าใจเรื่องการรักษา เทคนิคการพ่นยา ความจำเป็นของออกซิเจนระยะยาว ความสามารถทางกายและความเหมาะสมในการฟื้นฟูสมรรถภาพปอด อาการ (CAAT™ หรือ mMRC) และโรคร่วม",
+    copdDisFu2: "นัดติดตามที่ 12–16 สัปดาห์: ทบทวนเหมือนเดิม และวัดสไปโรเมตรี (FEV1) เพิ่ม",
 
     // Exac Details - COPD (Thai)
     copdMildCrit: "GOLD 2026 (Rome) ระดับเล็กน้อย: ความเหนื่อย VAS < 5, RR < 24/นาที, HR < 95/นาที, SpO₂ ≥ 92% ขณะหายใจอากาศปกติ (หรือออกซิเจนที่ใช้ประจำ) และลดลง ≤ 3% หากทราบค่าเดิม, CRP < 10 mg/L หากตรวจได้ ระดับปานกลาง: มีอย่างน้อย 3 ข้อจาก VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% และ/หรือลดลง > 3%, CRP ≥ 10 ไม่มีภาวะระบบหายใจล้มเหลวเฉียบพลัน",
@@ -2303,6 +2329,15 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.12",
+    date: "November 9, 2026",
+    features: [
+      "Steroid Dose calculator opens with the inhalers selected on the main page: each selected ICS-containing inhaler is imported as a row with its usual regimen. With nothing selected (or no ICS inhaler selected) it opens with the default row as before.",
+      "COPD exacerbation guide: added the missing disposition boxes, When to Discharge (GOLD 2026 Figure 4.10: data review, maintenance therapy, inhaler technique, stopping acute medicines, oxygen need, follow-up at 1–4 and 12–16 weeks) and When to Admit (Figure 4.4: signs of respiratory failure, no response to initial treatment, serious comorbidity, insufficient home support, ICU indications). Figure 4.10 is added to the Figures list.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.11",
     date: "November 5, 2026",
     features: [
@@ -2716,6 +2751,13 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.12": {
+  "features": [
+    "เครื่องคำนวณขนาดสเตียรอยด์เปิดพร้อมยาสูดที่เลือกไว้ในหน้าหลัก: ยาสูดที่มี ICS ทุกตัวที่เลือกจะถูกนำเข้าเป็นแถวพร้อมขนาดที่ใช้ทั่วไป หากไม่ได้เลือกยา (หรือไม่มียาที่มี ICS) จะเปิดด้วยแถวเริ่มต้นเหมือนเดิม",
+    "คู่มือการกำเริบของ COPD: เพิ่มกล่องเกณฑ์ที่ขาดไป ได้แก่ เมื่อใดควรพิจารณาให้กลับบ้าน (GOLD 2026 รูปที่ 4.10: ทบทวนข้อมูล ยารักษาระยะยาว เทคนิคการพ่นยา การหยุดยาช่วงกำเริบ ความจำเป็นของออกซิเจน นัดติดตามที่ 1–4 และ 12–16 สัปดาห์) และเมื่อใดควรรับไว้ในโรงพยาบาล (รูปที่ 4.4: ระบบหายใจล้มเหลว ไม่ตอบสนองต่อการรักษาเบื้องต้น โรคร่วมรุนแรง ขาดผู้ดูแลที่บ้าน และข้อบ่งชี้ ICU) เพิ่มรูปที่ 4.10 ในรายการรูป"
+  ],
+  "bugs": []
+ },
  "v1.12.11": {
   "features": [
     "สถานะทะเบียน “ไม่เคยมี” เปลี่ยนชื่อเป็น “ไม่พบ” (สัญลักษณ์ ⊘ ตัวกรอง แถวผลิตภัณฑ์ และบรรทัดผู้รับอนุญาต) หมายถึงไม่พบทะเบียนในทะเบียนของประเทศนั้น ไม่ใช่หลักฐานว่าไม่เคยขึ้นทะเบียน"
@@ -5070,10 +5112,11 @@ const GUIDELINE_FIGURES = {
   'gold-4-3': ['gold', 'Figure 4.3', 108, 'Conditions That May Mimic or Worsen Exacerbation-like Symptoms'],
   'gold-4-4': ['gold', 'Figure 4.4', 109, 'Assessing the Appropriate Place of Management During COPD Exacerbation'],
   'gold-4-5': ['gold', 'Figure 4.5', 113, 'Management of Severe but not Life-threatening Exacerbations'],
+  'gold-4-10': ['gold', 'Figure 4.10', 120, 'Discharge Criteria and Recommendations for Follow-up'],
 };
 // figures shown for each guide window
 const GUIDE_FIGURE_SETS = {
-  exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-5'],
+  exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-5', 'gold-4-10'],
   maint: ['gina-4-3', 'gina-4-4', 'gina-4-5', 'gina-4-6', 'gina-4-7', 'gina-4-2', 'gold-3-7', 'gold-3-8', 'gold-3-10'],
   follow: ['gina-4-6', 'gina-4-13', 'gina-2-4', 'gina-9-2', 'gold-3-7', 'gold-3-9', 'gold-3-10'],
   device: ['gina-5-1', 'gina-5-2'],
@@ -5325,9 +5368,10 @@ const newIcsRow = (id) => {
   return { key: Math.random().toString(36).slice(2), id, per: med.type === 'Nebulizer' ? 1 : r.per, freq: r.freq, prn: 0, neb: NEB_STRENGTHS[1] };
 };
 
-const IcsCalculatorModal = ({ lang, onClose }) => {
+const IcsCalculatorModal = ({ lang, onClose, current = [] }) => {
   const c = ICS_TEXT[lang];
-  const [rows, setRows] = useState(() => [newIcsRow(72)]);
+  // Inhalers selected on the main page that contain an ICS are imported as the starting rows; otherwise one default row
+  const [rows, setRows] = useState(() => { const sel = current.filter(m => ICS_PRODUCTS.some(p => p.id === m.id)); return (sel.length ? sel.map(m => m.id) : [72]).map(newIcsRow); });
   const upd = (k, patch) => setRows(rs => rs.map(r => r.key === k ? { ...r, ...patch } : r));
   const num = (v, max) => Math.max(0, Math.min(max, parseInt(v, 10) || 0));
   const lines = rows.map(r => {
@@ -8755,6 +8799,36 @@ function App() {
                            </div>
                        </div>
                    </div>
+
+                   {/* Disposition (GOLD 2026 Figures 4.4 and 4.10) */}
+                   <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                       <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                           <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 sm:p-4">
+                               <div className="font-bold text-emerald-800 mb-2 uppercase tracking-wide border-b border-emerald-100 pb-1.5">{t.whenDischarge}</div>
+                               <ul className="text-emerald-700 list-disc pl-4 space-y-1">
+                                   <li>{t.copdDis1}</li>
+                                   <li>{t.copdDis2}</li>
+                                   <li>{t.copdDis3}</li>
+                                   <li>{t.copdDis4}</li>
+                                   <li>{t.copdDis5}</li>
+                                   <li><strong>{t.copdDisFu1}</strong></li>
+                                   <li><strong>{t.copdDisFu2}</strong></li>
+                               </ul>
+                           </div>
+                           <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 sm:p-4">
+                               <div className="font-bold text-amber-800 mb-2 uppercase tracking-wide border-b border-amber-100 pb-1.5">{t.whenAdmit}</div>
+                               <ul className="text-amber-700 list-disc pl-4 space-y-1">
+                                   <li>{t.copdAdm1}</li>
+                                   <li>{t.copdAdm2}</li>
+                                   <li>{t.copdAdm3}</li>
+                                   <li>{t.copdAdm4}</li>
+                                   <li><strong>{t.copdAdmIcu}</strong></li>
+                                   <li className="list-none -ml-4 text-[11px] text-slate-500">{t.copdAdmAmb}</li>
+                               </ul>
+                           </div>
+                       </div>
+                   </div>
                 </div>
               )}
 
@@ -9533,7 +9607,7 @@ function App() {
 
       {/* Step Down Guide Modal */}
       {isSpacerOpen && <SpacerGuideModal lang={lang} onClose={() => setIsSpacerOpen(false)} />}
-      {isIcsCalcOpen && <IcsCalculatorModal lang={lang} onClose={() => setIsIcsCalcOpen(false)} />}
+      {isIcsCalcOpen && <IcsCalculatorModal lang={lang} current={compareList} onClose={() => setIsIcsCalcOpen(false)} />}
       {isFollowOpen && <FollowUpModal lang={lang} t={t} regionData={regionData} current={compareList} onClose={() => setIsFollowOpen(false)} />}
 
       </div>
