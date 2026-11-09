@@ -55,6 +55,7 @@ A runtime layer in `app.jsx` (top of file, `dark-theme-layer`) writes `html.dark
 - Changelog: one entry per day, new day = new version; every EN line has a TH line (equal counts).
 - Labelled icons: an icon-only button needs `aria-label` and `title`; where room allows it also shows a word (the active view, Cautions).
 - Frames: one frame per item; never a box inside a box.
+- Donate: a heart button opens a small pop-up with the PromptPay QR (`DonateButton` in `app.jsx`; the QR stays white in dark mode via `light-lock`). The shared copy lives in `shared/donate/`; add it to another app only when asked.
 - Floating UI (pop-overs) opens on the side with room, caps its height and scrolls inside.
 - Embedded in another page (Google Sites): `shell.html` measures the hidden part of the frame and `styles.css` keeps bars, dialogs and the toast inside the visible part.
 - Tests: an in-page e2e suite plus a UI audit (overlap, cut-off, overflow) at 1280 px, 375 px light and 375 px dark; check 320 px and Thai by hand.

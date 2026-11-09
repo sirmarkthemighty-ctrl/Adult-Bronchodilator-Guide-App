@@ -2334,6 +2334,8 @@ const changelogData = [
     features: [
       "Steroid Dose calculator opens with the inhalers selected on the main page: each selected ICS-containing inhaler is imported as a row with its usual regimen. With nothing selected (or no ICS inhaler selected) it opens with the default row as before.",
       "COPD exacerbation guide: added the missing disposition boxes, When to Discharge (GOLD 2026 Figure 4.10: data review, maintenance therapy, inhaler technique, stopping acute medicines, oxygen need, follow-up at 1–4 and 12–16 weeks) and When to Admit (Figure 4.4: signs of respiratory failure, no response to initial treatment, serious comorbidity, insufficient home support, ICU indications). Figure 4.10 is added to the Figures list.",
+      "Alvesco 80: the UK once-daily dose is now in its notes (UK SmPC, emc, revised 1 Oct 2026): recommended 160 mcg (2 puffs) once daily, 80 mcg (1 puff) once daily as a maintenance dose, up to 640 mcg a day in severe asthma. The US twice-daily doses are unchanged.",
+      "Internal: the Exacerbation guide and the Changelog windows are now separate components (ExacGuideModal, ChangelogModal), which makes the main App function about 300 lines shorter. No change in what you see.",
     ],
     bugs: [],
   },
@@ -2754,7 +2756,9 @@ const CHANGELOG_TH = {
  "v1.12.12": {
   "features": [
     "เครื่องคำนวณขนาดสเตียรอยด์เปิดพร้อมยาสูดที่เลือกไว้ในหน้าหลัก: ยาสูดที่มี ICS ทุกตัวที่เลือกจะถูกนำเข้าเป็นแถวพร้อมขนาดที่ใช้ทั่วไป หากไม่ได้เลือกยา (หรือไม่มียาที่มี ICS) จะเปิดด้วยแถวเริ่มต้นเหมือนเดิม",
-    "คู่มือการกำเริบของ COPD: เพิ่มกล่องเกณฑ์ที่ขาดไป ได้แก่ เมื่อใดควรพิจารณาให้กลับบ้าน (GOLD 2026 รูปที่ 4.10: ทบทวนข้อมูล ยารักษาระยะยาว เทคนิคการพ่นยา การหยุดยาช่วงกำเริบ ความจำเป็นของออกซิเจน นัดติดตามที่ 1–4 และ 12–16 สัปดาห์) และเมื่อใดควรรับไว้ในโรงพยาบาล (รูปที่ 4.4: ระบบหายใจล้มเหลว ไม่ตอบสนองต่อการรักษาเบื้องต้น โรคร่วมรุนแรง ขาดผู้ดูแลที่บ้าน และข้อบ่งชี้ ICU) เพิ่มรูปที่ 4.10 ในรายการรูป"
+    "คู่มือการกำเริบของ COPD: เพิ่มกล่องเกณฑ์ที่ขาดไป ได้แก่ เมื่อใดควรพิจารณาให้กลับบ้าน (GOLD 2026 รูปที่ 4.10: ทบทวนข้อมูล ยารักษาระยะยาว เทคนิคการพ่นยา การหยุดยาช่วงกำเริบ ความจำเป็นของออกซิเจน นัดติดตามที่ 1–4 และ 12–16 สัปดาห์) และเมื่อใดควรรับไว้ในโรงพยาบาล (รูปที่ 4.4: ระบบหายใจล้มเหลว ไม่ตอบสนองต่อการรักษาเบื้องต้น โรคร่วมรุนแรง ขาดผู้ดูแลที่บ้าน และข้อบ่งชี้ ICU) เพิ่มรูปที่ 4.10 ในรายการรูป",
+    "Alvesco 80: เพิ่มขนาดยาวันละครั้งตามฉลากสหราชอาณาจักรในหมายเหตุ (UK SmPC จาก emc ปรับปรุง 1 ต.ค. 2569): แนะนำ 160 mcg (2 พัฟ) วันละครั้ง, 80 mcg (1 พัฟ) วันละครั้งเป็นขนาดยาต่อเนื่องสำหรับผู้ป่วยบางราย และสูงสุด 640 mcg ต่อวันในหอบหืดรุนแรง ส่วนขนาดยาวันละสองครั้งตามฉลากสหรัฐฯ ไม่เปลี่ยน",
+    "ภายในระบบ: หน้าต่างคู่มือการกำเริบและประวัติการอัปเดตแยกเป็นคอมโพเนนต์ของตัวเอง (ExacGuideModal, ChangelogModal) ทำให้ฟังก์ชัน App หลักสั้นลงประมาณ 300 บรรทัด ไม่มีการเปลี่ยนแปลงที่ผู้ใช้เห็น"
   ],
   "bugs": []
  },
@@ -3171,7 +3175,7 @@ const deviceData = [
   { id: 502, type: 'MDI', shape: 'MDI', marketName: 'Xopenex HFA', substance: 'Levalbuterol 45 mcg', class: 'SABA', instructions: '2 puffs every 4-6 hours PRN; 1 puff every 4 hours may be enough. Shake well.', hex: '#2563eb', tagColor: 'bg-blue-100 text-blue-800', indications: ['Asthma', 'COPD'], ventCompatible: true, totalDoses: '200 puffs', expiration: 'Until Expiry Date', doseRange: '2 puffs Q4-6H PRN', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 503, type: 'MDI', shape: 'MDI', marketName: 'Airsupra', substance: 'Salbutamol (albuterol) 90 mcg / Budesonide 80 mcg', class: 'SABA / ICS', instructions: 'As-needed reliever with ICS, adults 18+: 2 puffs PRN, maximum 6 doses (12 puffs) in 24 hours. Shake well.', hex: '#e2e8f0', tagColor: 'bg-teal-100 text-teal-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '120 puffs', expiration: '12 months after opening the foil pouch', doseRange: '2 puffs PRN (Max 12/day)', isMart: false, role: ['Reliever'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 504, type: 'MDI', shape: 'MDI', marketName: 'QVAR RediHaler 80', substance: 'Beclomethasone 80 mcg', class: 'ICS', instructions: 'Breath-actuated. Do not use with a spacer. 1-4 puffs BID.', hex: '#7f1d1d', tagColor: 'bg-red-100 text-red-900', indications: ['Asthma'], ventCompatible: false, totalDoses: '120 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, isMart: false, role: ['Controller'], flowRate: '< 30 L/min', isExtraFine: true, icsDoseLevel: 'Low / Medium / High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
-  { id: 505, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 80', substance: 'Ciclesonide 80 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID. Rinse mouth after.', hex: '#7c4a2d', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
+  { id: 505, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 80', substance: 'Ciclesonide 80 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID (US label). UK SmPC: recommended 160 mcg (2 puffs) once daily, preferably in the evening; 80 mcg (1 puff) once daily as a maintenance dose for some patients; up to 640 mcg a day (320 mcg BID) in severe asthma. Rinse mouth after.', hex: '#7c4a2d', tagColor: 'bg-amber-100 text-amber-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff BID', medium: '2 puffs BID', high: '4 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 506, type: 'MDI', shape: 'MDI', marketName: 'Alvesco 160', substance: 'Ciclesonide 160 mcg', class: 'ICS', instructions: 'Starting dose 80 mcg BID; highest 320 mcg BID (US label). UK SmPC: 160 mcg (1 puff) once daily, preferably in the evening; up to 640 mcg a day (320 mcg BID) in severe asthma. Rinse mouth after.', hex: '#dc2626', tagColor: 'bg-red-100 text-red-800', indications: ['Asthma'], ventCompatible: true, totalDoses: '60 puffs', expiration: 'Until Expiry Date', doseRange: { low: '1 puff ONCE daily', medium: '1 puff BID', high: '2 puffs BID' }, icsDoseLevel: 'Low / Medium / High', isMart: false, role: ['Controller'], flowRate: '< 30 L/min' }, // US label (DailyMed, 12 Oct 2026); once daily from the UK SmPC (emc 13890, 5 Oct 2026); no Thai price recorded
   { id: 507, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 100 mcg', substance: 'Fluticasone furoate 100 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: '1 inhalation ONCE daily', medium: '1 inhalation ONCE daily', high: 'Not appropriate' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'Low / Medium' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
   { id: 508, type: 'DPI', shape: 'Ellipta', marketName: 'Arnuity Ellipta 200 mcg', substance: 'Fluticasone furoate 200 mcg', class: 'ICS', instructions: '1 inhalation ONCE daily. Open orange cover fully. Rinse mouth after.', hex: '#ea580c', tagColor: 'bg-orange-100 text-orange-800', indications: ['Asthma'], ventCompatible: false, totalDoses: '30 doses', expiration: '6 weeks after opening foil', doseRange: { low: 'Not appropriate', medium: 'Not appropriate', high: '1 inhalation ONCE daily' }, isMart: false, role: ['Controller'], flowRate: '≥ 30 L/min', icsDoseLevel: 'High' }, // US label (DailyMed, 12 Oct 2026); no Thai price recorded
@@ -7876,6 +7880,302 @@ const ReferencesSection = ({ t }) => {
   );
 };
 
+// Exacerbation guide (Asthma GINA / COPD GOLD tabs); the tab state stays in App so reopening keeps the last tab
+const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
+    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+      <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-rose-50/80 rounded-t-2xl shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-rose-100 text-rose-600 rounded-xl">
+              <ActivityIcon className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-800 leading-tight">{t.exacGuideTitle}</h2>
+              <p className="text-xs text-slate-500">{t.exacGuideSub}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 shrink-0">
+            <GuidelineFiguresButton set="exac" lang={lang} />
+            <button onClick={() => onClose()} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex px-4 sm:px-6 pt-3 bg-slate-50 border-b border-slate-200 shrink-0 gap-4 sm:gap-6 overflow-x-auto hide-scrollbar">
+          <button onClick={() => setTab('Asthma')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'Asthma' ? 'border-rose-600 text-rose-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>Asthma (GINA 2026)</button>
+          <button onClick={() => setTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>COPD (GOLD 2026)</button>
+        </div>
+
+        <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-6 bg-slate-50">
+
+          {tab === 'Asthma' && (
+            <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-2">
+               {/* Severity Grids */}
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+                   {/* Mild/Mod */}
+                   <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
+                       <div className="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                       <h4 className="font-extrabold text-rose-700 text-base mb-1">{t.mildModExac}</h4>
+                       <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
+                         <strong>{t.criteria}</strong> {t.asthmaMildCrit} <br/>
+                         <strong>{t.vitals}</strong> {t.asthmaMildVit}
+                       </p>
+                       <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider">{t.initMgmt}</div>
+                       <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
+                           <li><span className="font-bold">SABA:</span> {t.asthmaMildSaba}</li>
+                           <li><span className="font-bold">Corticosteroids:</span> {t.asthmaMildCs}</li>
+                           <li><span className="font-bold">Oxygen:</span> {t.asthmaMildOx}</li>
+                           <li className="text-amber-700 bg-amber-50 rounded px-1 -ml-1"><strong>MART:</strong> {t.asthmaMildMart}</li>
+                           <li><span className="font-bold">{t.ctrlLabel}</span> {t.asthmaMildCtrl}</li>
+                          <li><span className="font-bold">{t.avoidLabel}</span> {t.asthmaAvoid}</li>
+                       </ul>
+                       <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <ExacDeviceGroups rule="asthmaMild" list={exacDevices('asthmaMild', 'Asthma', rxData)} t={t} notes={{ icsForm: t.asthmaMildMart }} />
+                       </div>
+                   </div>
+
+                   {/* Severe */}
+                   <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
+                       <div className="absolute top-0 left-0 w-1 h-full bg-rose-700"></div>
+                       <h4 className="font-extrabold text-rose-800 text-base mb-1">{t.severeExac}</h4>
+                       <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
+                         <strong>{t.criteria}</strong> {t.asthmaSevCrit}<br/>
+                         <strong>{t.vitals}</strong> {t.asthmaSevVit}
+                       </p>
+                       <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider flex justify-between">{t.initMgmt} <span className="text-rose-600 text-[10px] bg-rose-50 px-1.5 py-0.5 rounded">{t.transferED}</span></div>
+                       <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
+                           <li><span className="font-bold">SABA + SAMA:</span> {t.asthmaSevSabaSama}</li>
+                           <li><span className="font-bold">Corticosteroids:</span> {t.asthmaSevCs} <br/><span className="text-[10px] text-slate-500"><em>{t.asthmaSevCsAlt}</em></span></li>
+                           <li><span className="font-bold">Adjuncts:</span> {t.asthmaSevAdj}</li>
+                           <li><span className="font-bold">Oxygen:</span> {t.asthmaSevOx}</li>
+                       </ul>
+                       <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <ExacDeviceGroups rule="asthmaSevere" list={exacDevices('asthmaSevere', 'Asthma', rxData)} t={t} />
+                       </div>
+                   </div>
+               </div>
+
+               {/* Next Steps / Support */}
+               <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-4 sm:p-5 shadow-sm">
+                   <h4 className="font-bold text-rose-800 text-sm mb-3 flex items-center gap-2 border-b border-rose-100 pb-2"><Wind className="w-4 h-4"/> {t.respSupport}</h4>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[11px] md:text-xs text-rose-900 leading-relaxed">
+                       <div className="flex flex-col gap-3">
+                           <div>
+                               <span className="font-bold underline text-rose-700 block mb-1">{t.refractoryNext}</span> {t.refractoryNextDesc}
+                           </div>
+                           <div className="bg-rose-100/80 p-2.5 rounded-lg border border-rose-300 shadow-sm text-rose-900">
+                               <span className="font-bold uppercase tracking-wide text-[10px] text-rose-700 block mb-0.5">{t.nivCaution}</span>
+                               {t.nivCautionDesc}
+                           </div>
+                       </div>
+                       <div className="bg-rose-100/50 p-3 rounded-lg border border-rose-200">
+                           <span className="font-bold underline text-rose-800 mb-1 flex items-center gap-1.5"><ActivityIcon className="w-3.5 h-3.5" /> {t.intubationInd}</span>
+                           <ul className="list-disc pl-4 space-y-0.5 mt-1 text-rose-900">
+                               <li>{t.intub2}</li>
+                               <li>{t.intub6}</li>
+                               <li>{t.intub7}</li>
+                               <li>{t.intub8}</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+
+               {/* Disposition */}
+               <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                   <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                       <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 sm:p-4">
+                           <div className="font-bold text-emerald-800 mb-2 uppercase tracking-wide border-b border-emerald-100 pb-1.5">{t.whenDischarge}</div>
+                           <ul className="text-emerald-700 list-disc pl-4 space-y-1">
+                               <li>{t.astDis1}</li>
+                               <li>{t.astDis2}</li>
+                               <li>{t.astDis3}</li>
+                              <li>{t.astDis4}</li>
+                               <li><strong>{t.astDisAct}</strong></li>
+                           </ul>
+                       </div>
+                       <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 sm:p-4">
+                           <div className="font-bold text-amber-800 mb-2 uppercase tracking-wide border-b border-amber-100 pb-1.5">{t.whenAdmit}</div>
+                           <ul className="text-amber-700 list-disc pl-4 space-y-1">
+                               <li>{t.astAdm1}</li>
+                               <li>{t.astAdm2}</li>
+                               <li>{t.astAdm3}</li>
+                               <li>{t.astAdm4}</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+            </div>
+          )}
+
+          {tab === 'COPD' && (
+            <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-2">
+               {/* Severity Grids */}
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+                   {/* Mild/Mod */}
+                   <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
+                       <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
+                       <h4 className="font-extrabold text-orange-700 text-base mb-1">{t.mildModExac}</h4>
+                       <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
+                         <strong>{t.criteria}</strong> {t.copdMildCrit}
+                       </p>
+                       <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider">{t.initMgmt}</div>
+                       <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
+                           <li><span className="font-bold">Mild:</span> {t.copdMildSaba}</li>
+                           <li><span className="font-bold">Moderate:</span> {t.copdMildMod} <br/><span className="text-[10px] text-slate-500"><em>{t.copdMildModAlt}</em></span></li>
+                           <li><span className="font-bold">Antibiotics:</span> {t.copdMildAbx}</li>
+                           <li><span className="font-bold">Oxygen:</span> {t.copdMildOx}</li>
+                       </ul>
+                       <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <ExacDeviceGroups rule="copdMild" list={exacDevices('copdMild', 'COPD', rxData)} t={t} />
+                       </div>
+                   </div>
+
+                   {/* Severe */}
+                   <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
+                       <div className="absolute top-0 left-0 w-1 h-full bg-orange-700"></div>
+                       <h4 className="font-extrabold text-orange-800 text-base mb-1">{t.severeRespFail}</h4>
+                       <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
+                         <strong>{t.criteria}</strong> {t.copdSevCrit}
+                       </p>
+                       <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider flex justify-between">{t.inpatientMgmt} <span className="text-orange-600 text-[10px] bg-orange-50 px-1.5 py-0.5 rounded">{t.hospAdmit}</span></div>
+                       <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
+                           <li><span className="font-bold">Bronchodilators:</span> {t.copdSevBronch}</li>
+                           <li><span className="font-bold">Corticosteroids:</span> {t.copdSevCs} <br/><span className="text-[10px] text-slate-500"><em>{t.copdSevCsAlt}</em></span></li>
+                           <li><span className="font-bold">Antibiotics:</span> {t.copdSevAbx}</li>
+                           <li><span className="font-bold">Ventilation:</span> {t.copdSevVent}</li>
+                       </ul>
+                       <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <ExacDeviceGroups rule="copdSevere" list={exacDevices('copdSevere', 'COPD', rxData)} t={t} />
+                       </div>
+                   </div>
+               </div>
+
+               {/* Next Steps / Support */}
+               <div className="bg-orange-50/50 border border-orange-200 rounded-xl p-4 sm:p-5 shadow-sm">
+                   <h4 className="font-bold text-orange-800 text-sm mb-3 flex items-center gap-2 border-b border-orange-100 pb-2"><Wind className="w-4 h-4"/> {t.respSupportProto}</h4>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[11px] md:text-xs text-orange-900 leading-relaxed">
+                       <div className="bg-orange-100/50 p-3 rounded-lg border border-orange-200">
+                           <span className="font-bold underline text-orange-800 block mb-1">{t.nivIndication}</span>
+                           <ul className="list-disc pl-4 space-y-0.5 mt-1 text-orange-800">
+                             <li>{t.niv1}</li>
+                             <li>{t.niv2}</li>
+                             <li>{t.niv3}</li>
+                           </ul>
+                       </div>
+                       <div className="p-3">
+                           <span className="font-bold underline text-rose-700 mb-1 flex items-center gap-1.5"><ActivityIcon className="w-3.5 h-3.5" /> {t.intubationInd}</span>
+                           <ul className="list-disc pl-4 space-y-0.5 mt-1 text-rose-900">
+                               <li>{t.intub1}</li>
+                               <li>{t.intub2}</li>
+                               <li>{t.intub3}</li>
+                               <li>{t.intub4}</li>
+                               <li>{t.intub5}</li>
+                               <li>{t.intub9}</li>
+                               <li>{t.intub10}</li>
+                               <li>{t.intub11}</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+
+               {/* Disposition (GOLD 2026 Figures 4.4 and 4.10) */}
+               <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                   <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                       <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 sm:p-4">
+                           <div className="font-bold text-emerald-800 mb-2 uppercase tracking-wide border-b border-emerald-100 pb-1.5">{t.whenDischarge}</div>
+                           <ul className="text-emerald-700 list-disc pl-4 space-y-1">
+                               <li>{t.copdDis1}</li>
+                               <li>{t.copdDis2}</li>
+                               <li>{t.copdDis3}</li>
+                               <li>{t.copdDis4}</li>
+                               <li>{t.copdDis5}</li>
+                               <li><strong>{t.copdDisFu1}</strong></li>
+                               <li><strong>{t.copdDisFu2}</strong></li>
+                           </ul>
+                       </div>
+                       <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 sm:p-4">
+                           <div className="font-bold text-amber-800 mb-2 uppercase tracking-wide border-b border-amber-100 pb-1.5">{t.whenAdmit}</div>
+                           <ul className="text-amber-700 list-disc pl-4 space-y-1">
+                               <li>{t.copdAdm1}</li>
+                               <li>{t.copdAdm2}</li>
+                               <li>{t.copdAdm3}</li>
+                               <li>{t.copdAdm4}</li>
+                               <li><strong>{t.copdAdmIcu}</strong></li>
+                               <li className="list-none -ml-4 text-[11px] text-slate-500">{t.copdAdmAmb}</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+            </div>
+          )}
+
+        </div>
+      </div>
+    </div>
+);
+
+const ChangelogModal = ({ t, lang, onClose }) => (
+    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+      <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-slate-200 text-slate-700 rounded-xl">
+              <HistoryIcon className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-slate-800 leading-tight">{t.changelogTitle}</h2>
+              <p className="text-xs text-slate-500">{t.changelogSub}</p>
+            </div>
+          </div>
+          <button onClick={() => onClose()} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+        <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-5 bg-slate-50/50">
+          {changelogData.map((log, idx) => { const lt = lang === 'th' ? CHANGELOG_TH[log.version] : null; const feats = lt ? lt.features : log.features; const fixes = lt ? lt.bugs : log.bugs; return (
+            <div key={idx} className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm relative">
+              {idx === 0 && <div className="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-widest">{t.latest}</div>}
+              <div className="flex items-baseline justify-between mb-3 border-b border-slate-100 pb-3">
+                <h3 className="text-lg font-extrabold text-slate-800">{log.version}</h3>
+                <span className="text-xs font-bold text-slate-400">{lang === 'th' ? thaiDate(log.date) : log.date}</span>
+              </div>
+
+              {feats.length > 0 && (
+                <div className="mb-4">
+                  <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> {t.newFeatures}</span>
+                  <ul className="text-xs text-slate-700 space-y-1.5 pl-5 list-disc">
+                    {feats.map((feat, i) => <li key={i}>{feat}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              {fixes.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-bold text-rose-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><X className="w-3 h-3" /> {t.bugFixes}</span>
+                  <ul className="text-xs text-slate-700 space-y-1.5 pl-5 list-disc">
+                    {fixes.map((bug, i) => <li key={i}>{bug}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ); })}
+        </div>
+      </div>
+    </div>
+);
+
+
 function App() {
   const [lang, setLang] = useState('en');
 
@@ -8593,300 +8893,10 @@ function App() {
       )}
 
       {/* Exacerbation Guide Modal */}
-      {isExacModalOpen && (
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
-          <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-rose-50/80 rounded-t-2xl shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-rose-100 text-rose-600 rounded-xl">
-                  <ActivityIcon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-slate-800 leading-tight">{t.exacGuideTitle}</h2>
-                  <p className="text-xs text-slate-500">{t.exacGuideSub}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 shrink-0">
-                <GuidelineFiguresButton set="exac" lang={lang} />
-                <button onClick={() => setIsExacModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close">
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex px-4 sm:px-6 pt-3 bg-slate-50 border-b border-slate-200 shrink-0 gap-4 sm:gap-6 overflow-x-auto hide-scrollbar">
-              <button onClick={() => setExacTab('Asthma')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${exacTab === 'Asthma' ? 'border-rose-600 text-rose-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>Asthma (GINA 2026)</button>
-              <button onClick={() => setExacTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${exacTab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>COPD (GOLD 2026)</button>
-            </div>
-
-            <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-6 bg-slate-50">
-
-              {exacTab === 'Asthma' && (
-                <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-2">
-                   {/* Severity Grids */}
-                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-                       {/* Mild/Mod */}
-                       <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
-                           <div className="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
-                           <h4 className="font-extrabold text-rose-700 text-base mb-1">{t.mildModExac}</h4>
-                           <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
-                             <strong>{t.criteria}</strong> {t.asthmaMildCrit} <br/>
-                             <strong>{t.vitals}</strong> {t.asthmaMildVit}
-                           </p>
-                           <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider">{t.initMgmt}</div>
-                           <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
-                               <li><span className="font-bold">SABA:</span> {t.asthmaMildSaba}</li>
-                               <li><span className="font-bold">Corticosteroids:</span> {t.asthmaMildCs}</li>
-                               <li><span className="font-bold">Oxygen:</span> {t.asthmaMildOx}</li>
-                               <li className="text-amber-700 bg-amber-50 rounded px-1 -ml-1"><strong>MART:</strong> {t.asthmaMildMart}</li>
-                               <li><span className="font-bold">{t.ctrlLabel}</span> {t.asthmaMildCtrl}</li>
-                              <li><span className="font-bold">{t.avoidLabel}</span> {t.asthmaAvoid}</li>
-                           </ul>
-                           <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
-                               <ExacDeviceGroups rule="asthmaMild" list={exacDevices('asthmaMild', 'Asthma', rxData)} t={t} notes={{ icsForm: t.asthmaMildMart }} />
-                           </div>
-                       </div>
-
-                       {/* Severe */}
-                       <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
-                           <div className="absolute top-0 left-0 w-1 h-full bg-rose-700"></div>
-                           <h4 className="font-extrabold text-rose-800 text-base mb-1">{t.severeExac}</h4>
-                           <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
-                             <strong>{t.criteria}</strong> {t.asthmaSevCrit}<br/>
-                             <strong>{t.vitals}</strong> {t.asthmaSevVit}
-                           </p>
-                           <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider flex justify-between">{t.initMgmt} <span className="text-rose-600 text-[10px] bg-rose-50 px-1.5 py-0.5 rounded">{t.transferED}</span></div>
-                           <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
-                               <li><span className="font-bold">SABA + SAMA:</span> {t.asthmaSevSabaSama}</li>
-                               <li><span className="font-bold">Corticosteroids:</span> {t.asthmaSevCs} <br/><span className="text-[10px] text-slate-500"><em>{t.asthmaSevCsAlt}</em></span></li>
-                               <li><span className="font-bold">Adjuncts:</span> {t.asthmaSevAdj}</li>
-                               <li><span className="font-bold">Oxygen:</span> {t.asthmaSevOx}</li>
-                           </ul>
-                           <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
-                               <ExacDeviceGroups rule="asthmaSevere" list={exacDevices('asthmaSevere', 'Asthma', rxData)} t={t} />
-                           </div>
-                       </div>
-                   </div>
-
-                   {/* Next Steps / Support */}
-                   <div className="bg-rose-50/50 border border-rose-200 rounded-xl p-4 sm:p-5 shadow-sm">
-                       <h4 className="font-bold text-rose-800 text-sm mb-3 flex items-center gap-2 border-b border-rose-100 pb-2"><Wind className="w-4 h-4"/> {t.respSupport}</h4>
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[11px] md:text-xs text-rose-900 leading-relaxed">
-                           <div className="flex flex-col gap-3">
-                               <div>
-                                   <span className="font-bold underline text-rose-700 block mb-1">{t.refractoryNext}</span> {t.refractoryNextDesc}
-                               </div>
-                               <div className="bg-rose-100/80 p-2.5 rounded-lg border border-rose-300 shadow-sm text-rose-900">
-                                   <span className="font-bold uppercase tracking-wide text-[10px] text-rose-700 block mb-0.5">{t.nivCaution}</span>
-                                   {t.nivCautionDesc}
-                               </div>
-                           </div>
-                           <div className="bg-rose-100/50 p-3 rounded-lg border border-rose-200">
-                               <span className="font-bold underline text-rose-800 mb-1 flex items-center gap-1.5"><ActivityIcon className="w-3.5 h-3.5" /> {t.intubationInd}</span>
-                               <ul className="list-disc pl-4 space-y-0.5 mt-1 text-rose-900">
-                                   <li>{t.intub2}</li>
-                                   <li>{t.intub6}</li>
-                                   <li>{t.intub7}</li>
-                                   <li>{t.intub8}</li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-
-                   {/* Disposition */}
-                   <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                       <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                           <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 sm:p-4">
-                               <div className="font-bold text-emerald-800 mb-2 uppercase tracking-wide border-b border-emerald-100 pb-1.5">{t.whenDischarge}</div>
-                               <ul className="text-emerald-700 list-disc pl-4 space-y-1">
-                                   <li>{t.astDis1}</li>
-                                   <li>{t.astDis2}</li>
-                                   <li>{t.astDis3}</li>
-                                  <li>{t.astDis4}</li>
-                                   <li><strong>{t.astDisAct}</strong></li>
-                               </ul>
-                           </div>
-                           <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 sm:p-4">
-                               <div className="font-bold text-amber-800 mb-2 uppercase tracking-wide border-b border-amber-100 pb-1.5">{t.whenAdmit}</div>
-                               <ul className="text-amber-700 list-disc pl-4 space-y-1">
-                                   <li>{t.astAdm1}</li>
-                                   <li>{t.astAdm2}</li>
-                                   <li>{t.astAdm3}</li>
-                                   <li>{t.astAdm4}</li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-              )}
-
-              {exacTab === 'COPD' && (
-                <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-2">
-                   {/* Severity Grids */}
-                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-                       {/* Mild/Mod */}
-                       <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
-                           <div className="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
-                           <h4 className="font-extrabold text-orange-700 text-base mb-1">{t.mildModExac}</h4>
-                           <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
-                             <strong>{t.criteria}</strong> {t.copdMildCrit}
-                           </p>
-                           <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider">{t.initMgmt}</div>
-                           <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
-                               <li><span className="font-bold">Mild:</span> {t.copdMildSaba}</li>
-                               <li><span className="font-bold">Moderate:</span> {t.copdMildMod} <br/><span className="text-[10px] text-slate-500"><em>{t.copdMildModAlt}</em></span></li>
-                               <li><span className="font-bold">Antibiotics:</span> {t.copdMildAbx}</li>
-                               <li><span className="font-bold">Oxygen:</span> {t.copdMildOx}</li>
-                           </ul>
-                           <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
-                               <ExacDeviceGroups rule="copdMild" list={exacDevices('copdMild', 'COPD', rxData)} t={t} />
-                           </div>
-                       </div>
-
-                       {/* Severe */}
-                       <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm flex flex-col relative overflow-hidden">
-                           <div className="absolute top-0 left-0 w-1 h-full bg-orange-700"></div>
-                           <h4 className="font-extrabold text-orange-800 text-base mb-1">{t.severeRespFail}</h4>
-                           <p className="text-[11px] text-slate-500 mb-3 border-b border-slate-100 pb-3 leading-relaxed">
-                             <strong>{t.criteria}</strong> {t.copdSevCrit}
-                           </p>
-                           <div className="font-bold text-xs text-slate-800 mb-2 uppercase tracking-wider flex justify-between">{t.inpatientMgmt} <span className="text-orange-600 text-[10px] bg-orange-50 px-1.5 py-0.5 rounded">{t.hospAdmit}</span></div>
-                           <ul className="text-xs text-slate-700 list-disc pl-4 mb-4 space-y-1.5">
-                               <li><span className="font-bold">Bronchodilators:</span> {t.copdSevBronch}</li>
-                               <li><span className="font-bold">Corticosteroids:</span> {t.copdSevCs} <br/><span className="text-[10px] text-slate-500"><em>{t.copdSevCsAlt}</em></span></li>
-                               <li><span className="font-bold">Antibiotics:</span> {t.copdSevAbx}</li>
-                               <li><span className="font-bold">Ventilation:</span> {t.copdSevVent}</li>
-                           </ul>
-                           <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
-                               <ExacDeviceGroups rule="copdSevere" list={exacDevices('copdSevere', 'COPD', rxData)} t={t} />
-                           </div>
-                       </div>
-                   </div>
-
-                   {/* Next Steps / Support */}
-                   <div className="bg-orange-50/50 border border-orange-200 rounded-xl p-4 sm:p-5 shadow-sm">
-                       <h4 className="font-bold text-orange-800 text-sm mb-3 flex items-center gap-2 border-b border-orange-100 pb-2"><Wind className="w-4 h-4"/> {t.respSupportProto}</h4>
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-[11px] md:text-xs text-orange-900 leading-relaxed">
-                           <div className="bg-orange-100/50 p-3 rounded-lg border border-orange-200">
-                               <span className="font-bold underline text-orange-800 block mb-1">{t.nivIndication}</span>
-                               <ul className="list-disc pl-4 space-y-0.5 mt-1 text-orange-800">
-                                 <li>{t.niv1}</li>
-                                 <li>{t.niv2}</li>
-                                 <li>{t.niv3}</li>
-                               </ul>
-                           </div>
-                           <div className="p-3">
-                               <span className="font-bold underline text-rose-700 mb-1 flex items-center gap-1.5"><ActivityIcon className="w-3.5 h-3.5" /> {t.intubationInd}</span>
-                               <ul className="list-disc pl-4 space-y-0.5 mt-1 text-rose-900">
-                                   <li>{t.intub1}</li>
-                                   <li>{t.intub2}</li>
-                                   <li>{t.intub3}</li>
-                                   <li>{t.intub4}</li>
-                                   <li>{t.intub5}</li>
-                                   <li>{t.intub9}</li>
-                                   <li>{t.intub10}</li>
-                                   <li>{t.intub11}</li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-
-                   {/* Disposition (GOLD 2026 Figures 4.4 and 4.10) */}
-                   <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                       <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                           <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 sm:p-4">
-                               <div className="font-bold text-emerald-800 mb-2 uppercase tracking-wide border-b border-emerald-100 pb-1.5">{t.whenDischarge}</div>
-                               <ul className="text-emerald-700 list-disc pl-4 space-y-1">
-                                   <li>{t.copdDis1}</li>
-                                   <li>{t.copdDis2}</li>
-                                   <li>{t.copdDis3}</li>
-                                   <li>{t.copdDis4}</li>
-                                   <li>{t.copdDis5}</li>
-                                   <li><strong>{t.copdDisFu1}</strong></li>
-                                   <li><strong>{t.copdDisFu2}</strong></li>
-                               </ul>
-                           </div>
-                           <div className="bg-amber-50 border border-amber-100 rounded-xl p-3 sm:p-4">
-                               <div className="font-bold text-amber-800 mb-2 uppercase tracking-wide border-b border-amber-100 pb-1.5">{t.whenAdmit}</div>
-                               <ul className="text-amber-700 list-disc pl-4 space-y-1">
-                                   <li>{t.copdAdm1}</li>
-                                   <li>{t.copdAdm2}</li>
-                                   <li>{t.copdAdm3}</li>
-                                   <li>{t.copdAdm4}</li>
-                                   <li><strong>{t.copdAdmIcu}</strong></li>
-                                   <li className="list-none -ml-4 text-[11px] text-slate-500">{t.copdAdmAmb}</li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-              )}
-
-            </div>
-          </div>
-        </div>
-      )}
+      {isExacModalOpen && <ExacGuideModal t={t} lang={lang} tab={exacTab} setTab={setExacTab} rxData={rxData} onClose={() => setIsExacModalOpen(false)} />}
 
       {/* Changelog Modal */}
-      {isChangelogOpen && (
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
-          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-200 text-slate-700 rounded-xl">
-                  <HistoryIcon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-slate-800 leading-tight">{t.changelogTitle}</h2>
-                  <p className="text-xs text-slate-500">{t.changelogSub}</p>
-                </div>
-              </div>
-              <button onClick={() => setIsChangelogOpen(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-5 bg-slate-50/50">
-              {changelogData.map((log, idx) => { const lt = lang === 'th' ? CHANGELOG_TH[log.version] : null; const feats = lt ? lt.features : log.features; const fixes = lt ? lt.bugs : log.bugs; return (
-                <div key={idx} className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-sm relative">
-                  {idx === 0 && <div className="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-widest">{t.latest}</div>}
-                  <div className="flex items-baseline justify-between mb-3 border-b border-slate-100 pb-3">
-                    <h3 className="text-lg font-extrabold text-slate-800">{log.version}</h3>
-                    <span className="text-xs font-bold text-slate-400">{lang === 'th' ? thaiDate(log.date) : log.date}</span>
-                  </div>
-
-                  {feats.length > 0 && (
-                    <div className="mb-4">
-                      <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> {t.newFeatures}</span>
-                      <ul className="text-xs text-slate-700 space-y-1.5 pl-5 list-disc">
-                        {feats.map((feat, i) => <li key={i}>{feat}</li>)}
-                      </ul>
-                    </div>
-                  )}
-
-                  {fixes.length > 0 && (
-                    <div>
-                      <span className="text-[10px] font-bold text-rose-500 uppercase tracking-wider mb-2 flex items-center gap-1.5"><X className="w-3 h-3" /> {t.bugFixes}</span>
-                      <ul className="text-xs text-slate-700 space-y-1.5 pl-5 list-disc">
-                        {fixes.map((bug, i) => <li key={i}>{bug}</li>)}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ); })}
-            </div>
-          </div>
-        </div>
-      )}
+      {isChangelogOpen && <ChangelogModal t={t} lang={lang} onClose={() => setIsChangelogOpen(false)} />}
 
       {/* Stepped Therapy Native Guideline Modal */}
       {isWizardOpen && (
