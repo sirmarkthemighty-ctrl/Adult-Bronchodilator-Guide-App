@@ -5191,7 +5191,7 @@ const GuidelineFiguresButton = ({ set, lang }) => {
         <span className="hidden sm:inline">{c.btn}</span>
       </button>
       {open && ReactDOM.createPortal(
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[60] flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }} data-figures-modal>
+        <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[60] flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }} data-figures-modal>
           <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh]" role="dialog" aria-modal="true" aria-label={c.title}>
             <div className="flex items-start justify-between gap-3 p-4 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
               <div className="min-w-0">
@@ -7332,7 +7332,7 @@ const DonateButton = ({ isTh = false, className = '' }) => {
         <span className="hidden sm:inline">{d.btn}</span>
       </button>
       {open && ReactDOM.createPortal(
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }} data-donate-modal>
+        <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }} data-donate-modal>
           <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" role="dialog" aria-modal="true" aria-label={d.title}>
             <div className="flex items-center justify-between gap-3 p-4 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
               <h2 className="text-base font-extrabold text-slate-800 leading-tight flex items-center gap-2 min-w-0">
@@ -7377,7 +7377,7 @@ const LegendModal = ({ t, onClose }) => {
   );
   const chip = (cls, text, key) => <span key={key} className={`text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${cls}`}>{text}</span>;
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} data-legend-modal>
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} data-legend-modal>
       <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" role="dialog" aria-modal="true" aria-label={t.legendTitle}>
         <div className="flex items-start justify-between gap-3 p-4 sm:p-5 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
           <div className="min-w-0">
@@ -7613,7 +7613,7 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   const priceSrc = med.priceLevel == null ? null : med.priceEst ? [{ label: t.priceEstNote }] : [{ label: t.srcRefPrice, url: refUrl('refprice') }];
   const infoSrc = (value) => (isUnknownText(value) ? null : [{ label: t.srcProductInfoShort }]);
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} data-detail-modal>
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} data-detail-modal>
       <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" role="dialog" aria-modal="true" aria-label={med.marketName}>
         <div className="flex items-start gap-3 p-4 sm:p-5 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
           <div className="p-2 rounded-xl bg-white border border-slate-200 shrink-0">{medIcon(med, 'w-12 h-12 sm:w-14 sm:h-14 text-slate-700')}</div>

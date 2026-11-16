@@ -15,9 +15,11 @@ Reference implementation: `app.jsx`, `styles.css`, `tailwind.config.js`, `shell.
 
 ## Tokens
 
-**Type.** `IBM Plex Sans`, then `IBM Plex Sans Thai`, then the system stack (`tailwind.config.js`). Weights 400-800. Labels and chips are 10 px bold; body facts 11-12 px; card titles `text-lg font-extrabold`.
+**Type.** `IBM Plex Sans`, then `IBM Plex Sans Thai`, then the system stack (`tailwind.config.js`). Weights 400-800. Smallest text is 10 px (never 9 px). Labels and chips are 10 px bold; body facts 11-12 px; card titles `text-lg font-extrabold`.
 
 **Neutrals.** Tailwind `slate`. Page ground `#f1f5f9` light, `#0b1220` dark. Cards are white / `#151f32`; inset panels `slate-50` / `#101a2b`; borders `slate-200` / `#263449`.
+
+**Secondary text.** Muted text is `slate-500` or darker; `slate-400` is only for disabled or decorative marks (contrast on white).
 
 **Accent.** `indigo-600` with white text and `shadow-sm` is the single "on" state for filters, selection and primary buttons.
 
@@ -33,7 +35,7 @@ Reference implementation: `app.jsx`, `styles.css`, `tailwind.config.js`, `shell.
 
 **Soft tint pattern.** A coloured control is `bg-{c}-50 hover:bg-{c}-100 border-{c}-200 text-{c}-700` (guide buttons, chips). Solid `bg-{c}-600 text-white` is reserved for the "on" state.
 
-**Shape and space.** Cards `rounded-xl md:rounded-2xl border shadow-sm p-3.5 md:p-5`. Chips `rounded border px-1 py-px text-[10px] font-bold`. Modals `rounded-2xl`, overlay `bg-slate-900/70 backdrop-blur-sm`, `z-50`. Motion: short fade / zoom-in (150-200 ms), switched off by `prefers-reduced-motion`.
+**Shape and space.** Cards `rounded-xl md:rounded-2xl border shadow-sm p-3.5 md:p-5`; `shadow-sm` is a soft two-layer (Fluent) elevation set in `styles.css`. Chips `rounded border px-1 py-px text-[10px] font-bold`. Modals `rounded-2xl`, overlay `bg-slate-900/70 backdrop-blur-sm`, `z-50`. Motion: short fade / zoom-in (150-200 ms), switched off by `prefers-reduced-motion`.
 
 ## Dark mode
 
@@ -53,6 +55,7 @@ A runtime layer in `app.jsx` (top of file, `dark-theme-layer`) writes `html.dark
 ## Rules that travel with the design
 
 - Changelog: one entry per day, new day = new version; every EN line has a TH line (equal counts).
+- Keyboard and screen readers: every control shows an indigo `:focus-visible` ring (lighter in dark mode); every full-screen overlay has `role="dialog" aria-modal="true"`. Buttons dim briefly when pressed (`button:active`).
 - Labelled icons: an icon-only button needs `aria-label` and `title`; where room allows it also shows a word (the active view, Cautions).
 - Frames: one frame per item; never a box inside a box.
 - Donate: a heart button opens a small pop-up with the PromptPay QR (`DonateButton` in `app.jsx`; the QR stays white in dark mode via `light-lock`). The shared copy lives in `shared/donate/`; add it to another app only when asked.
