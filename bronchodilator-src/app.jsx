@@ -501,7 +501,7 @@ const BrandGroupRow = ({ meds, open, onToggle, onPick, onSelect, onDetails, isSe
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5 mb-1">
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${first.tagColor}`}>{first.type}</span>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(first)}</span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{shapeLabel(first)}</span>
             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded border border-indigo-200 bg-white text-indigo-700 whitespace-nowrap" data-brand-count>{t.brandCount(meds.length)}</span>
             {meds.every(m => m.isExtraFine) && <ExtraFineBadge t={t} compact={true} />}
             <ExacBadge med={first} t={t} />
@@ -525,7 +525,7 @@ const BrandGroupRow = ({ meds, open, onToggle, onPick, onSelect, onDetails, isSe
                 {!commonInd && <DiagnosticBadges indications={m.indications} t={t} med={m} className="mt-2" />}
               </div>
               <div className="shrink-0 flex flex-col items-end gap-1.5 print:hidden">
-                <button onClick={() => onSelect(m)} data-brand-select title={sel ? t.selected : t.select} aria-label={`${sel ? t.selected : t.select}: ${m.marketName}`} className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${sel ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
+                <button onClick={() => onSelect(m)} data-brand-select title={sel ? t.selected : t.select} aria-label={`${sel ? t.selected : t.select}: ${m.marketName}`} className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${sel ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
                   {sel ? <Check className="w-3 h-3" /> : <CompareIcon className="w-3 h-3" />}
                   <span className="hidden sm:inline">{sel ? t.selected : t.select}</span>
                 </button>
@@ -2053,8 +2053,8 @@ const DoseRangeDisplay = ({ doseRange: rawDose, viewType = 'compact', isMart, ma
             </div>
             {['low', 'medium', 'high'].map(level => (
               <div key={level} className="flex justify-between items-start gap-3">
-                <span className={`text-[13px] shrink-0 capitalize ${!rawDose[level].includes('Not') ? 'font-bold text-orange-600' : 'text-slate-400'}`}>{t[`${level}Dose`]}</span>
-                <span className={`text-[12px] font-bold text-right break-words min-w-0 ${rawDose[level].includes('Not') ? 'text-slate-400 font-normal' : 'text-indigo-700'}`}>{doseRange[level].trim()}</span>
+                <span className={`text-[13px] shrink-0 capitalize ${!rawDose[level].includes('Not') ? 'font-bold text-orange-600' : 'text-slate-500'}`}>{t[`${level}Dose`]}</span>
+                <span className={`text-[12px] font-bold text-right break-words min-w-0 ${rawDose[level].includes('Not') ? 'text-slate-500 font-normal' : 'text-indigo-700'}`}>{doseRange[level].trim()}</span>
               </div>
             ))}
           </div>
@@ -2090,8 +2090,8 @@ const DoseRangeDisplay = ({ doseRange: rawDose, viewType = 'compact', isMart, ma
             const isNotApp = rawDose[level].includes('Not');
             return (
                <div key={level} className="flex justify-between items-start gap-2">
-                  <span className={`text-xs shrink-0 capitalize ${!isNotApp ? 'font-bold text-orange-600' : 'text-slate-400 font-medium'}`}>{t[`${level}Dose`]}</span>
-                  <span className={`text-xs text-right break-words min-w-0 ${!isNotApp ? 'font-bold text-indigo-700' : 'text-slate-400'}`} data-dose-value>{doseRange[level].trim()}</span>
+                  <span className={`text-xs shrink-0 capitalize ${!isNotApp ? 'font-bold text-orange-600' : 'text-slate-500 font-medium'}`}>{t[`${level}Dose`]}</span>
+                  <span className={`text-xs text-right break-words min-w-0 ${!isNotApp ? 'font-bold text-indigo-700' : 'text-slate-500'}`} data-dose-value>{doseRange[level].trim()}</span>
                </div>
             );
           })}
@@ -2099,7 +2099,7 @@ const DoseRangeDisplay = ({ doseRange: rawDose, viewType = 'compact', isMart, ma
       ) : (
         <div className="flex items-center justify-between min-w-0 shrink-0 w-full pt-1 pb-1 border-b border-slate-200">
           <div className="flex items-start gap-1">
-             <span className="text-slate-400 font-medium whitespace-nowrap">{t.recDose}:</span>
+             <span className="text-slate-500 font-medium whitespace-nowrap">{t.recDose}:</span>
              <span className="font-bold text-indigo-700 break-words">{doseRange}</span>
           </div>
           {martBadge}
@@ -2108,7 +2108,7 @@ const DoseRangeDisplay = ({ doseRange: rawDose, viewType = 'compact', isMart, ma
 
       {martMax && (
         <div className="flex items-start gap-1 min-w-0 shrink-0 mt-1">
-          <span className="text-slate-400 font-medium whitespace-nowrap">{t.martMax}:</span>
+          <span className="text-slate-500 font-medium whitespace-nowrap">{t.martMax}:</span>
           <span className="font-bold text-amber-600 break-words">{martMax}</span>
         </div>
       )}
@@ -2142,7 +2142,7 @@ const DeviceListSnippet = ({ med, getIcon, t, large = false, showHolder = false,
     </div>
   );
   // main list: a fact wraps inside the row on a narrow phone; compact snippets keep one line
-  const item = (label, value) => <div className={large ? 'flex flex-wrap items-baseline gap-x-1 gap-y-0.5 min-w-0 max-w-full' : 'flex items-baseline gap-1 whitespace-nowrap'}><span className="text-slate-400 whitespace-nowrap">{label}:</span> {value}</div>;
+  const item = (label, value) => <div className={large ? 'flex flex-wrap items-baseline gap-x-1 gap-y-0.5 min-w-0 max-w-full' : 'flex items-baseline gap-1 whitespace-nowrap'}><span className="text-slate-500 whitespace-nowrap">{label}:</span> {value}</div>;
   const details = (
     <div className={`flex flex-wrap items-center ${large ? 'gap-x-5 gap-y-1.5 md:flex-1 md:min-w-0 md:border-l md:pl-4' : 'gap-x-3 gap-y-1 sm:flex-grow sm:border-l sm:pl-3'} w-full ${large ? 'text-[11px] sm:text-xs' : 'text-[10px]'} border-slate-100`} data-list-details>
       {item(t.flow, <span className="font-bold text-cyan-700" data-flow>{flowText(med, t)}</span>)}
@@ -2185,8 +2185,8 @@ const ExacDeviceGroups = ({ rule, list, t, notes = {} }) => {
         return (
           <details key={key} className="group rounded-md border border-slate-200 bg-white" data-exac-group={key}>
             <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none list-none text-[11px] font-extrabold text-slate-700 hover:bg-slate-50 rounded-md">
-              <span>{t.exacLabels[rule][key]} <span className="font-bold text-slate-400">({items.length})</span></span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-slate-400 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
+              <span>{t.exacLabels[rule][key]} <span className="font-bold text-slate-500">({items.length})</span></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-slate-500 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
             </summary>
             <ul className="border-t border-slate-100 divide-y divide-slate-100">
               {notes[key] && <li className="px-2.5 py-1.5 text-[10px] leading-snug text-amber-800 bg-amber-50" data-exac-note={key}><strong>MART:</strong> {notes[key]}</li>}
@@ -2194,7 +2194,7 @@ const ExacDeviceGroups = ({ rule, list, t, notes = {} }) => {
                 const st = nlemOf(med);
                 const cond = nlemConditionOf(med, t);
                 const head = (i === 0 || items[i - 1].type !== med.type) && (
-                  <li key={'h-' + med.type} className="px-2 pt-1.5 pb-0.5 text-[9px] font-extrabold uppercase tracking-wider text-slate-400 bg-slate-50" data-exac-type={med.type}>{t.exacTypes[med.type]}</li>
+                  <li key={'h-' + med.type} className="px-2 pt-1.5 pb-0.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50" data-exac-type={med.type}>{t.exacTypes[med.type]}</li>
                 );
                 return [head, (
                   <li key={med.id} className="flex items-center gap-2 px-2 py-1 min-w-0" data-exac-item={med.id}>
@@ -2202,11 +2202,11 @@ const ExacDeviceGroups = ({ rule, list, t, notes = {} }) => {
                     <div className="min-w-0 flex-1 leading-tight">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <h3 className="text-[11px] font-bold text-slate-800">{med.marketName}</h3>
-                        <span className={`text-[9px] font-bold px-1 rounded uppercase ${med.tagColor}`}>{med.type}</span>
-                        {st && <span title={t.nlemTitle} className={`text-[9px] font-bold px-1 rounded border ${NLEM_STYLE[st.list]}`}>NLEM {st.list}</span>}
+                        <span className={`text-[10px] font-bold px-1 rounded uppercase ${med.tagColor}`}>{med.type}</span>
+                        {st && <span title={t.nlemTitle} className={`text-[10px] font-bold px-1 rounded border ${NLEM_STYLE[st.list]}`}>NLEM {st.list}</span>}
                       </div>
-                      <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className="text-[9px] text-slate-500" />
-                      {cond && <p className="text-[9px] text-amber-700 leading-snug">{cond}</p>}
+                      <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className="text-[10px] text-slate-500" />
+                      {cond && <p className="text-[10px] text-amber-700 leading-snug">{cond}</p>}
                     </div>
                     <span className="shrink-0 text-[10px] font-bold text-indigo-700 text-right max-w-[45%]">{typeof med.doseRange === 'string' ? doseText(med.doseRange, t) : med.isMart && med.martMax ? <span className="text-amber-700">MART · {t.isTh ? 'สูงสุด' : 'max'} {doseText(med.martMax, t)}</span> : ''}</span>
                   </li>
@@ -2232,7 +2232,7 @@ const DeviceExportCard = ({ med, getIcon, t }) => {
       <div className="flex-grow">
         <div className="flex gap-2 items-center mb-1.5 flex-wrap">
           <span className={`text-[11px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(med)}</span>
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">{shapeLabel(med)}</span>
           {med.isExtraFine && <ExtraFineBadge t={t} />}
           <NlemBadge med={med} t={t} />
           <AvailBadge med={med} t={t} />
@@ -2328,6 +2328,15 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 };
 
 const changelogData = [
+  {
+    version: "v1.12.13",
+    date: "November 16, 2026",
+    features: [
+      "Accessibility: every control now shows a clear focus ring when you use the keyboard, all pop-up windows are announced to screen readers as dialogs, and small grey text and 9 px text were made darker and larger for easier reading. No change in content.",
+      "Fluent-style touches: cards and buttons get a soft two-layer shadow, and buttons dim briefly when pressed.",
+    ],
+    bugs: [],
+  },
   {
     version: "v1.12.12",
     date: "November 9, 2026",
@@ -2753,6 +2762,13 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.13": {
+  "features": [
+    "การเข้าถึง: ทุกปุ่มแสดงกรอบโฟกัสชัดเจนเมื่อใช้คีย์บอร์ด หน้าต่างป๊อปอัปทั้งหมดถูกระบุเป็นกล่องโต้ตอบสำหรับโปรแกรมอ่านหน้าจอ และปรับข้อความสีเทาจางและตัวอักษรขนาด 9 px ให้เข้มและใหญ่ขึ้นเพื่ออ่านง่าย ไม่มีการเปลี่ยนแปลงเนื้อหา",
+    "ปรับให้คล้ายสไตล์ Fluent: การ์ดและปุ่มมีเงาสองชั้นนุ่มๆ และปุ่มหรี่ลงเล็กน้อยเมื่อกด"
+  ],
+  "bugs": []
+ },
  "v1.12.12": {
   "features": [
     "เครื่องคำนวณขนาดสเตียรอยด์เปิดพร้อมยาสูดที่เลือกไว้ในหน้าหลัก: ยาสูดที่มี ICS ทุกตัวที่เลือกจะถูกนำเข้าเป็นแถวพร้อมขนาดที่ใช้ทั่วไป หากไม่ได้เลือกยา (หรือไม่มียาที่มี ICS) จะเปิดด้วยแถวเริ่มต้นเหมือนเดิม",
@@ -3469,7 +3485,7 @@ const ConvertSideCard = ({ label, med, regimen, t }) => (
   <div className="bg-white rounded-xl border border-slate-200 p-3 flex items-start gap-3 min-w-0">
     <div className="p-1.5 rounded-lg bg-slate-50 border border-slate-100 shrink-0">{medIcon(med, 'w-10 h-10')}</div>
     <div className="min-w-0">
-      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+      <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest">{label}</span>
       <span className="block font-extrabold text-slate-800 leading-tight">{med.marketName}</span>
       <RenderSubstances medClass={med.class} medSubstance={med.substance} compact={true} className="text-[11px] mt-0.5" />
       {regimen && <span className="block text-xs font-bold text-indigo-700 mt-1">{regimen}</span>}
@@ -3494,7 +3510,7 @@ const DoseConversionModal = ({ pair, t, onClose }) => {
   const sevIcon = { critical: <X className="w-3.5 h-3.5 mt-0.5 shrink-0 text-rose-600" />, warning: <AlertTriangle className="w-4 h-4 shrink-0 text-amber-600" />, info: <InfoIcon className="w-4 h-4 shrink-0 text-sky-600" /> };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-purple-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -3504,7 +3520,7 @@ const DoseConversionModal = ({ pair, t, onClose }) => {
               <p className="text-xs text-slate-500">{t.convertSub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
         </div>
 
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-5">
@@ -3596,7 +3612,7 @@ const DoseConversionModal = ({ pair, t, onClose }) => {
                   <span className={`font-extrabold ${getClassColor(c.cls)}`}>{c.cls}</span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded text-center ${STATUS_STYLE[c.status]}`}>{t.convertStatus[c.status]}</span>
                   <span className="text-slate-700 min-w-0 break-words">
-                    {c.status === 'continue' && c.from !== c.to ? <>{c.from} <span className="text-slate-400">→</span> {c.to}</> : (c.from || c.to)}
+                    {c.status === 'continue' && c.from !== c.to ? <>{c.from} <span className="text-slate-500">→</span> {c.to}</> : (c.from || c.to)}
                     {c.cls === 'ICS' && (c.fromMcg || c.toMcg) && <span className="block text-[11px] text-slate-500 tabular-nums">{c.fromMcg || '—'} → {c.toMcg || '—'}</span>}
                   </span>
                 </div>
@@ -3680,7 +3696,7 @@ const EquivalentDrugsModal = ({ med, t, onClose, onConvert, countries = ['th'] }
 
   const section = (title, list, empty) => (
     <div>
-      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{title} <span className="text-slate-400 tabular-nums">({list.length})</span></h3>
+      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{title} <span className="text-slate-500 tabular-nums">({list.length})</span></h3>
       {list.length ? (
         <ul className="flex flex-col gap-2">{list.map(c => <EquivalentRow key={c.d.id} med={c.d} conv={c.conv} t={t} onConvert={onConvert} />)}</ul>
       ) : (
@@ -3690,7 +3706,7 @@ const EquivalentDrugsModal = ({ med, t, onClose, onConvert, countries = ['th'] }
   );
 
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-purple-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -3700,7 +3716,7 @@ const EquivalentDrugsModal = ({ med, t, onClose, onConvert, countries = ['th'] }
               <p className="text-xs text-slate-500">{t.equivSub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
         </div>
 
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-5">
@@ -3901,7 +3917,7 @@ const AvailBadge = ({ med, t }) => (
       const title = ind ? `${t.countryNames[r]}: ${ind.map(x => t.countryInd[x]).join(', ')}` : r === 'th' ? t.thNever : t.countryNotLicensed(t.countryNames[r]);
       return (
         <span key={r} title={title} data-country={r} data-licensed={ind ? '1' : '0'} data-status={st}
-          className={`text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${ind ? COUNTRY_COLORS[r].chip : 'border-slate-200 text-slate-400'}`}>
+          className={`text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${ind ? COUNTRY_COLORS[r].chip : 'border-slate-200 text-slate-500'}`}>
           {t.countryCodes[r]}{ind ? '' : ' ⊘'}
         </span>
       );
@@ -3918,13 +3934,13 @@ const nlemNoteOf = (med, t) => {
 // national reference price, as cost per 30 days at the usual maintenance dose
 // (as-needed relievers: per pack): <300 / 300–599 / 600–999 / ≥1000 THB.
 const PriceTag = ({ med, t, className = '' }) => (med.priceLevel == null ? (
-  <span className={`font-bold text-slate-400 ${className}`} title={t.priceUnknownNote} data-price-unknown>{t.unknown}</span>
+  <span className={`font-bold text-slate-500 ${className}`} title={t.priceUnknownNote} data-price-unknown>{t.unknown}</span>
 ) : (
   <span className={`inline-flex items-center gap-0.5 font-extrabold ${med.priceEst ? 'opacity-60' : ''} ${className}`} title={med.priceEst ? `${t.priceDisclaimer} ${t.priceEstNote}` : t.priceDisclaimer} aria-label={`${t.estCost}: ${med.priceLevel}/4${med.priceEst ? ` (${t.priceEstShort})` : ''}`}>
     {[1, 2, 3, 4].map(n => (
       <span key={n} className={n <= med.priceLevel ? 'text-emerald-600' : 'text-slate-200'}>{t.priceSymbol}</span>
     ))}
-    {med.priceEst && <span className="ml-0.5 text-[10px] font-bold text-slate-400">~</span>}
+    {med.priceEst && <span className="ml-0.5 text-[10px] font-bold text-slate-500">~</span>}
   </span>
 ));
 
@@ -4688,7 +4704,7 @@ const DeviceTechniqueModal = ({ t, lang, onClose, onToast = () => {} }) => {
   const nameOf = (s) => DEVICE_NAMES[s][lang === 'th' ? 'th' : 'en'];
 
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-blue-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -4698,7 +4714,7 @@ const DeviceTechniqueModal = ({ t, lang, onClose, onToast = () => {} }) => {
               <p className="text-xs text-slate-500">{t.devGuideSub}</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="device" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="device" lang={lang} /><button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
 
         {/* Device picker */}
@@ -5182,7 +5198,7 @@ const GuidelineFiguresButton = ({ set, lang }) => {
                 <h2 className="text-base sm:text-lg font-bold text-slate-800 leading-tight">{c.title}</h2>
                 <p className="text-xs text-slate-500">{c.sub}</p>
               </div>
-              <button onClick={() => setOpen(false)} className="p-2 -m-1 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label="Close"><X className="w-5 h-5" /></button>
+              <button onClick={() => setOpen(false)} className="p-2 -m-1 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label="Close"><X className="w-5 h-5" /></button>
             </div>
             <div className="p-3 sm:p-4 overflow-y-auto flex flex-col gap-4 bg-slate-50">
               {group('gina', c.asthma)}
@@ -5403,7 +5419,7 @@ const IcsCalculatorModal = ({ lang, onClose, current = [] }) => {
   if (lines.some(l => l.overMax)) warns.push(c.warnMax);
   const field = 'w-full rounded-lg border border-slate-200 bg-white text-slate-800 text-sm p-2';
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" data-ics-calc>
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-fuchsia-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -5413,7 +5429,7 @@ const IcsCalculatorModal = ({ lang, onClose, current = [] }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="steroid" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="steroid" lang={lang} /><button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-4">
           <div className="flex flex-col gap-3">
@@ -5647,7 +5663,7 @@ const SpacerGuideModal = ({ lang, onClose }) => {
     </section>
   );
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" data-spacer-guide>
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-teal-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -5657,7 +5673,7 @@ const SpacerGuideModal = ({ lang, onClose }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="spacer" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="spacer" lang={lang} /><button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-4">
           <Card title={c.whoTitle} items={c.who} />
@@ -6355,14 +6371,14 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
   const refSection = (open, onToggle, title, attr, body) => (
     <section className="shrink-0 bg-white rounded-2xl border border-slate-200">
       <button type="button" onClick={onToggle} aria-expanded={open} {...attr} className="w-full flex items-center justify-between gap-2 px-4 py-3 text-left text-sm font-extrabold text-slate-800">
-        <span>{title}</span><span className={`text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+        <span>{title}</span><span className={`text-slate-500 transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
       </button>
       {open && <div className="px-4 pb-4">{body}</div>}
     </section>
   );
 
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200" data-followup>
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-violet-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -6372,7 +6388,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
               <p className="text-xs text-slate-500">{c.sub}</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="follow" lang={lang} /><button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
+          <div className="flex items-center gap-1 shrink-0"><GuidelineFiguresButton set="follow" lang={lang} /><button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button></div>
         </div>
         <div className="shrink-0 flex gap-2 px-4 sm:px-6 py-3 border-b border-slate-100 bg-white" role="tablist">
           {[['asthma', c.tabAsthma, 'bg-indigo-600 border-indigo-600'], ['copd', c.tabCopd, 'bg-emerald-600 border-emerald-600']].map(([k, lbl, on]) => (
@@ -6536,7 +6552,7 @@ const AsthmaActionPlan = ({ med, lang, doseText, reliever, pefBest }) => {
         <div className="flex-1 border-b border-slate-400 pb-0.5"><span className="font-bold text-slate-600">{s.doctor}</span></div>
         <div className="w-48 border-b border-slate-400 pb-0.5"><span className="font-bold text-slate-600">{s.reviewDate}</span></div>
       </div>
-      <div className="text-[11px] text-slate-400 text-right">{s.source} · {APP_VERSION}</div>
+      <div className="text-[11px] text-slate-500 text-right">{s.source} · {APP_VERSION}</div>
     </div>
   );
 };
@@ -6581,7 +6597,7 @@ const CopdActionPlan = ({ med, lang, doseText, reliever }) => {
         <div className="flex-1 border-b border-slate-400 pb-0.5"><span className="font-bold text-slate-600">{s.doctor}</span></div>
         <div className="w-48 border-b border-slate-400 pb-0.5"><span className="font-bold text-slate-600">{s.reviewDate}</span></div>
       </div>
-      <div className="text-[11px] text-slate-400 text-right">{s.source} · {APP_VERSION}</div>
+      <div className="text-[11px] text-slate-500 text-right">{s.source} · {APP_VERSION}</div>
     </div>
   );
 };
@@ -6697,7 +6713,7 @@ const PatientSheet = ({ med, lang, condition, doseText, reliever }) => {
       </div>
 
       <div className="flex gap-4 pt-1 break-inside-avoid">{line(s.prescriber)}{line(s.hospital)}<div className="w-48 flex">{line(s.contact)}</div></div>
-      <div className="text-[11px] text-slate-400 text-right">{s.footer} · {APP_VERSION}</div>
+      <div className="text-[11px] text-slate-500 text-right">{s.footer} · {APP_VERSION}</div>
     </div>
   );
 };
@@ -6779,7 +6795,7 @@ const PatientSheetModal = ({ med, t, appLang, onClose, onToast }) => {
   );
 
   return (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-sky-50/80 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -6789,7 +6805,7 @@ const PatientSheetModal = ({ med, t, appLang, onClose, onToast }) => {
               <p className="text-xs text-slate-500">{t.sheetSub}</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close"><X className="w-6 h-6" /></button>
         </div>
 
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto bg-slate-50 flex flex-col gap-4">
@@ -7121,7 +7137,7 @@ const StatusChip = ({ med, r, t }) => {
   const title = (ind ? `${t.countryNames[r]}: ${ind.map(x => t.countryInd[x]).join(', ')}` : r === 'th' ? t.thNever : t.countryNotLicensed(t.countryNames[r])) + (awaiting ? '\n' + awaiting : '');
   return (
     <span title={title} data-country={r} data-licensed={ind ? '1' : '0'} data-status={st} data-holder-country
-      className={`shrink-0 text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${ind ? COUNTRY_COLORS[r].chip : 'border-slate-200 text-slate-400'}`}>
+      className={`shrink-0 text-[10px] font-bold rounded border px-1 py-px leading-none whitespace-nowrap ${ind ? COUNTRY_COLORS[r].chip : 'border-slate-200 text-slate-500'}`}>
       {t.countryCodes[r]}{ind ? '' : ' ⊘'}{awaiting ? ' ?' : ''}
     </span>
   );
@@ -7271,7 +7287,7 @@ const shortDate = (d, t) => (t.isTh ? thaiDate(d) : d.replace(/^(\w{3})\w* (\d+)
 const CheckedLine = ({ med, t }) => {
   const c = lastChecked(med);
   return (
-    <p className="text-[10px] leading-snug text-slate-400 pt-1.5" data-checked title={t.checkedTitle}>
+    <p className="text-[10px] leading-snug text-slate-500 pt-1.5" data-checked title={t.checkedTitle}>
       {t.checkedLabel}: {t.checkedReg} {shortDate(c.reg, t)} · {t.checkedLabelSrc} {shortDate(c.label, t)}{c.price && <> · {t.checkedPrice} {shortDate(c.price, t)}</>}
     </p>
   );
@@ -7323,7 +7339,7 @@ const DonateButton = ({ isTh = false, className = '' }) => {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-rose-500 shrink-0" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z" /></svg>
                 <span className="break-words min-w-0">{d.title}</span>
               </h2>
-              <button type="button" onClick={() => setOpen(false)} className="p-2 -m-1 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={d.close}>
+              <button type="button" onClick={() => setOpen(false)} className="p-2 -m-1 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={d.close}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
               </button>
             </div>
@@ -7368,13 +7384,13 @@ const LegendModal = ({ t, onClose }) => {
             <h2 className="text-lg font-extrabold text-slate-800 leading-tight">{t.legendTitle}</h2>
             <p className="text-xs text-slate-500 mt-0.5">{t.legendSub}</p>
           </div>
-          <button onClick={onClose} className="p-2 -m-1 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={t.detailClose}><X className="w-5 h-5" /></button>
+          <button onClick={onClose} className="p-2 -m-1 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={t.detailClose}><X className="w-5 h-5" /></button>
         </div>
         <div className="p-3 sm:p-5 flex-grow overflow-y-auto flex flex-col gap-3 bg-white">
           {section(t.legendReg, <>
             {row(chip(COUNTRY_COLORS.th.chip, t.countryCodes.th), t.legendRegNow, 'now')}
             {row(chip('border-amber-300 bg-amber-50 text-amber-800', `${t.countryCodes.th} †`), t.legendRegPast, 'past')}
-            {row(chip('border-slate-200 text-slate-400', `${t.countryCodes.th} ⊘`), t.legendRegNever, 'never')}
+            {row(chip('border-slate-200 text-slate-500', `${t.countryCodes.th} ⊘`), t.legendRegNever, 'never')}
             {row(chip(COUNTRY_COLORS.th.chip, `${t.countryCodes.th} ?`), t.legendRegAwaiting, 'awaiting')}
             {row(LABEL_REGIONS.map(r => chip(COUNTRY_COLORS[r].chip, t.countryCodes[r], r)), t.legendCountries, 'codes')}
           </>, { 'data-legend-reg': '' })}
@@ -7386,8 +7402,8 @@ const LegendModal = ({ t, onClose }) => {
             <p className="text-xs text-slate-500 leading-snug break-words mt-0.5">{t.legendNlemNote}</p>
           </>, { 'data-legend-nlem': '' })}
           {section(t.legendPrice, <>
-            {row(<><PriceTag med={{ priceLevel: 1 }} t={t} /><span className="text-slate-400">–</span><PriceTag med={{ priceLevel: 4 }} t={t} /></>, t.priceDisclaimer, 'levels')}
-            {row(<span className="font-bold text-slate-400">{t.unknown}</span>, t.priceUnknownNote, 'est')}
+            {row(<><PriceTag med={{ priceLevel: 1 }} t={t} /><span className="text-slate-500">–</span><PriceTag med={{ priceLevel: 4 }} t={t} /></>, t.priceDisclaimer, 'levels')}
+            {row(<span className="font-bold text-slate-500">{t.unknown}</span>, t.priceUnknownNote, 'est')}
           </>, { 'data-legend-price': '' })}
           {section(t.legendClass, ['ICS', 'LABA', 'LAMA', 'SABA', 'SAMA'].map(c => row(<span className={`font-extrabold ${getClassColor(c)}`}>{c}</span>, t.legendClassNames[c], c)), { 'data-legend-class': '' })}
           {section(t.legendDevice, ['MDI', 'DPI', 'SMI', 'Nebulizer'].map(d => row(<span className="text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider bg-slate-200 text-slate-700">{d}</span>, t.legendDeviceNames[d], d)), { 'data-legend-device': '' })}
@@ -7470,7 +7486,7 @@ const flowSources = (med, t) => {
 const isUnknownText = (x) => /^unknown$/i.test(String(x || '').trim());
 // One "Source:" line. items: [{ label, url? }] (no url = plain text); [] = no source recorded; null = the value is Unknown.
 const SourceLine = ({ items, t, k }) => (
-  <p className="text-[10px] font-medium text-slate-400 leading-snug pt-1 break-words text-left" data-src={k}>
+  <p className="text-[10px] font-medium text-slate-500 leading-snug pt-1 break-words text-left" data-src={k}>
     <span className="font-bold">{t.srcLabel}:</span>{' '}
     {items == null ? <span data-src-unknown>{t.srcUnknown}</span> : items.length === 0 ? <span data-src-none>{t.srcNone}</span> : items.map((it, i) => (
       <span key={i}>{i > 0 && ' · '}{it.url
@@ -7517,8 +7533,8 @@ const DrugTable = ({ meds, t, regions, compareList, highlightId, onToggleCompare
                     <div className="min-w-0">
                       <span className="block font-extrabold text-slate-800 leading-tight break-words" data-table-name>{med.marketName}</span>
                       <span className="flex flex-wrap items-center gap-1 mt-0.5">
-                        <span className={`text-[9px] font-bold px-1 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
-                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(med)}</span>
+                        <span className={`text-[10px] font-bold px-1 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
+                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{shapeLabel(med)}</span>
                       </span>
                     </div>
                   </div>
@@ -7531,9 +7547,9 @@ const DrugTable = ({ meds, t, regions, compareList, highlightId, onToggleCompare
                   </div>
                 </td>
                 <td className={`${td} ${bg} min-w-[170px] max-w-[240px]`}><DoseRangeDisplay doseRange={med.doseRange} viewType="compact" isMart={med.isMart} martMax={med.martMax} t={t} full={true} /></td>
-                <td className={`${td} ${bg} font-bold text-purple-700 whitespace-nowrap`}>{lv.length ? lv.map(l => t.convertLevel[l]).join(' / ') : <span className="text-slate-400">-</span>}</td>
+                <td className={`${td} ${bg} font-bold text-purple-700 whitespace-nowrap`}>{lv.length ? lv.map(l => t.convertLevel[l]).join(' / ') : <span className="text-slate-500">-</span>}</td>
                 <td className={`${td} ${bg} font-bold text-cyan-700 whitespace-nowrap`} data-flow>{flowText(med, t)}</td>
-                <td className={`${td} ${bg} min-w-[110px]`}>{spacerFit(med) ? <SpacerFit med={med} t={t} className="text-[11px]" /> : <span className="text-slate-400">-</span>}</td>
+                <td className={`${td} ${bg} min-w-[110px]`}>{spacerFit(med) ? <SpacerFit med={med} t={t} className="text-[11px]" /> : <span className="text-slate-500">-</span>}</td>
                 <td className={`${td} ${bg} font-bold whitespace-nowrap ${med.ventCompatible ? 'text-cyan-700' : 'text-rose-700'}`}>{med.ventCompatible ? t.compatible : t.notCompatible}</td>
                 <td className={`${td} ${bg} whitespace-nowrap`}><PriceTag med={med} t={t} className="text-[12px]" /></td>
                 <td className={`${td} ${bg}`}>
@@ -7581,7 +7597,7 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
   const [showSrc, setShowSrc] = useState(() => { try { return localStorage.getItem('bdg-show-sources') === '1'; } catch (e) { return false; } });
   const toggleSrc = () => setShowSrc(v => { try { localStorage.setItem('bdg-show-sources', v ? '0' : '1'); } catch (e) {} return !v; });
   const src = (k, items) => (showSrc ? <SourceLine k={k} items={items} t={t} /> : null);
-  const statusLabel = { current: [t.regNow, 'text-emerald-700'], past: [t.regPast, 'text-amber-700'], never: [t.regNever, 'text-slate-400'] };
+  const statusLabel = { current: [t.regNow, 'text-emerald-700'], past: [t.regPast, 'text-amber-700'], never: [t.regNever, 'text-slate-500'] };
   const statusDetail = (r, st) => {
     if (st === 'current') return t.detailCurrent((licenceIn(med, r) || []).map(x => t.countryInd[x]).join(', '));
     if (st === 'never') return r === 'th' ? t.thNever : t.countryNotLicensed(t.countryNames[r]);
@@ -7604,14 +7620,14 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-1.5 mb-1">
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">{shapeLabel(med)}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{shapeLabel(med)}</span>
               {med.isExtraFine && <ExtraFineBadge t={t} compact={true} />}
               <ExacBadge med={med} t={t} />
             </div>
             <h2 className="text-lg sm:text-xl font-extrabold text-slate-800 leading-tight break-words">{med.marketName}</h2>
             <RenderSubstances medClass={med.class} medSubstance={med.substance} className="text-sm mt-1" />
           </div>
-          <button onClick={onClose} className="p-2 -m-1 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={t.detailClose}><X className="w-5 h-5" /></button>
+          <button onClick={onClose} className="p-2 -m-1 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors shrink-0" aria-label={t.detailClose}><X className="w-5 h-5" /></button>
         </div>
 
         <div className="p-3 sm:p-5 flex-grow overflow-y-auto flex flex-col gap-3 bg-white">
@@ -7664,7 +7680,7 @@ const DrugDetailModal = ({ med, t, onClose, isSelected, onToggleSelect }) => {
                       <span className={`text-[11px] font-bold ${statusLabel[st][1]}`}>{statusLabel[st][0]}</span>
                       {r === 'th' && st !== 'never' && <NlemBadge med={med} t={t} compact={true} />}
                     </div>
-                    {holder && <p className="text-xs text-slate-700 mt-1 break-words"><span className="text-slate-400 font-medium">{t.holderLabel}:</span> <span className="font-bold" data-detail-holder>{holder}</span></p>}
+                    {holder && <p className="text-xs text-slate-700 mt-1 break-words"><span className="text-slate-500 font-medium">{t.holderLabel}:</span> <span className="font-bold" data-detail-holder>{holder}</span></p>}
                     <p className="text-[11px] text-slate-500 mt-0.5 leading-snug break-words" data-detail-status>{statusDetail(r, st)}</p>
                     {r === 'th' && thAwaitingNote(med, t) && <p className="text-[11px] text-amber-700 font-medium mt-0.5 leading-snug break-words" data-detail-awaiting>{thAwaitingNote(med, t)}</p>}
                     {r === 'th' && nlemNote && <p className="text-[11px] text-amber-700 font-medium mt-0.5 leading-snug break-words" data-detail-nlem>{t.nlemTitle}: {nlemNote}</p>}
@@ -7850,19 +7866,19 @@ const ReferencesSection = ({ t }) => {
   <section className="mt-10 md:mt-14 pt-6 border-t border-slate-200 print:hidden" aria-labelledby="refs-heading">
     <h2 id="refs-heading" className="text-sm font-extrabold text-slate-700 uppercase tracking-wider">
       <button type="button" onClick={() => setOpen(o => !o)} aria-expanded={open} aria-controls="refs-list" className="w-full flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition-colors">
-        <span className="uppercase tracking-wider">{t.refTitle} <span className="text-slate-400 font-bold normal-case tracking-normal">({REFERENCES.length})</span></span>
-        <span className={`text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true">▾</span>
+        <span className="uppercase tracking-wider">{t.refTitle} <span className="text-slate-500 font-bold normal-case tracking-normal">({REFERENCES.length})</span></span>
+        <span className={`text-slate-500 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true">▾</span>
       </button>
     </h2>
     {open && <div id="refs-list" className="mt-3">
     <div className="flex flex-col gap-5">
       {(() => { let n = 0; return REF_GROUPS.map(g => (
         <div key={g.id} data-ref-group={g.id}>
-          <h3 className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200" data-ref-group-title>{t.isTh ? g.th : g.en} <span className="text-slate-400 font-bold">({g.keys.length})</span></h3>
+          <h3 className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200" data-ref-group-title>{t.isTh ? g.th : g.en} <span className="text-slate-500 font-bold">({g.keys.length})</span></h3>
           <ol className="flex flex-col gap-2.5">
             {g.keys.map(k => { const r = REFERENCES.find(x => x.key === k); n += 1; return (
               <li key={r.key} className="flex gap-3 text-xs text-slate-600 leading-relaxed">
-                <span className="shrink-0 font-bold text-slate-400 tabular-nums w-5 text-right">{n}.</span>
+                <span className="shrink-0 font-bold text-slate-500 tabular-nums w-5 text-right">{n}.</span>
                 <span className="min-w-0">
                   {r.cite}{' '}
                   {r.url && <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline break-all">{r.url}</a>}
@@ -7882,7 +7898,7 @@ const ReferencesSection = ({ t }) => {
 
 // Exacerbation guide (Asthma GINA / COPD GOLD tabs); the tab state stays in App so reopening keeps the last tab
 const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-rose-50/80 rounded-t-2xl shrink-0">
@@ -7897,7 +7913,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
           </div>
           <div className="flex items-center gap-1 shrink-0">
             <GuidelineFiguresButton set="exac" lang={lang} />
-            <button onClick={() => onClose()} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close">
+            <button onClick={() => onClose()} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors" aria-label="Close">
               <X className="w-6 h-6" />
             </button>
           </div>
@@ -7905,8 +7921,8 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
 
         {/* Tabs */}
         <div className="flex px-4 sm:px-6 pt-3 bg-slate-50 border-b border-slate-200 shrink-0 gap-4 sm:gap-6 overflow-x-auto hide-scrollbar">
-          <button onClick={() => setTab('Asthma')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'Asthma' ? 'border-rose-600 text-rose-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>Asthma (GINA 2026)</button>
-          <button onClick={() => setTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-400 hover:text-slate-600'}`}>COPD (GOLD 2026)</button>
+          <button onClick={() => setTab('Asthma')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'Asthma' ? 'border-rose-600 text-rose-700' : 'border-transparent text-slate-500 hover:text-slate-600'}`}>Asthma (GINA 2026)</button>
+          <button onClick={() => setTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-500 hover:text-slate-600'}`}>COPD (GOLD 2026)</button>
         </div>
 
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-6 bg-slate-50">
@@ -7934,7 +7950,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                           <li><span className="font-bold">{t.avoidLabel}</span> {t.asthmaAvoid}</li>
                        </ul>
                        <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.recDevices}</span>
                            <ExacDeviceGroups rule="asthmaMild" list={exacDevices('asthmaMild', 'Asthma', rxData)} t={t} notes={{ icsForm: t.asthmaMildMart }} />
                        </div>
                    </div>
@@ -7955,7 +7971,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                            <li><span className="font-bold">Oxygen:</span> {t.asthmaSevOx}</li>
                        </ul>
                        <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.recDevices}</span>
                            <ExacDeviceGroups rule="asthmaSevere" list={exacDevices('asthmaSevere', 'Asthma', rxData)} t={t} />
                        </div>
                    </div>
@@ -8034,7 +8050,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                            <li><span className="font-bold">Oxygen:</span> {t.copdMildOx}</li>
                        </ul>
                        <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.recDevices}</span>
                            <ExacDeviceGroups rule="copdMild" list={exacDevices('copdMild', 'COPD', rxData)} t={t} />
                        </div>
                    </div>
@@ -8054,7 +8070,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                            <li><span className="font-bold">Ventilation:</span> {t.copdSevVent}</li>
                        </ul>
                        <div className="mt-auto flex flex-col gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.recDevices}</span>
+                           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.recDevices}</span>
                            <ExacDeviceGroups rule="copdSevere" list={exacDevices('copdSevere', 'COPD', rxData)} t={t} />
                        </div>
                    </div>
@@ -8126,7 +8142,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
 );
 
 const ChangelogModal = ({ t, lang, onClose }) => (
-    <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
+    <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 print:hidden">
       <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50 rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
@@ -8138,7 +8154,7 @@ const ChangelogModal = ({ t, lang, onClose }) => (
               <p className="text-xs text-slate-500">{t.changelogSub}</p>
             </div>
           </div>
-          <button onClick={() => onClose()} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-white rounded-full transition-colors">
+          <button onClick={() => onClose()} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-white rounded-full transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -8148,7 +8164,7 @@ const ChangelogModal = ({ t, lang, onClose }) => (
               {idx === 0 && <div className="absolute top-0 right-0 bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-widest">{t.latest}</div>}
               <div className="flex items-baseline justify-between mb-3 border-b border-slate-100 pb-3">
                 <h3 className="text-lg font-extrabold text-slate-800">{log.version}</h3>
-                <span className="text-xs font-bold text-slate-400">{lang === 'th' ? thaiDate(log.date) : log.date}</span>
+                <span className="text-xs font-bold text-slate-500">{lang === 'th' ? thaiDate(log.date) : log.date}</span>
               </div>
 
               {feats.length > 0 && (
@@ -8725,7 +8741,7 @@ function App() {
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] w-max max-w-[calc(100vw-1rem)] animate-in fade-in slide-in-from-top-5" data-toast>
           <div className="bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
             <span className="font-bold text-sm min-w-0 break-words">{toastMessage}</span>
-            <button onClick={() => setToastMessage(null)} className="text-slate-400 hover:text-white transition-colors shrink-0">
+            <button onClick={() => setToastMessage(null)} className="text-slate-500 hover:text-white transition-colors shrink-0">
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -8739,8 +8755,8 @@ function App() {
             <div className="flex items-center gap-1.5 min-w-0">
               <Check className="w-3 h-3 text-emerald-400 shrink-0" />
               <h3 className="font-bold text-xs whitespace-nowrap">{compareList.length} {t.selected}</h3>
-              <p className="text-[10px] text-slate-400 leading-snug break-words min-w-0 flex-1">{compareList.map(m => m.marketName).join(', ')}</p>
-              <button onClick={() => setCompareList([])} className="shrink-0 text-slate-400 hover:text-white px-1.5 py-0.5 text-[11px] font-medium transition-colors">{t.clear}</button>
+              <p className="text-[10px] text-slate-500 leading-snug break-words min-w-0 flex-1">{compareList.map(m => m.marketName).join(', ')}</p>
+              <button onClick={() => setCompareList([])} className="shrink-0 text-slate-500 hover:text-white px-1.5 py-0.5 text-[11px] font-medium transition-colors">{t.clear}</button>
             </div>
             {/* one row of equal-width buttons: labels wrap inside the button, never off screen */}
             <div className="grid grid-flow-col auto-cols-fr gap-1.5">
@@ -8797,7 +8813,7 @@ function App() {
 
       {/* Compare Details Modal */}
       {isCompareModalOpen && compareList.length === 2 && (
-        <div className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:hidden">
+        <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:hidden">
           <div className="bg-slate-100 w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
 
             <div className="flex items-center justify-between p-5 border-b border-slate-200 bg-white rounded-t-2xl">
@@ -8807,7 +8823,7 @@ function App() {
                 </div>
                 <h2 className="text-xl font-bold text-slate-800 leading-tight">{t.compareTitle}</h2>
               </div>
-              <button onClick={() => setIsCompareModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
+              <button onClick={() => setIsCompareModalOpen(false)} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -8816,7 +8832,7 @@ function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full">
                 {compareList.map((med, idx) => (
                   <div key={`comp-${med.id}`} className="bg-white rounded-xl border border-slate-200 p-5 flex flex-col relative shadow-sm">
-                    <div className="absolute top-0 right-0 bg-slate-100 text-slate-400 text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl border-b border-l border-slate-200 uppercase tracking-widest">
+                    <div className="absolute top-0 right-0 bg-slate-100 text-slate-500 text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl border-b border-l border-slate-200 uppercase tracking-widest">
                       {t.deviceLabel} {idx + 1}
                     </div>
 
@@ -8835,32 +8851,32 @@ function App() {
 
                     <div className="space-y-4 text-sm flex-grow">
                       <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{t.pharmacologicalClass}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{t.pharmacologicalClass}</span>
                         <span className="font-bold text-slate-800 text-base flex items-center gap-2 flex-wrap">
                           {med.class}
                           {med.isExtraFine && <ExtraFineBadge t={t} />}
                         </span>
                       </div>
                       <div className="min-w-0">
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{t.peakFlow}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{t.peakFlow}</span>
                         <span className="font-bold text-cyan-700 text-base break-words block">{flowText(med, t)}</span>
                       </div>
 
                       <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{t.estCost}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{t.estCost}</span>
                         <PriceTag med={med} t={t} className="text-base" />
                       </div>
 
                       <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{t.nlemStatus}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{t.nlemStatus}</span>
                         <NlemBadge med={med} t={t} /> <AvailBadge med={med} t={t} />
                         {nlemNoteOf(med, t) && <p className="text-xs text-slate-500 mt-1 leading-snug">{nlemNoteOf(med, t)}</p>}
                       </div>
 
                       <div className="mt-4 min-w-0">
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">{t.totalDosesExp}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">{t.totalDosesExp}</span>
                         <span className="font-bold text-slate-700 mb-1 break-words block">{packText(med, t)}</span>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wide mt-3 mb-1">{t.expLabel}</span>
+                        <span className="block text-xs font-bold text-slate-500 uppercase tracking-wide mt-3 mb-1">{t.expLabel}</span>
                         <span className="font-bold text-rose-600 break-words block">{expText(med, t)}</span>
                       </div>
 
@@ -8900,7 +8916,7 @@ function App() {
 
       {/* Stepped Therapy Native Guideline Modal */}
       {isWizardOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:hidden">
+        <div role="dialog" aria-modal="true" className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 print:hidden">
           <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] animate-in fade-in zoom-in-95 duration-200">
 
             <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-emerald-50/50 rounded-t-2xl shrink-0">
@@ -8915,7 +8931,7 @@ function App() {
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <GuidelineFiguresButton set="maint" lang={lang} />
-                <button onClick={() => {setIsWizardOpen(false); resetWizard();}} className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
+                <button onClick={() => {setIsWizardOpen(false); resetWizard();}} className="p-2 text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors">
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -9012,7 +9028,7 @@ function App() {
                                      <span className="w-1/2 text-right pl-2">{q.right}</span>
                                    </div>
                                    <div className="flex items-center gap-3 mt-1.5">
-                                     <span className="text-xs font-bold text-slate-400 w-3 text-center">0</span>
+                                     <span className="text-xs font-bold text-slate-500 w-3 text-center">0</span>
                                      <input
                                        type="range"
                                        min="0" max="5" step="1"
@@ -9104,7 +9120,7 @@ function App() {
                     ) : (
                       <>
                         <div>
-                          <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                          <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
                              <ShieldPlus className="w-4 h-4 text-indigo-500" /> {t.recMaint}
                           </h4>
                           {calculatedPlan.controllers.length > 0 ? (
@@ -9115,7 +9131,7 @@ function App() {
                         </div>
 
                         <div>
-                          <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                          <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
                              <ActivityIcon className="w-4 h-4 text-orange-500" /> {t.recRescue}
                           </h4>
                           {calculatedPlan.relievers.length > 0 ? (
@@ -9189,7 +9205,7 @@ function App() {
               ['steroid', ICS_TEXT[lang].btn, 'bg-fuchsia-50 hover:bg-fuchsia-100 border-fuchsia-200 text-fuchsia-700', CalcIcon, () => { setIsIcsCalcOpen(true); setIsExacModalOpen(false); setIsWizardOpen(false); setIsDeviceGuideOpen(false); }],
             ].map(([k, label, tone, Icon, open]) => (
               <button key={k} onClick={open} data-guide={k} aria-label={label} title={label} className={`flex flex-col sm:flex-row min-w-0 sm:flex-grow-0 items-center justify-center gap-0.5 sm:gap-1.5 md:gap-2 ${tone} border px-0.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2 rounded-lg font-bold shadow-sm transition-all active:scale-95 text-xs md:text-sm`}>
-                <Icon className="w-4 h-4 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" /> <span className="text-[10px] max-[359px]:text-[9px] leading-[1.15] text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 max-w-full break-words">{narrow ? t.guideShort[k] : label}</span>
+                <Icon className="w-4 h-4 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" /> <span className="text-[10px] max-[359px]:text-[10px] leading-[1.15] text-center sm:text-[length:inherit] sm:leading-normal sm:whitespace-nowrap min-w-0 max-w-full break-words">{narrow ? t.guideShort[k] : label}</span>
               </button>
             ))}
           </div>
@@ -9202,14 +9218,14 @@ function App() {
             </button>
             <div className={`${searchOpen ? 'block flex-1' : 'hidden sm:block'} relative min-w-0 sm:flex-none sm:w-[45%] md:w-[35%] lg:w-1/3 h-full`} data-search-box>
               <input ref={searchRef} type="text" placeholder={narrow ? t.searchPlaceholderShort : t.searchPlaceholder} className="w-full h-full pl-3 pr-9 md:pl-4 md:pr-10 rounded-lg border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white text-base sm:text-xs md:text-sm transition-shadow" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} onBlur={() => setSearchOpen(false)} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }} />
-              <Search className="hidden sm:block absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5 md:w-4 md:h-4 pointer-events-none" />
+              <Search className="hidden sm:block absolute right-2.5 md:right-3 top-1/2 -translate-y-1/2 text-slate-500 w-3.5 h-3.5 md:w-4 md:h-4 pointer-events-none" />
               <button onMouseDown={(e) => e.preventDefault()} onClick={() => { setSearchTerm(''); setSearchOpen(false); if (searchRef.current) searchRef.current.blur(); }} aria-label={t.searchClose} title={t.searchClose} data-search-close
                 className="flex sm:hidden absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100"><X className="w-4 h-4" /></button>
             </div>
 
             <div className={`${searchOpen ? 'hidden sm:block' : 'block'} relative flex-1 min-w-0 sm:basis-auto h-full`} data-sort>
               <div className="absolute inset-y-0 left-0 pl-2 sm:pl-2.5 flex items-center pointer-events-none">
-                <SortIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-400" />
+                <SortIcon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-slate-500" />
               </div>
               <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} aria-label={t.sortLabel} className="w-full h-full pl-6 pr-1 sm:pl-8 sm:pr-6 rounded-lg border border-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-slate-600 text-[11px] md:text-xs font-bold appearance-none cursor-pointer">
                 <option value="nameAsc">{t.sortNameAsc}</option>
@@ -9222,15 +9238,15 @@ function App() {
             </div>
 
             <div className={`${searchOpen ? 'hidden sm:flex' : 'flex'} bg-white rounded-lg border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-full`}>
-              <button onClick={() => setViewMode('grid')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'grid' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.gridView} title={t.gridView} aria-pressed={viewMode === 'grid'}>
+              <button onClick={() => setViewMode('grid')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'grid' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-600'}`} aria-label={t.gridView} title={t.gridView} aria-pressed={viewMode === 'grid'}>
                 <LayoutGrid className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 {viewMode === 'grid' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.gridView}</span>}
               </button>
-              <button onClick={() => setViewMode('list')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'list' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.listView} title={t.listView} aria-pressed={viewMode === 'list'}>
+              <button onClick={() => setViewMode('list')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'list' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-600'}`} aria-label={t.listView} title={t.listView} aria-pressed={viewMode === 'list'}>
                 <ListIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 {viewMode === 'list' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.listView}</span>}
               </button>
-              <button onClick={() => setViewMode('table')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'table' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-600'}`} aria-label={t.tableView} title={t.tableView} aria-pressed={viewMode === 'table'} data-view-table>
+              <button onClick={() => setViewMode('table')} className={`h-full px-2 md:px-2.5 rounded-md transition-colors flex items-center justify-center ${viewMode === 'table' ? 'bg-slate-100 text-slate-900' : 'text-slate-500 hover:text-slate-600'}`} aria-label={t.tableView} title={t.tableView} aria-pressed={viewMode === 'table'} data-view-table>
                 <TableIcon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 {viewMode === 'table' && <span className="hidden sm:inline ml-1.5 text-[10px] font-bold whitespace-nowrap" data-view-label>{t.tableView}</span>}
               </button>
@@ -9254,7 +9270,7 @@ function App() {
 
             {/* Countries */}
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7 gap-0.5" role="group" aria-label={t.countriesLabel} title={t.countriesTitle}>
-              <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-400 whitespace-nowrap">{t.countriesLabel}:</span>
+              <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-500 whitespace-nowrap">{t.countriesLabel}:</span>
               <button onClick={toggleAllCountries} aria-pressed={allCountries} title={t.countriesAllTitle} data-country-all
                 className={`h-full px-1.5 md:px-2 rounded flex items-center justify-center text-[10px] font-bold transition-all whitespace-nowrap ${allCountries ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}>
                 {t.countriesAll}
@@ -9268,7 +9284,7 @@ function App() {
             </div>
             {/* Registration status in the selected countries */}
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7 gap-0.5" role="group" aria-label={t.thRegLabel} title={t.thRegTitle} data-threg-group>
-              <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-400 whitespace-nowrap inline-flex items-center gap-0.5" data-threg-label>{t.thRegLabel}<Check className="w-2.5 h-2.5 md:w-3 md:h-3 text-emerald-600" /></span>
+              <span className="pl-1 pr-0.5 text-[10px] font-bold text-slate-500 whitespace-nowrap inline-flex items-center gap-0.5" data-threg-label>{t.thRegLabel}<Check className="w-2.5 h-2.5 md:w-3 md:h-3 text-emerald-600" /></span>
               {TH_STATUSES.map(k => {
                 const on = thStatus.includes(k);
                 const tone = k === 'current' ? ['bg-indigo-600 text-white shadow-sm', 'text-emerald-700 hover:bg-emerald-50'] : k === 'past' ? ['bg-indigo-600 text-white shadow-sm', 'text-amber-700 hover:bg-amber-50'] : ['bg-indigo-600 text-white shadow-sm', 'text-slate-600 hover:bg-slate-50'];
@@ -9322,7 +9338,7 @@ function App() {
 
             {/* Asthma / COPD */}
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7 gap-0.5">
-              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-400 border-r border-slate-100 mr-0.5">
+              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-500 border-r border-slate-100 mr-0.5">
                 <ActivityIcon className="h-2.5 w-2.5 md:h-3 md:w-3" />
               </div>
               {['Asthma', 'COPD'].map(disease => {
@@ -9354,7 +9370,7 @@ function App() {
 
             {/* Role Toggles */}
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7">
-              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-400 border-r border-slate-100 mr-0.5">
+              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-500 border-r border-slate-100 mr-0.5">
                 <ShieldPlus className="h-2.5 w-2.5 md:h-3 md:w-3" />
               </div>
               {ROLES.map(role => {
@@ -9396,15 +9412,15 @@ function App() {
                 aria-label={t.pifHint}
                 className="w-11 md:w-12 h-full text-[10px] md:text-[11px] font-bold text-slate-800 bg-slate-50 rounded px-1 border border-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-500 tabular-nums"
               />
-              <span className="text-[10px] text-slate-400 pr-0.5">L/min</span>
+              <span className="text-[10px] text-slate-500 pr-0.5">L/min</span>
               {pifInput !== '' && (
-                <button onClick={(e) => { e.preventDefault(); setPifInput(''); }} aria-label={t.pifClear} className="text-slate-400 hover:text-slate-700 px-0.5"><X className="w-2.5 h-2.5" /></button>
+                <button onClick={(e) => { e.preventDefault(); setPifInput(''); }} aria-label={t.pifClear} className="text-slate-500 hover:text-slate-700 px-0.5"><X className="w-2.5 h-2.5" /></button>
               )}
             </label>
 
             {/* Device Type Toggles */}
             <div className="flex bg-white rounded-md border border-slate-200 p-0.5 shadow-sm shrink-0 items-center h-[26px] md:h-7">
-              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-400 border-r border-slate-100 mr-0.5">
+              <div className="pl-1 pr-1 md:pl-1.5 md:pr-1.5 flex items-center pointer-events-none text-slate-500 border-r border-slate-100 mr-0.5">
                 <BoxIcon className="h-2.5 w-2.5 md:h-3 md:w-3" />
               </div>
               {['MDI', 'DPI', 'SMI', 'Nebulizer'].map(type => {
@@ -9475,7 +9491,7 @@ function App() {
           )}
           <div className="flex items-start justify-between gap-2">
             <div className="text-[11px] md:text-xs text-slate-500 min-w-0 pt-0.5" aria-live="polite">
-              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-400" data-count-total>{t.countTotal(deviceData.length)}</span>{groupBrands && viewMode !== 'table' && brandGroups.size < filteredAndSortedData.length && <span className="text-slate-400" data-brand-rows> · {t.brandRows(brandGroups.size)}</span>}
+              {t.countShowing} <span className="font-bold text-slate-800 tabular-nums">{filteredAndSortedData.length}</span> {t.countOf} <span className="font-bold text-slate-800 tabular-nums">{regionData.length}</span> {t.countDrugs} <span className="text-slate-500" data-count-total>{t.countTotal(deviceData.length)}</span>{groupBrands && viewMode !== 'table' && brandGroups.size < filteredAndSortedData.length && <span className="text-slate-500" data-brand-rows> · {t.brandRows(brandGroups.size)}</span>}
               {pifActive && (
                 <span className="block mt-0.5 text-cyan-700 font-medium">{pifHiddenSummary ? t.pifHidden(pifValue, pifHiddenSummary) : t.pifAllOk(pifValue)}{filteredAndSortedData.some(flowUnknown) && <span data-pif-unknown> {t.pifUnknown(filteredAndSortedData.filter(flowUnknown).length)}</span>}</span>
               )}
@@ -9511,7 +9527,7 @@ function App() {
                 return (
                   <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} {...(item.grouped ? { 'data-brand-member': item.grouped } : {})} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}${item.grouped ? 'ring-2 ring-indigo-200 ' : ''}cursor-pointer h-full rounded-xl md:rounded-2xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-md'} p-3.5 md:p-5 flex flex-col shadow-sm transition-all relative`}>
                     <div className="absolute top-3 right-3 md:top-4 md:right-4 print:hidden flex flex-col items-end gap-1.5" data-card-actions>
-                       <button onClick={() => toggleCompare(med)} className={`flex items-center gap-1 md:gap-1.5 px-2 md:px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
+                       <button onClick={() => toggleCompare(med)} className={`flex items-center gap-1 md:gap-1.5 px-2 md:px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
                          {isSelectedForCompare ? <Check className="w-3 h-3" /> : <CompareIcon className="w-3 h-3" />}
                          <span className="hidden sm:inline">{isSelectedForCompare ? t.selected : t.select}</span>
                        </button>
@@ -9524,12 +9540,12 @@ function App() {
                       <div className="p-2 md:p-3 rounded-lg md:rounded-xl bg-slate-50 border border-slate-100">
                         {medIcon(med, "w-10 h-10 md:w-14 md:h-14 text-slate-700")}
                       </div>
-                      {COLOUR_UNKNOWN.has(med.id) && <span className="text-[10px] font-medium leading-tight text-slate-400" data-colour-unknown>{t.colourUnknown}</span>}
+                      {COLOUR_UNKNOWN.has(med.id) && <span className="text-[10px] font-medium leading-tight text-slate-500" data-colour-unknown>{t.colourUnknown}</span>}
                     </div>
                     <div className="flex-grow">
                       <div className="flex gap-2 items-center mb-1 flex-wrap">
                         <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${med.tagColor}`}>{med.type}</span>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide" data-shape-label>{shapeLabel(med)}</span>
+                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide" data-shape-label>{shapeLabel(med)}</span>
                         {med.isExtraFine && <ExtraFineBadge t={t} compact={true} />}
                         <ExacBadge med={med} t={t} />
                       </div>
@@ -9588,7 +9604,7 @@ function App() {
               return (
                 <div key={med.id} id={'drug-' + med.id} data-shape={med.shape} {...(item.grouped ? { 'data-brand-member': item.grouped } : {})} onClick={(e) => openDetailFrom(e, med)} className={`${highlightId === med.id ? 'ring-4 ring-sky-400 ' : ''}${item.grouped ? 'ring-2 ring-indigo-200 ' : ''}cursor-pointer w-full rounded-xl border ${isSelectedForCompare ? 'border-indigo-500 ring-1 ring-indigo-500 bg-indigo-50/10' : 'border-slate-200 bg-white hover:shadow-sm'} p-3 md:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4 transition-all relative`}>
                    <div className="absolute z-10 top-3 right-3 sm:relative sm:top-0 sm:right-0 print:hidden shrink-0 order-first sm:order-last flex flex-col items-end sm:items-stretch gap-1.5" data-list-select>
-                       <button onClick={() => toggleCompare(med)} className={`flex items-center justify-center w-7 h-7 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-400 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
+                       <button onClick={() => toggleCompare(med)} className={`flex items-center justify-center w-7 h-7 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-md text-[10px] font-bold tracking-wider uppercase transition-colors border ${isSelectedForCompare ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-500 border-slate-200 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50 shadow-sm'}`}>
                          {isSelectedForCompare ? <Check className="w-4 h-4 sm:w-3 sm:h-3" /> : <CompareIcon className="w-4 h-4 sm:w-3 sm:h-3" />}
                          <span className="hidden sm:inline sm:ml-1.5">{isSelectedForCompare ? t.selected : t.select}</span>
                        </button>

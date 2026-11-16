@@ -61,3 +61,12 @@ html.frame-clipped .fixed.inset-0 > * { max-height: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .animate-in { animation: none; }
 }
+
+/* Visible keyboard focus on every control (mouse and touch taps show nothing) */
+:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+html.dark :focus-visible { outline-color: #a5b4fc; }
+
+/* Fluent touches: two-layer elevation, quick press feedback */
+.shadow-sm { box-shadow: 0 0 2px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.14); }
+button { transition-duration: .1s; }
+button:active:not(:disabled) { filter: brightness(.93); }
