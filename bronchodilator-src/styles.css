@@ -98,3 +98,8 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
   html.theme-fade, html.theme-fade * { transition: none !important; }
   button, a, summary, input, select, textarea, .shadow-sm { transition: none; }
 }
+
+/* Filters panel grows open (and fades in) instead of appearing at once; closing stays instant */
+@keyframes fb-open { from { max-height: 0; opacity: 0; } to { max-height: var(--fbh, 70vh); opacity: 1; } }
+.fb-opening { overflow: hidden !important; animation: fb-open .28s ease both; }
+@media (prefers-reduced-motion: reduce) { .fb-opening { animation: none; } }

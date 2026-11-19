@@ -2333,6 +2333,7 @@ const changelogData = [
     date: "November 19, 2026",
     features: [
       "Smoother motion: buttons and chips ease between states, cards deepen their shadow on hover, pop-up windows fade in with their backdrop, folded sections fade in when opened, and switching between light and dark cross-fades the colours. Nothing moves at rest, and everything is switched off if your device asks for reduced motion.",
+      "The Filters panel now grows open smoothly (and fades in) when you press Filters.",
     ],
     bugs: [],
   },
@@ -2772,7 +2773,8 @@ const APP_VERSION = changelogData[0].version;
 const CHANGELOG_TH = {
  "v1.12.14": {
   "features": [
-    "การเคลื่อนไหวนุ่มนวลขึ้น: ปุ่มและชิปเปลี่ยนสถานะอย่างราบรื่น การ์ดมีเงาลึกขึ้นเมื่อเมาส์ชี้ หน้าต่างป๊อปอัปค่อยๆ ปรากฏพร้อมฉากหลัง ส่วนที่พับไว้ค่อยๆ ปรากฏเมื่อเปิด และการสลับโหมดสว่าง/มืดจะเปลี่ยนสีอย่างนุ่มนวล ไม่มีสิ่งใดเคลื่อนที่ขณะหยุดนิ่ง และทั้งหมดจะปิดเมื่ออุปกรณ์ตั้งค่าลดการเคลื่อนไหว"
+    "การเคลื่อนไหวนุ่มนวลขึ้น: ปุ่มและชิปเปลี่ยนสถานะอย่างราบรื่น การ์ดมีเงาลึกขึ้นเมื่อเมาส์ชี้ หน้าต่างป๊อปอัปค่อยๆ ปรากฏพร้อมฉากหลัง ส่วนที่พับไว้ค่อยๆ ปรากฏเมื่อเปิด และการสลับโหมดสว่าง/มืดจะเปลี่ยนสีอย่างนุ่มนวล ไม่มีสิ่งใดเคลื่อนที่ขณะหยุดนิ่ง และทั้งหมดจะปิดเมื่ออุปกรณ์ตั้งค่าลดการเคลื่อนไหว",
+    "แผงตัวกรองขยายออกอย่างนุ่มนวล (และค่อยๆ ปรากฏ) เมื่อกดปุ่มตัวกรอง"
   ],
   "bugs": []
  },
@@ -8336,6 +8338,8 @@ function App() {
     return () => document.removeEventListener('pointerdown', outside);
   }, [searchOpen]);
   // Filter panel: open by default on tablet and desktop, closed by default on phones; the Filters button toggles it
+  const [fbOpening, setFbOpening] = useState(false); // true for the first 300 ms after the Filters panel opens, so it can grow smoothly
+  React.useLayoutEffect(() => { if (!fbOpening) return; const el = document.getElementById('filter-bar'); if (el) el.style.setProperty('--fbh', el.scrollHeight + 'px'); }, [fbOpening]); // the height it grows to
   const [filtersOpen, setFiltersOpen] = useState(() => !(typeof window !== 'undefined' && window.innerWidth < 640));
   // Product detail view: opened from a card or list row (anywhere that is not itself a control)
   const [detailId, setDetailId] = useState(null);
@@ -9268,7 +9272,7 @@ function App() {
             </div>
 
             {/* Opens and closes the filter panel. Blue while any filter is on, so a closed panel still says filters apply. */}
-            <button onClick={() => setFiltersOpen(v => !v)} aria-expanded={filtersOpen} aria-controls="filter-bar" aria-label={t.filtersBtn} title={t.filtersBtn} data-filters-toggle
+            <button onClick={() => { if (!filtersOpen) { setFbOpening(true); setTimeout(() => setFbOpening(false), 300); } setFiltersOpen(v => !v); }} aria-expanded={filtersOpen} aria-controls="filter-bar" aria-label={t.filtersBtn} title={t.filtersBtn} data-filters-toggle
               className={`shrink-0 h-full px-2 md:px-3 rounded-lg border shadow-sm flex items-center gap-1 md:gap-1.5 text-[10px] md:text-xs font-bold whitespace-nowrap transition-colors ${activeFilterCount ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-500' : filtersOpen ? 'bg-slate-100 border-slate-300 text-slate-900' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 md:w-3.5 md:h-3.5" aria-hidden="true"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" /></svg>
               <span className="max-[359px]:hidden">{t.filtersBtn}</span>{activeFilterCount > 0 && <span className="tabular-nums" data-filter-count>{activeFilterCount}</span>}
@@ -9279,7 +9283,7 @@ function App() {
         {/* Filter rows: they wrap onto as many lines as the width needs (no sideways scrolling), pinned under the
             search row (the offsets are the search row's height). Shown while opened with the Filters button (the
             default on tablet and desktop); on phones the panel scrolls inside if taller than most of the screen. */}
-        <div id="filter-bar" className={`${filtersOpen ? 'flex' : 'hidden'} sticky z-20 max-h-[70vh] overflow-y-auto sm:max-h-none sm:overflow-visible pb-2 md:pb-3 mb-3 md:mb-6 bg-slate-100/95 backdrop-blur-md border-b border-slate-200/50 print:hidden flex-col gap-2 md:gap-2.5`} style={{ top: barH - 1 }} data-filter-bar>
+        <div id="filter-bar" className={`${filtersOpen ? 'flex' : 'hidden'} ${fbOpening ? 'fb-opening' : ''} sticky z-20 max-h-[70vh] overflow-y-auto sm:max-h-none sm:overflow-visible pb-2 md:pb-3 mb-3 md:mb-6 bg-slate-100/95 backdrop-blur-md border-b border-slate-200/50 print:hidden flex-col gap-2 md:gap-2.5`} style={{ top: barH - 1 }} data-filter-bar>
           {/* Filter row 1: registration. Countries, licence status, NLEM (Thailand only) and the licence-holder switch */}
           <div className="flex flex-wrap items-center gap-1.5 md:gap-2 w-full min-w-0" data-filter-row="registration">
 
