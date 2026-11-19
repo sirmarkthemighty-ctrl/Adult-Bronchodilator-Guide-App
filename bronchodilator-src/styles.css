@@ -70,3 +70,31 @@ html.dark :focus-visible { outline-color: #a5b4fc; }
 .shadow-sm { box-shadow: 0 0 2px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.14); }
 button { transition-duration: .1s; }
 button:active:not(:disabled) { filter: brightness(.93); }
+
+/* --- Smooth motion (opacity and colour only: nothing moves at rest, so layout checks stay exact) --- */
+/* Controls ease between states instead of snapping */
+button, a, summary, input, select, textarea {
+  transition-property: color, background-color, border-color, box-shadow, filter, opacity;
+  transition-duration: .15s;
+  transition-timing-function: ease;
+}
+/* Cards lift their shadow on hover (mouse only) */
+@media (hover: hover) {
+  .shadow-sm { transition: box-shadow .2s ease, border-color .2s ease, background-color .2s ease, color .15s ease, transform .2s ease, opacity .2s ease; }
+  .shadow-sm:hover { box-shadow: 0 2px 6px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.14); }
+}
+/* Dialog backdrop fades in with the dialog */
+@keyframes dlg-fade { from { opacity: 0; } }
+[role="dialog"] { animation: dlg-fade .18s ease both; }
+/* Opening a details block fades its content in */
+@keyframes det-fade { from { opacity: 0; } }
+details[open] > :not(summary) { animation: det-fade .2s ease both; }
+/* Light / dark switch: every colour cross-fades once, only while the switch runs */
+html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease, fill .3s ease, stroke .3s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  [role="dialog"], details[open] > :not(summary) { animation: none; }
+  html.theme-fade, html.theme-fade * { transition: none !important; }
+  button, a, summary, input, select, textarea, .shadow-sm { transition: none; }
+}

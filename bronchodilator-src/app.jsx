@@ -2329,6 +2329,14 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.14",
+    date: "November 19, 2026",
+    features: [
+      "Smoother motion: buttons and chips ease between states, cards deepen their shadow on hover, pop-up windows fade in with their backdrop, folded sections fade in when opened, and switching between light and dark cross-fades the colours. Nothing moves at rest, and everything is switched off if your device asks for reduced motion.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.13",
     date: "November 16, 2026",
     features: [
@@ -2762,6 +2770,12 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.14": {
+  "features": [
+    "การเคลื่อนไหวนุ่มนวลขึ้น: ปุ่มและชิปเปลี่ยนสถานะอย่างราบรื่น การ์ดมีเงาลึกขึ้นเมื่อเมาส์ชี้ หน้าต่างป๊อปอัปค่อยๆ ปรากฏพร้อมฉากหลัง ส่วนที่พับไว้ค่อยๆ ปรากฏเมื่อเปิด และการสลับโหมดสว่าง/มืดจะเปลี่ยนสีอย่างนุ่มนวล ไม่มีสิ่งใดเคลื่อนที่ขณะหยุดนิ่ง และทั้งหมดจะปิดเมื่ออุปกรณ์ตั้งค่าลดการเคลื่อนไหว"
+  ],
+  "bugs": []
+ },
  "v1.12.13": {
   "features": [
     "การเข้าถึง: ทุกปุ่มแสดงกรอบโฟกัสชัดเจนเมื่อใช้คีย์บอร์ด หน้าต่างป๊อปอัปทั้งหมดถูกระบุเป็นกล่องโต้ตอบสำหรับโปรแกรมอ่านหน้าจอ และปรับข้อความสีเทาจางและตัวอักษรขนาด 9 px ให้เข้มและใหญ่ขึ้นเพื่ออ่านง่าย ไม่มีการเปลี่ยนแปลงเนื้อหา",
@@ -8210,6 +8224,7 @@ function App() {
   }, [theme]);
   const toggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
+    const root = document.documentElement; root.classList.add('theme-fade'); setTimeout(() => root.classList.remove('theme-fade'), 350); // colours cross-fade only while switching
     setTheme(next);
     try { localStorage.setItem('bdg-theme', next); } catch (e) {}
   };
