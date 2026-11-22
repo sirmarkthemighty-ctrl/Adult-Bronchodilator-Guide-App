@@ -2335,7 +2335,8 @@ const changelogData = [
       "Updated to GOLD 2027 (report dated 20 November 2026). Group A initial treatment is now a LAMA, with a short-acting bronchodilator only if a LAMA is unavailable or unaffordable. This changes the Maintenance Guide (Group A lists LAMA inhalers only), the Wizard and the Follow-up Guide.",
       "GOLD figure links now open the 2027 report: Figures 4.5 and 4.10 are now 4.6 and 4.11 (a new Figure 4.5 was added), and the page numbers of all nine figures were updated.",
       "COPD exacerbation guide: the 12–16 week follow-up list now matches Figure 4.11 (physical activity and activities of daily living, spirometry).",
-      "Checked against GOLD 2027: Figures 3.9, 3.10, 4.2, 4.4 and 4.6 agree with the app. Figures 4.3 and the report's new sections (propellants, biologics, Figure 4.5) are not included yet.",
+      "Follow-up Guide, COPD tab: a folded \"GOLD 2027: new information\" section with the cardiovascular risk after an exacerbation (Figure 4.5, also added to the Figures list), the new pMDI propellants (HFO-1234ze, HFA-152a) and the add-on biologics and ensifentrine notes (benralizumab, astegolimab, tozorakimab). No per-product propellant data is listed (N/A).",
+      "Checked against GOLD 2027: Figures 3.9, 3.10, 4.2, 4.4 and 4.6 agree with the app. Figure 4.3 and the rest of the new report sections are not included.",
     ],
     bugs: [],
   },
@@ -2787,7 +2788,8 @@ const CHANGELOG_TH = {
     "อัปเดตเป็น GOLD 2027 (รายงานลงวันที่ 20 พฤศจิกายน 2569) ยาเริ่มต้นของกลุ่ม A คือ LAMA และใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นแทนได้เฉพาะเมื่อไม่มี LAMA หรือราคาสูงเกินไป มีผลกับคู่มือการรักษาต่อเนื่อง (กลุ่ม A แสดงเฉพาะยาสูด LAMA) ตัวช่วยเลือกยา และคู่มือติดตามการรักษา",
     "ลิงก์รูปของ GOLD เปิดรายงานฉบับ 2027: รูปที่ 4.5 และ 4.10 เปลี่ยนเป็น 4.6 และ 4.11 (มีรูปที่ 4.5 ใหม่เพิ่มเข้ามา) และปรับเลขหน้าของทั้ง 9 รูปแล้ว",
     "คู่มือการกำเริบของ COPD: รายการนัดติดตามที่ 12–16 สัปดาห์ตรงกับรูปที่ 4.11 (กิจกรรมทางกายและกิจวัตรประจำวัน และสไปโรเมตรี)",
-    "ตรวจเทียบกับ GOLD 2027 แล้ว: รูปที่ 3.9, 3.10, 4.2, 4.4 และ 4.6 ตรงกับเนื้อหาในแอป ส่วนรูปที่ 4.3 และหัวข้อใหม่ของรายงาน (ตัวขับดันในยาสูด ยาชีววัตถุ รูปที่ 4.5) ยังไม่ได้รวมไว้"
+    "คู่มือติดตามการรักษา แท็บ COPD: เพิ่มหัวข้อพับเก็บ \"GOLD 2027: ข้อมูลใหม่\" ได้แก่ ความเสี่ยงหัวใจและหลอดเลือดหลังอาการกำเริบ (รูปที่ 4.5 ซึ่งเพิ่มในรายการรูปด้วย) ตัวขับดันใหม่ของ pMDI (HFO-1234ze, HFA-152a) และหมายเหตุยาชีววัตถุและ ensifentrine (benralizumab, astegolimab, tozorakimab) ไม่ระบุข้อมูลตัวขับดันรายผลิตภัณฑ์ (N/A)",
+    "ตรวจเทียบกับ GOLD 2027 แล้ว: รูปที่ 3.9, 3.10, 4.2, 4.4 และ 4.6 ตรงกับเนื้อหาในแอป ส่วนรูปที่ 4.3 และหัวข้อใหม่อื่นๆ ของรายงานยังไม่ได้รวมไว้"
   ],
   "bugs": []
  },
@@ -5167,6 +5169,7 @@ const GUIDELINE_FIGURES = {
   'gold-4-2': ['gold', 'Figure 4.2', 117, 'Classification of the Severity of COPD Exacerbations'],
   'gold-4-3': ['gold', 'Figure 4.3', 118, 'Conditions That May Mimic or Worsen Exacerbation-like Symptoms'],
   'gold-4-4': ['gold', 'Figure 4.4', 119, 'Assessing the Appropriate Place of Management During COPD Exacerbation'],
+  'gold-4-5': ['gold', 'Figure 4.5', 122, 'Risk of Severe Cardiovascular Event or All-Cause Death following COPD Exacerbation of any Severity'],
   'gold-4-6': ['gold', 'Figure 4.6', 124, 'Management of Severe but not Life-threatening Exacerbations'],
   'gold-4-11': ['gold', 'Figure 4.11', 131, 'Discharge Criteria and Recommendations for Follow-up'],
 };
@@ -5174,7 +5177,7 @@ const GUIDELINE_FIGURES = {
 const GUIDE_FIGURE_SETS = {
   exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-6', 'gold-4-11'],
   maint: ['gina-4-3', 'gina-4-4', 'gina-4-5', 'gina-4-6', 'gina-4-7', 'gina-4-2', 'gold-3-7', 'gold-3-8', 'gold-3-10'],
-  follow: ['gina-4-6', 'gina-4-13', 'gina-2-4', 'gina-9-2', 'gold-3-7', 'gold-3-9', 'gold-3-10'],
+  follow: ['gina-4-6', 'gina-4-13', 'gina-2-4', 'gina-9-2', 'gold-3-7', 'gold-3-9', 'gold-3-10', 'gold-4-5'],
   device: ['gina-5-1', 'gina-5-2'],
   spacer: ['gina-5-2'],
   steroid: ['gina-4-2'],
@@ -5970,6 +5973,12 @@ const FOLLOW_TEXT = {
     downOptions: 'Options for the current treatment (GINA Box 4-13)',
     sdRef: 'Step-down guide: when, how and all options (GINA Box 4-13)',
     icsRef: 'Stopping inhaled steroids in COPD (GOLD 2027)',
+    g27Title: 'GOLD 2027: new information',
+    g27Items: [
+      'After an exacerbation of any severity the risk of a severe cardiovascular event or death is raised, highest in the first week and falling over the following months (Figure 4.5). Follow up cardiovascular comorbidities.',
+      'New pMDI propellants with lower global warming potential: a budesonide/glycopyrronium/formoterol pMDI with HFO-1234ze (near-zero warming potential) raised no safety concerns compared with HFA-134a; beclometasone/formoterol pMDIs, with and without glycopyrronium, with HFA-152a had similar safety, tolerability and pharmacokinetics to HFA-134a. Which products in this guide use them is not listed (N/A).',
+      'Add-on biologics and other drugs: dupilumab (with chronic bronchitis) and mepolizumab remain the biologics in Figure 3.9. In the report, benralizumab did not lower the exacerbation rate; astegolimab reduced exacerbations in one trial but not the other; tozorakimab gave fewer exacerbations in phase 3 trials at all eosinophil levels. The last two are trial data and are not in the GOLD treatment figure. Ensifentrine is currently only available in the US.',
+    ],
     lowest: { 1: 'Already at the lowest step: continue as-needed low-dose ICS-formoterol.', 2: 'Already at the lowest step: keep taking ICS whenever SABA is taken. Do not stop ICS completely.' },
     devicesTitle: 'Inhalers for this step',
     relieversTitle: 'Reliever',
@@ -6099,6 +6108,12 @@ const FOLLOW_TEXT = {
     downOptions: 'ทางเลือกสำหรับการรักษาปัจจุบัน (GINA Box 4-13)',
     sdRef: 'แนวทางการลดยา: เมื่อไร อย่างไร และทางเลือกทั้งหมด (GINA Box 4-13)',
     icsRef: 'การหยุดสเตียรอยด์ชนิดสูดใน COPD (GOLD 2027)',
+    g27Title: 'GOLD 2027: ข้อมูลใหม่',
+    g27Items: [
+      'หลังเกิดอาการกำเริบทุกระดับความรุนแรง ความเสี่ยงต่อเหตุการณ์หัวใจและหลอดเลือดรุนแรงหรือการเสียชีวิตเพิ่มขึ้น สูงสุดในสัปดาห์แรกและลดลงในเดือนถัดไป (รูปที่ 4.5) ควรติดตามโรคหัวใจและหลอดเลือดที่เป็นโรคร่วม',
+      'ตัวขับดันใหม่ของ pMDI ที่มีศักยภาพทำให้โลกร้อนต่ำ: pMDI ของ budesonide/glycopyrronium/formoterol ที่ใช้ HFO-1234ze (ศักยภาพทำให้โลกร้อนใกล้ศูนย์) ไม่พบปัญหาความปลอดภัยเมื่อเทียบกับ HFA-134a ส่วน pMDI ของ beclometasone/formoterol ทั้งแบบมีและไม่มี glycopyrronium ที่ใช้ HFA-152a มีความปลอดภัย การยอมรับยา และเภสัชจลนศาสตร์ใกล้เคียงกับ HFA-134a ยังไม่ระบุว่ายาตัวใดในคู่มือนี้ใช้ตัวขับดันเหล่านี้ (N/A)',
+      'ยาชีววัตถุและยาเสริมอื่นๆ: dupilumab (เมื่อมีหลอดลมอักเสบเรื้อรัง) และ mepolizumab ยังเป็นยาชีววัตถุในรูปที่ 3.9 ตามรายงาน benralizumab ไม่ลดอัตราการกำเริบ astegolimab ลดการกำเริบในการศึกษาหนึ่งแต่ไม่ลดในอีกการศึกษาหนึ่ง และ tozorakimab ทำให้กำเริบน้อยลงในการศึกษาระยะที่ 3 ในทุกระดับ eosinophils สองตัวหลังเป็นข้อมูลการศึกษา ยังไม่อยู่ในรูปแนวทางการรักษาของ GOLD ส่วน ensifentrine ปัจจุบันมีจำหน่ายเฉพาะในสหรัฐอเมริกา',
+    ],
     lowest: { 1: 'อยู่ขั้นต่ำสุดแล้ว: ใช้ ICS-formoterol ขนาดต่ำเมื่อมีอาการต่อไป', 2: 'อยู่ขั้นต่ำสุดแล้ว: ใช้ ICS ทุกครั้งที่ใช้ SABA ต่อไป ห้ามหยุด ICS ทั้งหมด' },
     devicesTitle: 'ยาสูดสำหรับขั้นนี้',
     relieversTitle: 'ยาบรรเทาอาการ',
@@ -6219,6 +6234,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
   const [icsIssue, setIcsIssue] = useState(false);
   const [sdOpen, setSdOpen] = useState(false);
   const [icsRefOpen, setIcsRefOpen] = useState(null);   // null = follow the current treatment
+  const [g27Open, setG27Open] = useState(false);
   const [goldSym, setGoldSym] = useState(null);         // 'low' | 'high'
   const [goldExac, setGoldExac] = useState(null);       // '0' | '1'
   const setTrack = (tr) => { setTrackRaw(tr); setStep(s => tr === 1 ? (s === 1 || s === 2 ? '1-2' : s) : (s === '1-2' ? 2 : s)); };
@@ -6524,6 +6540,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
               {lists.map(k => { const items = k === 'mono' ? copdDevices('LAMA', rxList) : copdDevices(listCls[k], rxList); return items.length > 0 && <div key={k}>{label(c.listTitles[k])}<PlanDrugList key={`fuc-${k}`} list={items} t={t} /></div>; })}
             </section>
             {refSection(icsOpen, () => setIcsRefOpen(!icsOpen), c.icsRef, { 'data-fu-icsref': '' }, <CopdIcsRef lang={lang} />)}
+            {refSection(g27Open, () => setG27Open(!g27Open), c.g27Title, { 'data-fu-g27': '' }, list(c.g27Items))}
           </>)}
           <p className="text-[11px] text-slate-500">{c.source}</p>
         </div>

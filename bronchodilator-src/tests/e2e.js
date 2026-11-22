@@ -913,6 +913,11 @@ window.__bdgE2E = async function () {
     const copdBox = () => m.querySelector('[data-fu-copd]').textContent;
     log('Follow-up COPD: Ventolin only → "Short-acting only", initial treatment by group (pending)', m.querySelector('[data-fu-cur="short"]').getAttribute('aria-pressed') === 'true' && /Not on long-acting maintenance/.test(copdBox()) && /Assess the GOLD group/.test(copdBox()), copdBox().slice(0, 160));
     m.querySelector('[data-fu-sym="low"]').click(); m.querySelector('[data-fu-gexac="0"]').click(); await wait(200);
+    { const g = document.querySelector('[data-fu-g27]'); const closed = !!g && g.getAttribute('aria-expanded') === 'false';
+      if (g) { g.click(); await wait(150); }
+      const body = g ? g.parentElement.textContent : '';
+      log('Follow-up COPD: folded "GOLD 2027: new information" (Figure 4.5 risk, HFO-1234ze / HFA-152a propellants, biologics, ensifentrine US-only)', closed && /Figure 4\.5/.test(body) && /HFO-1234ze/.test(body) && /HFA-152a/.test(body) && /benralizumab/.test(body) && /only available in the US/.test(body), body.slice(0, 120));
+      if (g) { g.click(); await wait(100); } }
     log('Follow-up COPD: short-acting only, Group A → LAMA (GOLD 2027), short-acting only if no LAMA, LAMA-only list', /Group A: start a LAMA/.test(copdBox()) && /LAMA inhalers/.test(copdBox()) && !/LABA or LAMA inhalers/.test(copdBox()), '');
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     clear(); await wait(150); }
