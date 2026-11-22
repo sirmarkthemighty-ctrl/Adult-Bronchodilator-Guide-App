@@ -524,7 +524,7 @@ window.__bdgE2E = async function () {
     fb.click(); await wait(300);
     const fm = document.querySelector('[data-figures-modal]');
     const href = (k) => { const a = fm && fm.querySelector('[data-figure="' + k + '"]'); return a ? a.getAttribute('href') : ''; };
-    log('Figures list opens the official GINA and GOLD reports at the figure page (Box 9-4 page 182, Figure 4.2 page 107), in a new tab', !!fm && /ginasthma\.org\/.*GINA-2026-Strategy-Report.*\.pdf#page=182$/.test(href('gina-9-4')) && /goldcopd\.org\/.*GOLD-REPORT-2026.*\.pdf#page=107$/.test(href('gold-4-2')) && fm.querySelectorAll('a[data-figure]').length === 9 && [...fm.querySelectorAll('a[data-figure]')].every(a => a.target === '_blank' && /noopener/.test(a.rel)) && /copyrighted/.test(fm.textContent), [href('gina-9-4'), href('gold-4-2')]);
+    log('Figures list opens the official GINA and GOLD reports at the figure page (Box 9-4 page 182, GOLD 2027 Figure 4.2 page 117), in a new tab', !!fm && /ginasthma\.org\/.*GINA-2026-Strategy-Report.*\.pdf#page=182$/.test(href('gina-9-4')) && /goldcopd\.org\/.*GOLD-Report-2027.*\.pdf#page=117$/.test(href('gold-4-2')) && fm.querySelectorAll('a[data-figure]').length === 9 && [...fm.querySelectorAll('a[data-figure]')].every(a => a.target === '_blank' && /noopener/.test(a.rel)) && /copyrighted/.test(fm.textContent), [href('gina-9-4'), href('gold-4-2')]);
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(300);
     log('Escape closes the figures list first and leaves the guide open', !document.querySelector('[data-figures-modal]') && !!document.querySelector('[data-figures-btn="exac"]'), ''); }
   let ex = modalDrugNames();
@@ -543,7 +543,7 @@ window.__bdgE2E = async function () {
     log('exacerbation rows: by device type, NLEM first, then A-Z', meds.every((d, i) => i === 0 || DEVICE_TYPE_ORDER[meds[i - 1].type] < DEVICE_TYPE_ORDER[d.type] || (meds[i - 1].type === d.type && (nl[i - 1] && !nl[i] || nl[i - 1] === nl[i] && meds[i - 1].marketName.localeCompare(d.marketName) <= 0))) && m.querySelectorAll('[data-exac-group="saba"] [data-exac-type]').length >= 2, meds.map(d => d.marketName)); }
   log('asthma exacerbation: expected products listed', ['Ventolin Evohaler 100 mcg', 'Bricanyl Turbuhaler', 'Salbutamol Nebules 2.5 mg', 'Pulmicort Respules', 'Flixotide Evohaler 125 mcg', 'Symbicort Turbuhaler 160/4.5 mcg', 'Berodual Nebules / Drops'].every(n => ex.includes(n)), ex);
   log('asthma exacerbation: controller line, GINA avoid points and home-resources discharge criterion', /Start or step up ICS-containing treatment/.test(document.body.innerText) && /do not use sedatives/.test(document.body.innerText) && /Adequate resources and support at home/.test(document.body.innerText), '');
-  btnByText('COPD (GOLD 2026)').click(); await wait(400);
+  btnByText('COPD (GOLD 2027)').click(); await wait(400);
   ex = modalDrugNames();
   { const [m, sv] = exLists(); const a = exCheck('copdMild', m), b = exCheck('copdSevere', sv);
     log('COPD groups follow the text: SABA, SABA + SAMA, SAMA, nebulised budesonide (mild-moderate and severe)', a.keys === 'saba,sabaSama,sama,icsNeb' && b.keys === 'saba,sabaSama,sama,icsNeb' && a.ok && b.ok, { a, b });
@@ -562,9 +562,9 @@ window.__bdgE2E = async function () {
   const planDrugs = () => modalDrugNames().filter(n => !/^\d+\.|^GOLD Group|^GINA Step/.test(n));
   log('COPD Group A: NLEM drug ranked first', planDrugs()[0] === 'Spiriva HandiHaler', planDrugs());
   const showAll = btnByText('Show all');
-  log('COPD Group A: "Show all 10 options" (all countries: adds Incruse, Striverdi and Tudorza)', showAll && /10/.test(showAll.textContent), showAll && showAll.textContent);
+  log('COPD Group A (GOLD 2027: LAMA only): "Show all 6 options" (all countries: adds Incruse and Tudorza; no LABA)', showAll && /6/.test(showAll.textContent), showAll && showAll.textContent);
   if (showAll) { showAll.click(); await wait(300); }
-  log('Show all lists every option', ['Spiriva HandiHaler', 'Serevent Diskus', 'Onbrez Breezhaler 150 mcg', 'Onbrez Breezhaler 300 mcg', 'Seebri Breezhaler 50 mcg', 'Spiriva Respimat 2.5 mcg'].every(n => planDrugs().includes(n)), planDrugs());
+  log('Show all lists every option', ['Spiriva HandiHaler', 'Seebri Breezhaler 50 mcg', 'Spiriva Respimat 2.5 mcg', 'Incruse Ellipta 62.5 mcg', 'Tudorza Pressair 400 mcg'].every(n => planDrugs().includes(n)) && !planDrugs().some(n => /Serevent|Onbrez|Striverdi/.test(n)), planDrugs());
   { const rb = [...document.querySelectorAll('button')].filter(b => /^Show all/.test(b.textContent.trim())); for (const b of rb) { b.click(); await wait(200); } }
   log('COPD plan lists no nebulisers (hospital use only)', !planDrugs().some(n => /Nebules|Respules/.test(n)) && planDrugs().includes('Ventolin Evohaler 100 mcg'), planDrugs());
   await esc();
@@ -913,7 +913,7 @@ window.__bdgE2E = async function () {
     const copdBox = () => m.querySelector('[data-fu-copd]').textContent;
     log('Follow-up COPD: Ventolin only → "Short-acting only", initial treatment by group (pending)', m.querySelector('[data-fu-cur="short"]').getAttribute('aria-pressed') === 'true' && /Not on long-acting maintenance/.test(copdBox()) && /Assess the GOLD group/.test(copdBox()), copdBox().slice(0, 160));
     m.querySelector('[data-fu-sym="low"]').click(); m.querySelector('[data-fu-gexac="0"]').click(); await wait(200);
-    log('Follow-up COPD: short-acting only, Group A → LABA or LAMA preferred, mono list', /Group A: a long-acting bronchodilator/.test(copdBox()) && /LABA or LAMA inhalers/.test(copdBox()), '');
+    log('Follow-up COPD: short-acting only, Group A → LAMA (GOLD 2027), short-acting only if no LAMA, LAMA-only list', /Group A: start a LAMA/.test(copdBox()) && /LAMA inhalers/.test(copdBox()) && !/LABA or LAMA inhalers/.test(copdBox()), '');
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(250);
     clear(); await wait(150); }
 
@@ -942,7 +942,7 @@ window.__bdgE2E = async function () {
   log('adult only: no Children guide button, no ages 6–11 dose rows', !btnByText('Children 6–11') && !document.querySelector('[data-child-dose]') && typeof CHILD_DOSE === 'undefined' && !/Ages 6–11/.test(document.body.innerText), '');
   { const h = document.querySelector('header');
     const made = [...h.querySelectorAll('p')].find(p => /Made by Warodom/.test(p.textContent)), link = h.querySelector('a[href="#disclaimer-heading"]');
-    log('title "Adult Bronchodilator Device Guide", subtitle cites GINA and GOLD 2026', h.querySelector('h1').textContent === 'Adult Bronchodilator Device Guide' && /based on GINA and GOLD 2026/.test(h.textContent) && document.title === 'Adult Bronchodilator Device Guide', document.title);
+    log('title "Adult Bronchodilator Device Guide", subtitle cites GINA and GOLD 2027', h.querySelector('h1').textContent === 'Adult Bronchodilator Device Guide' && /based on GINA and GOLD 2027/.test(h.textContent) && document.title === 'Adult Bronchodilator Device Guide', document.title);
     log('disclaimer link sits below "Made by"', !!made && !!link && (made.compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING) > 0, ''); }
 
   // --- Thai changelog covers every version, line for line

@@ -615,7 +615,7 @@ const translations = {
   en: {
     // Top Level
     title: "Adult Bronchodilator Device Guide",
-    subtitle: "Visual reference mapped to real-world inhaler colors, based on GINA and GOLD 2026.",
+    subtitle: "Visual reference mapped to real-world inhaler colors, based on GINA and GOLD 2027.",
     searchPlaceholder: "Search name, drug, colour, company…",
     searchPlaceholderShort: "Name, colour, company…",
     filtersBtn: "Filters",
@@ -685,7 +685,7 @@ const translations = {
       "Patient sheets must be reviewed by the prescriber or pharmacist before they are given to a patient.",
       "The author accepts no responsibility for decisions made using this guide. Report errors so they can be corrected.",
     ],
-    discReviewed: "Content reflects GINA 2026, GOLD 2026 and the Thai NLEM 2569. Last reviewed: 7 October 2026.",
+    discReviewed: "Content reflects GINA 2026, GOLD 2027 and the Thai NLEM 2569. Last reviewed: 7 October 2026.",
     planRankNote: "Ranked by NLEM status (basic first), then lower cost range.",
     planShowAll: (n) => `Show all ${n} options`,
     planShowFewer: "Show fewer",
@@ -927,7 +927,7 @@ const translations = {
     equivAll: "All",
     equivLevelNote: (lvl) => `Regimens are matched to the ${lvl}-dose ICS level. Open the conversion guide to choose another level.`,
     convertTitle: "Dose Conversion Guide",
-    convertSub: "Switching inhalers: ICS matched by GINA dose level, with GINA & GOLD 2026 switch rules",
+    convertSub: "Switching inhalers: ICS matched by GINA dose level, with GINA & GOLD 2027 switch rules",
     convertFrom: "Switching from",
     convertTo: "Switching to",
     convertSwap: "Swap direction",
@@ -1012,7 +1012,7 @@ const translations = {
 
     // Maintenance Guide Modal
     maintGuideTitle: "Initial Maintenance Guide",
-    maintGuideSub: "First maintenance treatment (GINA & GOLD 2026). Already on treatment? Use the Follow-up Guide.",
+    maintGuideSub: "First maintenance treatment (GINA & GOLD 2027). Already on treatment? Use the Follow-up Guide.",
     step1Title: "1. Select Disease Indication",
     step2Title: "2. GINA Treatment Track",
     step2Sub: "Select the preferred therapeutic pathway.",
@@ -1049,7 +1049,7 @@ const translations = {
 
     // Exacerbation Guide Modal
     exacGuideTitle: "Exacerbation Management Guide",
-    exacGuideSub: "Acute clinical pathways mapped to GINA & GOLD 2026",
+    exacGuideSub: "Acute clinical pathways mapped to GINA & GOLD 2027",
     mildModExac: "Mild to Moderate Exacerbation",
     criteria: "Criteria:",
     vitals: "Vitals:",
@@ -1138,16 +1138,16 @@ const translations = {
     copdDis4: "Make sure the patient understands how the acute medicines (steroids and/or antibiotics) are stopped.",
     copdDis5: "Assess the need for continuing supplemental oxygen, give a management plan, and follow up comorbidities such as cardiovascular disease.",
     copdDisFu1: "Follow-up at 1–4 weeks: coping in the usual environment, understanding of treatment, inhaler technique, need for long-term oxygen, physical activity and eligibility for pulmonary rehabilitation, symptoms (CAAT™ or mMRC), comorbidities.",
-    copdDisFu2: "Follow-up at 12–16 weeks: the same review, plus spirometry (FEV1).",
+    copdDisFu2: "Follow-up at 12–16 weeks: coping in the usual environment, understanding of treatment, inhaler technique, need for long-term oxygen, physical activity and activities of daily living, spirometry (FEV1), symptoms (CAAT™ or mMRC), comorbidities.",
 
     // Exac Details - COPD
-    copdMildCrit: "GOLD 2026 (Rome) mild: dyspnoea VAS < 5, RR < 24/min, HR < 95/min, SpO₂ ≥ 92% on air (or usual O₂) with a fall ≤ 3% if known, CRP < 10 mg/L if available. Moderate: at least 3 of VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% and/or a fall > 3%, CRP ≥ 10. No signs of acute respiratory failure.",
+    copdMildCrit: "GOLD 2027 (Rome) mild: dyspnoea VAS < 5, RR < 24/min, HR < 95/min, SpO₂ ≥ 92% on air (or usual O₂) with a fall ≤ 3% if known, CRP < 10 mg/L if available. Moderate: at least 3 of VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% and/or a fall > 3%, CRP ≥ 10. No signs of acute respiratory failure.",
     copdMildSaba: "SABA +/- SAMA only.",
     copdMildMod: "SABA ± SAMA + oral corticosteroid (prednisone 40 mg daily) for 5 days.",
     copdMildModAlt: "GOLD: nebulised budesonide may be a suitable alternative to oral corticosteroids in some patients.",
     copdMildAbx: "Indicated with purulent sputum, a prior positive sputum culture, or need for mechanical ventilation (invasive or NIV); 5 days.",
-    copdMildOx: "If hypoxaemic, give controlled oxygen (GOLD 2026). Target O₂ Sat 88–92% in patients at risk of hypercapnia (BTS 2017).",
-    copdSevCrit: "GOLD 2026 (Rome) severe: as moderate, plus hypercapnia and acidosis on blood gas (PaCO₂ > 45 mmHg and pH < 7.35). Red flags: severe dyspnoea, accessory muscle use, paradoxical abdominal movement, altered mental status, worsening hypoxaemia.",
+    copdMildOx: "If hypoxaemic, give controlled oxygen (GOLD 2027). Target O₂ Sat 88–92% in patients at risk of hypercapnia (BTS 2017).",
+    copdSevCrit: "GOLD 2027 (Rome) severe: as moderate, plus hypercapnia and acidosis on blood gas (PaCO₂ > 45 mmHg and pH < 7.35). Red flags: severe dyspnoea, accessory muscle use, paradoxical abdominal movement, altered mental status, worsening hypoxaemia.",
     copdSevBronch: "SABA ± SAMA by pMDI (with spacer) or nebuliser; a nebuliser may be easier for sicker patients. Drive nebulisers with air, not oxygen, to avoid raising PaCO₂. Continue long-acting bronchodilators, or start them before discharge. IV methylxanthines are not recommended.",
     copdSevCs: "Systemic Corticosteroids (IV or Oral).",
     copdSevCsAlt: "GOLD: nebulised budesonide may be an alternative to systemic corticosteroids in some patients.",
@@ -1203,7 +1203,7 @@ const translations = {
     copdGroupBRat: "Patient presents with a high symptom burden (mMRC ≥ 2 or CAT ≥ 10) but a low exacerbation risk.",
     copdGroupBRec: "Guidelines recommend Dual Bronchodilation (LABA + LAMA).",
     copdGroupARat: "Patient presents with a low symptom burden and a low exacerbation risk.",
-    copdGroupARec: "Guidelines recommend a bronchodilator (long-acting LABA or LAMA options are listed).",
+    copdGroupARec: "Guidelines recommend a LAMA (GOLD 2027). If a LAMA is unavailable or unaffordable, a short-acting bronchodilator may be substituted.",
 
     catQs: [
       { left: "I never cough", right: "I cough all the time" },
@@ -1221,7 +1221,7 @@ const translations = {
   th: {
     // Top Level
     title: "คู่มือยาพ่นขยายหลอดลมสำหรับผู้ใหญ่",
-    subtitle: "อ้างอิงภาพและสีตามอุปกรณ์จริง ตามแนวทาง GINA และ GOLD 2026",
+    subtitle: "อ้างอิงภาพและสีตามอุปกรณ์จริง ตามแนวทาง GINA และ GOLD 2027",
     searchPlaceholder: "ค้นหาชื่อยา ตัวยา สี บริษัท…",
     searchPlaceholderShort: "ชื่อยา สี บริษัท…",
     filtersBtn: "ตัวกรอง",
@@ -1291,7 +1291,7 @@ const translations = {
       "ใบคำแนะนำผู้ป่วยต้องได้รับการตรวจทานโดยแพทย์หรือเภสัชกรก่อนให้ผู้ป่วย",
       "ผู้จัดทำไม่รับผิดชอบต่อการตัดสินใจที่เกิดจากการใช้คู่มือนี้ หากพบข้อผิดพลาดโปรดแจ้งเพื่อแก้ไข",
     ],
-    discReviewed: "เนื้อหาอ้างอิง GINA 2026, GOLD 2026 และบัญชียาหลักแห่งชาติ พ.ศ. 2569 ทบทวนล่าสุด: 7 ตุลาคม 2569",
+    discReviewed: "เนื้อหาอ้างอิง GINA 2026, GOLD 2027 และบัญชียาหลักแห่งชาติ พ.ศ. 2569 ทบทวนล่าสุด: 7 ตุลาคม 2569",
     planRankNote: "เรียงตามสถานะบัญชียาหลัก (บัญชีพื้นฐานก่อน) แล้วตามช่วงราคาที่ต่ำกว่า",
     planShowAll: (n) => `แสดงทั้งหมด ${n} รายการ`,
     planShowFewer: "แสดงน้อยลง",
@@ -1533,7 +1533,7 @@ const translations = {
     equivAll: "ทั้งหมด",
     equivLevelNote: (lvl) => `ขนาดยาเทียบที่ระดับ ICS ${lvl} เปิดคู่มือแปลงขนาดยาเพื่อเลือกระดับอื่น`,
     convertTitle: "คู่มือการเปลี่ยนยาและแปลงขนาดยา",
-    convertSub: "เทียบ ICS ตามระดับขนาดยาของ GINA พร้อมหลักการเปลี่ยนยาตาม GINA & GOLD 2026",
+    convertSub: "เทียบ ICS ตามระดับขนาดยาของ GINA พร้อมหลักการเปลี่ยนยาตาม GINA & GOLD 2027",
     convertFrom: "เปลี่ยนจาก",
     convertTo: "เปลี่ยนเป็น",
     convertSwap: "สลับทิศทาง",
@@ -1618,7 +1618,7 @@ const translations = {
 
     // Maintenance Guide Modal
     maintGuideTitle: "แนวทางยาควบคุมเริ่มต้น (Initial Maintenance)",
-    maintGuideSub: "ยาควบคุมเมื่อเริ่มการรักษา (GINA & GOLD 2026) หากรักษาอยู่แล้ว ใช้แนวทางการติดตามผล",
+    maintGuideSub: "ยาควบคุมเมื่อเริ่มการรักษา (GINA & GOLD 2027) หากรักษาอยู่แล้ว ใช้แนวทางการติดตามผล",
     step1Title: "1. เลือกโรค (Disease Indication)",
     step2Title: "2. แนวทางการรักษาตาม GINA",
     step2Sub: "เลือกรูปแบบการรักษาที่ต้องการ",
@@ -1655,7 +1655,7 @@ const translations = {
 
     // Exacerbation Guide Modal
     exacGuideTitle: "แนวทางการจัดการภาวะกำเริบ (Exacerbation)",
-    exacGuideSub: "อ้างอิงตามแนวทาง GINA & GOLD 2026",
+    exacGuideSub: "อ้างอิงตามแนวทาง GINA & GOLD 2027",
     mildModExac: "กำเริบระดับเล็กน้อยถึงปานกลาง (Mild to Moderate)",
     criteria: "เกณฑ์:",
     vitals: "สัญญาณชีพ:",
@@ -1744,16 +1744,16 @@ const translations = {
     copdDis4: "ให้ผู้ป่วยเข้าใจวิธีหยุดยาที่ใช้ในช่วงกำเริบ (สเตียรอยด์และ/หรือยาปฏิชีวนะ)",
     copdDis5: "ประเมินความจำเป็นของการให้ออกซิเจนต่อ ให้แผนการดูแล และติดตามโรคร่วม เช่น โรคหัวใจและหลอดเลือด",
     copdDisFu1: "นัดติดตามที่ 1–4 สัปดาห์: การปรับตัวในสภาพแวดล้อมปกติ ความเข้าใจเรื่องการรักษา เทคนิคการพ่นยา ความจำเป็นของออกซิเจนระยะยาว ความสามารถทางกายและความเหมาะสมในการฟื้นฟูสมรรถภาพปอด อาการ (CAAT™ หรือ mMRC) และโรคร่วม",
-    copdDisFu2: "นัดติดตามที่ 12–16 สัปดาห์: ทบทวนเหมือนเดิม และวัดสไปโรเมตรี (FEV1) เพิ่ม",
+    copdDisFu2: "นัดติดตามที่ 12–16 สัปดาห์: การปรับตัวในสภาพแวดล้อมปกติ ความเข้าใจเรื่องการรักษา เทคนิคการพ่นยา ความจำเป็นของออกซิเจนระยะยาว ความสามารถในการทำกิจกรรมทางกายและกิจวัตรประจำวัน วัดสไปโรเมตรี (FEV1) อาการ (CAAT™ หรือ mMRC) และโรคร่วม",
 
     // Exac Details - COPD (Thai)
-    copdMildCrit: "GOLD 2026 (Rome) ระดับเล็กน้อย: ความเหนื่อย VAS < 5, RR < 24/นาที, HR < 95/นาที, SpO₂ ≥ 92% ขณะหายใจอากาศปกติ (หรือออกซิเจนที่ใช้ประจำ) และลดลง ≤ 3% หากทราบค่าเดิม, CRP < 10 mg/L หากตรวจได้ ระดับปานกลาง: มีอย่างน้อย 3 ข้อจาก VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% และ/หรือลดลง > 3%, CRP ≥ 10 ไม่มีภาวะระบบหายใจล้มเหลวเฉียบพลัน",
+    copdMildCrit: "GOLD 2027 (Rome) ระดับเล็กน้อย: ความเหนื่อย VAS < 5, RR < 24/นาที, HR < 95/นาที, SpO₂ ≥ 92% ขณะหายใจอากาศปกติ (หรือออกซิเจนที่ใช้ประจำ) และลดลง ≤ 3% หากทราบค่าเดิม, CRP < 10 mg/L หากตรวจได้ ระดับปานกลาง: มีอย่างน้อย 3 ข้อจาก VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% และ/หรือลดลง > 3%, CRP ≥ 10 ไม่มีภาวะระบบหายใจล้มเหลวเฉียบพลัน",
     copdMildSaba: "พ่น SABA +/- SAMA เท่านั้น",
     copdMildMod: "พ่น SABA ± SAMA + กินสเตียรอยด์ (prednisone 40 mg/วัน) 5 วัน",
     copdMildModAlt: "GOLD: การพ่น budesonide แบบละอองอาจใช้แทนสเตียรอยด์ชนิดกินได้ในผู้ป่วยบางราย",
     copdMildAbx: "มีข้อบ่งชี้เมื่อเสมหะเป็นหนอง เคยเพาะเชื้อจากเสมหะขึ้น หรือต้องใช้เครื่องช่วยหายใจ (ใส่ท่อหรือ NIV) ให้ 5 วัน",
-    copdMildOx: "หากออกซิเจนต่ำ ให้ออกซิเจนแบบควบคุมปริมาณ (GOLD 2026) เป้าหมาย O₂ Sat 88–92% ในผู้ป่วยที่เสี่ยงคาร์บอนไดออกไซด์คั่ง (BTS 2017)",
-    copdSevCrit: "GOLD 2026 (Rome) ระดับรุนแรง: เหมือนระดับปานกลาง ร่วมกับคาร์บอนไดออกไซด์คั่งและเลือดเป็นกรดจากก๊าซในเลือด (PaCO₂ > 45 mmHg และ pH < 7.35) สัญญาณอันตราย: หายใจลำบากรุนแรง ใช้กล้ามเนื้อช่วยหายใจ ท้องขยับสลับทาง ซึมสับสน ออกซิเจนต่ำลงเรื่อยๆ",
+    copdMildOx: "หากออกซิเจนต่ำ ให้ออกซิเจนแบบควบคุมปริมาณ (GOLD 2027) เป้าหมาย O₂ Sat 88–92% ในผู้ป่วยที่เสี่ยงคาร์บอนไดออกไซด์คั่ง (BTS 2017)",
+    copdSevCrit: "GOLD 2027 (Rome) ระดับรุนแรง: เหมือนระดับปานกลาง ร่วมกับคาร์บอนไดออกไซด์คั่งและเลือดเป็นกรดจากก๊าซในเลือด (PaCO₂ > 45 mmHg และ pH < 7.35) สัญญาณอันตราย: หายใจลำบากรุนแรง ใช้กล้ามเนื้อช่วยหายใจ ท้องขยับสลับทาง ซึมสับสน ออกซิเจนต่ำลงเรื่อยๆ",
     copdSevBronch: "SABA ± SAMA ผ่าน pMDI (ร่วมกับ spacer) หรือเครื่องพ่นละออง ซึ่งอาจใช้ง่ายกว่าในผู้ป่วยที่อาการหนัก ให้ใช้อากาศขับเครื่องพ่นละออง ไม่ใช้ออกซิเจน เพื่อไม่ให้ PaCO₂ สูงขึ้น ใช้ยาขยายหลอดลมชนิดออกฤทธิ์ยาวต่อ หรือเริ่มก่อนกลับบ้าน ไม่แนะนำ methylxanthines ทางหลอดเลือดดำ",
     copdSevCs: "ให้คอร์ติโคสเตียรอยด์ (ทางหลอดเลือดดำ หรือ กิน)",
     copdSevCsAlt: "GOLD: การพ่น budesonide แบบละอองอาจใช้แทนสเตียรอยด์ชนิดฉีด/กินได้ในผู้ป่วยบางราย",
@@ -1839,7 +1839,7 @@ const translations = {
     copdGroupBRat: "ผู้ป่วยมีภาระอาการรบกวนมาก (mMRC ≥ 2 หรือ CAT ≥ 10) แต่มีความเสี่ยงกำเริบต่ำ",
     copdGroupBRec: "แนวทางแนะนำการใช้ยาขยายหลอดลม 2 ชนิดคู่กัน (Dual Bronchodilation: LABA + LAMA)",
     copdGroupARat: "ผู้ป่วยมีอาการรบกวนน้อย และมีความเสี่ยงกำเริบต่ำ",
-    copdGroupARec: "แนวทางแนะนำยาขยายหลอดลม 1 ชนิด (รายการแสดงยาออกฤทธิ์ยาว LABA หรือ LAMA)",
+    copdGroupARec: "แนวทาง GOLD 2027 แนะนำ LAMA หากไม่มี LAMA หรือราคาสูงเกินไป อาจใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นแทนได้",
 
     catQs: [
       { left: "ฉันไม่เคยไอเลย", right: "ฉันไออยู่ตลอดเวลา" },
@@ -2329,6 +2329,17 @@ const getMutuallyExclusiveGroup = (groupTitle) => {
 
 const changelogData = [
   {
+    version: "v1.12.15",
+    date: "November 23, 2026",
+    features: [
+      "Updated to GOLD 2027 (report dated 20 November 2026). Group A initial treatment is now a LAMA, with a short-acting bronchodilator only if a LAMA is unavailable or unaffordable. This changes the Maintenance Guide (Group A lists LAMA inhalers only), the Wizard and the Follow-up Guide.",
+      "GOLD figure links now open the 2027 report: Figures 4.5 and 4.10 are now 4.6 and 4.11 (a new Figure 4.5 was added), and the page numbers of all nine figures were updated.",
+      "COPD exacerbation guide: the 12–16 week follow-up list now matches Figure 4.11 (physical activity and activities of daily living, spirometry).",
+      "Checked against GOLD 2027: Figures 3.9, 3.10, 4.2, 4.4 and 4.6 agree with the app. Figures 4.3 and the report's new sections (propellants, biologics, Figure 4.5) are not included yet.",
+    ],
+    bugs: [],
+  },
+  {
     version: "v1.12.14",
     date: "November 19, 2026",
     features: [
@@ -2771,6 +2782,15 @@ const APP_VERSION = changelogData[0].version;
 
 // Thai changelog, keyed by version (same order of features/bugs as changelogData)
 const CHANGELOG_TH = {
+ "v1.12.15": {
+  "features": [
+    "อัปเดตเป็น GOLD 2027 (รายงานลงวันที่ 20 พฤศจิกายน 2569) ยาเริ่มต้นของกลุ่ม A คือ LAMA และใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นแทนได้เฉพาะเมื่อไม่มี LAMA หรือราคาสูงเกินไป มีผลกับคู่มือการรักษาต่อเนื่อง (กลุ่ม A แสดงเฉพาะยาสูด LAMA) ตัวช่วยเลือกยา และคู่มือติดตามการรักษา",
+    "ลิงก์รูปของ GOLD เปิดรายงานฉบับ 2027: รูปที่ 4.5 และ 4.10 เปลี่ยนเป็น 4.6 และ 4.11 (มีรูปที่ 4.5 ใหม่เพิ่มเข้ามา) และปรับเลขหน้าของทั้ง 9 รูปแล้ว",
+    "คู่มือการกำเริบของ COPD: รายการนัดติดตามที่ 12–16 สัปดาห์ตรงกับรูปที่ 4.11 (กิจกรรมทางกายและกิจวัตรประจำวัน และสไปโรเมตรี)",
+    "ตรวจเทียบกับ GOLD 2027 แล้ว: รูปที่ 3.9, 3.10, 4.2, 4.4 และ 4.6 ตรงกับเนื้อหาในแอป ส่วนรูปที่ 4.3 และหัวข้อใหม่ของรายงาน (ตัวขับดันในยาสูด ยาชีววัตถุ รูปที่ 4.5) ยังไม่ได้รวมไว้"
+  ],
+  "bugs": []
+ },
  "v1.12.14": {
   "features": [
     "การเคลื่อนไหวนุ่มนวลขึ้น: ปุ่มและชิปเปลี่ยนสถานะอย่างราบรื่น การ์ดมีเงาลึกขึ้นเมื่อเมาส์ชี้ หน้าต่างป๊อปอัปค่อยๆ ปรากฏพร้อมฉากหลัง ส่วนที่พับไว้ค่อยๆ ปรากฏเมื่อเปิด และการสลับโหมดสว่าง/มืดจะเปลี่ยนสีอย่างนุ่มนวล ไม่มีสิ่งใดเคลื่อนที่ขณะหยุดนิ่ง และทั้งหมดจะปิดเมื่ออุปกรณ์ตั้งค่าลดการเคลื่อนไหว",
@@ -4919,7 +4939,7 @@ const SHEET_TEXT = {
       dailyController: (x) => `Every day, take: ${x}`,
       useReliever: (x) => `Reliever when needed: ${x}`,
       doctor: 'Doctor / hospital:', reviewDate: 'Review date:',
-      source: 'Based on GOLD 2026 self-management and exacerbation guidance',
+      source: 'Based on GOLD 2027 self-management and exacerbation guidance',
     },
     plan: {
       title: 'Asthma Action Plan', sub: 'Keep this plan with your inhaler. Show it to your doctor at every visit.',
@@ -4998,7 +5018,7 @@ const SHEET_TEXT = {
       dailyController: (x) => `ใช้ยาทุกวัน: ${x}`,
       useReliever: (x) => `ยาบรรเทาอาการเมื่อมีอาการ: ${x}`,
       doctor: 'แพทย์ / โรงพยาบาล:', reviewDate: 'วันที่ทบทวน:',
-      source: 'อ้างอิงแนวทางการดูแลตนเองและการกำเริบของ GOLD 2026',
+      source: 'อ้างอิงแนวทางการดูแลตนเองและการกำเริบของ GOLD 2027',
     },
     plan: {
       title: 'แผนปฏิบัติการโรคหืด', sub: 'เก็บแผนนี้ไว้กับยาพ่น และนำมาให้แพทย์ดูทุกครั้งที่มาตรวจ',
@@ -5059,7 +5079,7 @@ const SHEET_TEXT = {
 const sheetRelievers = () => deviceData.filter(d => d.class.split('/').every(c => ['SABA', 'SAMA'].includes(c.trim())));
 
 // The printable sheet itself: always light, fixed A4-like width.
-// Cautions by drug class: ICS from GINA 2026 (p.39) and GOLD 2026 (pneumonia in COPD);
+// Cautions by drug class: ICS from GINA 2026 (p.39) and GOLD 2027 (pneumonia in COPD);
 // SABA/LABA/SAMA/LAMA from the products' SmPC section 4.4 (special warnings).
 const CAUTION_ORDER = ['ICS', 'LABA', 'LAMA', 'SAMA', 'SABA'];
 // ⚠ symbol; a click opens the class cautions in a popover (portalled so cards can't clip it).
@@ -5118,10 +5138,10 @@ const CautionsPanel = ({ med, t }) => {
 // ---- Official guideline figures ----
 // The GINA and GOLD reports are copyrighted ("do not copy or distribute"), so their figures are not copied into the app:
 // each entry opens the official PDF at the figure's page (PDF page numbers, checked 26 Oct 2026 against the files
-// below; GINA 2026 Strategy Report, GOLD 2026 Report v1.3).
+// below; GINA 2026 Strategy Report, GOLD 2027 Report v1.3).
 const GUIDELINE_DOCS = {
   gina: { name: 'GINA 2026', url: 'https://ginasthma.org/wp-content/uploads/2026/05/GINA-2026-Strategy-Report-WMS.pdf', mb: 17 },
-  gold: { name: 'GOLD 2026', url: 'https://goldcopd.org/wp-content/uploads/2026/01/GOLD-REPORT-2026-v1.3-8Dec2025_WMV2.pdf', mb: 20 },
+  gold: { name: 'GOLD 2027', url: 'https://goldcopd.org/wp-content/uploads/2026/11/GOLD-Report-2027-FINAL-v1.1-20Nov2026_WMV.pdf', mb: 24 },
 };
 // key: [document, figure label, PDF page, title as printed in the report]
 const GUIDELINE_FIGURES = {
@@ -5140,19 +5160,19 @@ const GUIDELINE_FIGURES = {
   'gina-9-5': ['gina', 'Box 9-5', 184, 'Discharge management after primary care visit for an asthma exacerbation'],
   'gina-9-6': ['gina', 'Box 9-6', 187, 'Management of asthma exacerbations in acute care facility'],
   'gina-9-7': ['gina', 'Box 9-7', 192, 'Discharge management after acute care or ED management for an asthma exacerbation'],
-  'gold-3-7': ['gold', 'Figure 3.7', 72, 'Diagnosis and Management Cycle'],
-  'gold-3-8': ['gold', 'Figure 3.8', 73, 'Initial Pharmacological Treatment'],
-  'gold-3-9': ['gold', 'Figure 3.9', 74, 'Follow-up Pharmacological Treatment'],
-  'gold-3-10': ['gold', 'Figure 3.10', 78, 'Factors to Consider when Initiating ICS Treatment'],
-  'gold-4-2': ['gold', 'Figure 4.2', 107, 'Classification of the Severity of COPD Exacerbations'],
-  'gold-4-3': ['gold', 'Figure 4.3', 108, 'Conditions That May Mimic or Worsen Exacerbation-like Symptoms'],
-  'gold-4-4': ['gold', 'Figure 4.4', 109, 'Assessing the Appropriate Place of Management During COPD Exacerbation'],
-  'gold-4-5': ['gold', 'Figure 4.5', 113, 'Management of Severe but not Life-threatening Exacerbations'],
-  'gold-4-10': ['gold', 'Figure 4.10', 120, 'Discharge Criteria and Recommendations for Follow-up'],
+  'gold-3-7': ['gold', 'Figure 3.7', 76, 'Diagnosis and Management Cycle'],
+  'gold-3-8': ['gold', 'Figure 3.8', 77, 'Initial Pharmacological Treatment'],
+  'gold-3-9': ['gold', 'Figure 3.9', 78, 'Follow-up Pharmacological Treatment'],
+  'gold-3-10': ['gold', 'Figure 3.10', 82, 'Factors to Consider when Initiating ICS Treatment'],
+  'gold-4-2': ['gold', 'Figure 4.2', 117, 'Classification of the Severity of COPD Exacerbations'],
+  'gold-4-3': ['gold', 'Figure 4.3', 118, 'Conditions That May Mimic or Worsen Exacerbation-like Symptoms'],
+  'gold-4-4': ['gold', 'Figure 4.4', 119, 'Assessing the Appropriate Place of Management During COPD Exacerbation'],
+  'gold-4-6': ['gold', 'Figure 4.6', 124, 'Management of Severe but not Life-threatening Exacerbations'],
+  'gold-4-11': ['gold', 'Figure 4.11', 131, 'Discharge Criteria and Recommendations for Follow-up'],
 };
 // figures shown for each guide window
 const GUIDE_FIGURE_SETS = {
-  exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-5', 'gold-4-10'],
+  exac: ['gina-9-4', 'gina-9-5', 'gina-9-6', 'gina-9-7', 'gold-4-2', 'gold-4-3', 'gold-4-4', 'gold-4-6', 'gold-4-11'],
   maint: ['gina-4-3', 'gina-4-4', 'gina-4-5', 'gina-4-6', 'gina-4-7', 'gina-4-2', 'gold-3-7', 'gold-3-8', 'gold-3-10'],
   follow: ['gina-4-6', 'gina-4-13', 'gina-2-4', 'gina-9-2', 'gold-3-7', 'gold-3-9', 'gold-3-10'],
   device: ['gina-5-1', 'gina-5-2'],
@@ -5160,10 +5180,10 @@ const GUIDE_FIGURE_SETS = {
   steroid: ['gina-4-2'],
 };
 const FIG_TEXT = {
-  en: { btn: 'Figures', title: 'Guideline figures', sub: 'The original diagrams, opened in the official report', asthma: 'Asthma: GINA 2026', copd: 'COPD: GOLD 2026',
+  en: { btn: 'Figures', title: 'Guideline figures', sub: 'The original diagrams, opened in the official report', asthma: 'Asthma: GINA 2026', copd: 'COPD: GOLD 2027',
     open: (p) => `Open (PDF page ${p})`,
     note: 'GINA and GOLD figures are copyrighted, so they are not copied into this app: each link opens the official report at that page (a large PDF, 17 to 20 MB). If your browser opens the report at its first page, go to the PDF page shown.' },
-  th: { btn: 'แผนภาพ', title: 'แผนภาพจากแนวทางเวชปฏิบัติ', sub: 'แผนภาพต้นฉบับ เปิดในเอกสารฉบับทางการ', asthma: 'โรคหืด: GINA 2026', copd: 'COPD: GOLD 2026',
+  th: { btn: 'แผนภาพ', title: 'แผนภาพจากแนวทางเวชปฏิบัติ', sub: 'แผนภาพต้นฉบับ เปิดในเอกสารฉบับทางการ', asthma: 'โรคหืด: GINA 2026', copd: 'COPD: GOLD 2027',
     open: (p) => `เปิด (หน้า PDF ${p})`,
     note: 'แผนภาพของ GINA และ GOLD มีลิขสิทธิ์ จึงไม่ได้คัดลอกมาไว้ในแอปนี้ ลิงก์แต่ละรายการเปิดเอกสารฉบับทางการที่หน้านั้น (ไฟล์ PDF ขนาดใหญ่ 17 ถึง 20 MB) หากเบราว์เซอร์เปิดที่หน้าแรก ให้ไปที่หน้า PDF ที่ระบุ' },
 };
@@ -5737,7 +5757,7 @@ const SpacerGuideModal = ({ lang, onClose }) => {
 };
 
 // Step-down guide. Asthma: GINA 2026 Summary Guide p.27 and full report Box 4-13 (adults and
-// adolescents). COPD: GOLD 2026 report, follow-up pharmacological treatment (Figure 3.9, 3.12).
+// adolescents). COPD: GOLD 2027 report, follow-up pharmacological treatment (Figure 3.9, 3.12).
 const STEPDOWN_TEXT = {
   en: {
     aTitle: 'Asthma step-down (GINA 2026)',
@@ -5764,7 +5784,7 @@ const STEPDOWN_TEXT = {
       ['2', 'Low-dose maintenance ICS', 'Once-daily dosing (budesonide, ciclesonide, mometasone, fluticasone furoate); or switch to as-needed-only low-dose ICS-formoterol; or take ICS whenever SABA is taken. Caution: do not stop ICS completely (SABA-only treatment raises exacerbation risk).'],
     ],
     aNote: 'MART = low-dose budesonide-formoterol or beclometasone-formoterol.',
-    cTitle: 'COPD: ICS de-escalation (GOLD 2026)',
+    cTitle: 'COPD: ICS de-escalation (GOLD 2027)',
     cTripleTitle: 'On LABA+LAMA+ICS',
     cTriple: [
       'Do not withdraw the ICS unless: it was started inappropriately, there has been no response to ICS, there are significant side effects, or there is severe or recurrent pneumonia.',
@@ -5804,7 +5824,7 @@ const STEPDOWN_TEXT = {
       ['2', 'ICS ขนาดต่ำเป็นยาควบคุม', 'ใช้วันละครั้ง (budesonide, ciclesonide, mometasone, fluticasone furoate) หรือเปลี่ยนเป็น ICS-formoterol ขนาดต่ำเมื่อมีอาการเท่านั้น หรือใช้ ICS ทุกครั้งที่ใช้ SABA ข้อควรระวัง: ห้ามหยุด ICS ทั้งหมด (การใช้ SABA อย่างเดียวเพิ่มความเสี่ยงต่อการกำเริบ)'],
     ],
     aNote: 'MART = budesonide-formoterol หรือ beclometasone-formoterol ขนาดต่ำ',
-    cTitle: 'COPD: การลด/หยุด ICS (GOLD 2026)',
+    cTitle: 'COPD: การลด/หยุด ICS (GOLD 2027)',
     cTripleTitle: 'ผู้ที่ใช้ LABA+LAMA+ICS',
     cTriple: [
       'ไม่ควรหยุด ICS เว้นแต่: เริ่มใช้ ICS โดยไม่มีข้อบ่งชี้ ไม่ตอบสนองต่อ ICS มีผลข้างเคียงที่สำคัญ หรือมีปอดอักเสบรุนแรงหรือเป็นซ้ำ',
@@ -5822,7 +5842,7 @@ const STEPDOWN_TEXT = {
 };
 const STEP_TONE = { '5': 'bg-red-100 text-red-800', '4': 'bg-orange-100 text-orange-800', '3': 'bg-amber-100 text-amber-800', '2': 'bg-emerald-100 text-emerald-800' };
 
-// Step-down reference (GINA Box 4-13; GOLD 2026 ICS de-escalation), shown inside the Follow-up Guide.
+// Step-down reference (GINA Box 4-13; GOLD 2027 ICS de-escalation), shown inside the Follow-up Guide.
 // `current` = Box 4-13 row indexes matching the patient's current treatment (highlighted).
 const AsthmaStepDownRef = ({ lang, current = [] }) => {
   const c = STEPDOWN_TEXT[lang];
@@ -5867,12 +5887,12 @@ const CopdIcsRef = ({ lang }) => {
 
 // --- Follow-up guide: adjust treatment at review ---
 // Asthma: GINA 2026 Summary Guide Table 2 (symptom control), Figure 2 (investigate before stepping
-// up), "assess, adjust, review", stepping down + full report Box 4-13. COPD: GOLD 2026 Figure 3.9.
+// up), "assess, adjust, review", stepping down + full report Box 4-13. COPD: GOLD 2027 Figure 3.9.
 const FOLLOW_TEXT = {
   en: {
     btn: 'Follow-up',
     title: 'Follow-up Guide',
-    sub: 'At review: step up, stay or step down (GINA 2026, GOLD 2026)',
+    sub: 'At review: step up, stay or step down (GINA 2026, GOLD 2027)',
     tabAsthma: 'Asthma (GINA)', tabCopd: 'COPD (GOLD)',
     curTitle: "Current treatment (selected on the main page or added here)",
     curHint: "No inhalers yet: search below to add the patient's inhalers, or press Select on drug cards on the main page.",
@@ -5911,13 +5931,13 @@ const FOLLOW_TEXT = {
     groupPending: 'Choose symptoms and exacerbations to set the group.',
     vLabel: { ok: (g) => `Appropriate for Group ${g}`, below: (g) => `Below GOLD for Group ${g}`, above: (g) => `More than GOLD for Group ${g}`, no: () => 'Not recommended in COPD (GOLD)', reliever: () => 'Reliever: as needed' },
     verdict: {
-      A: { short: 'A short-acting bronchodilator as needed is an option for Group A; a long-acting bronchodilator is preferred unless breathlessness is very occasional.', mono: 'A long-acting bronchodilator (LABA or LAMA) is the GOLD treatment for Group A.', dual: 'More than the GOLD initial treatment for Group A (one bronchodilator). Reasonable if it was escalated for persistent breathlessness.', triple: 'ICS is not indicated in Group A (no exacerbations). Consider stepping down to bronchodilators.', laIcs: 'LABA + ICS is not encouraged in COPD; Group A needs one long-acting bronchodilator.', icsOnly: 'ICS alone is not recommended in COPD; use a bronchodilator.' },
+      A: { short: 'A short-acting bronchodilator may be substituted for a LAMA in Group A only if a LAMA is unavailable or unaffordable (GOLD 2027).', mono: 'A LAMA is the GOLD 2027 initial treatment for Group A; continue it if benefit is documented.', dual: 'More than the GOLD initial treatment for Group A (a LAMA). Reasonable if it was escalated for persistent breathlessness.', triple: 'ICS is not indicated in Group A (no exacerbations). Consider stepping down to bronchodilators.', laIcs: 'LABA + ICS is not encouraged in COPD; Group A needs a LAMA.', icsOnly: 'ICS alone is not recommended in COPD; use a bronchodilator.' },
       B: { short: 'GOLD recommends LABA + LAMA for Group B; a short-acting bronchodilator alone is not enough.', mono: 'GOLD recommends LABA + LAMA for Group B: escalate from one long-acting bronchodilator.', dual: 'LABA + LAMA is the GOLD treatment for Group B.', triple: 'ICS is for exacerbations (Group E). In Group B, review why the ICS was started and whether it can be withdrawn.', laIcs: 'LABA + ICS is not encouraged in COPD; GOLD recommends LABA + LAMA for Group B.', icsOnly: 'ICS alone is not recommended in COPD; GOLD recommends LABA + LAMA for Group B.' },
       E: { short: 'GOLD recommends LABA + LAMA for Group E; a short-acting bronchodilator alone is not enough.', mono: 'GOLD recommends LABA + LAMA for Group E: escalate from one long-acting bronchodilator.', dual: 'LABA + LAMA is the GOLD treatment for Group E. Consider adding ICS if blood eosinophils are ≥ 300 cells/µL.', triple: 'LABA + LAMA + ICS fits Group E (blood eosinophils ≥ 300 cells/µL, or ≥ 100 with further exacerbations).', tripleLow: 'With blood eosinophils < 100 cells/µL, ICS is unlikely to help; GOLD suggests LABA + LAMA (consider withdrawing the ICS under supervision).', laIcs: 'LABA + ICS is not encouraged in COPD: escalate to LABA + LAMA + ICS if eosinophils ≥ 100 cells/µL, or switch to LABA + LAMA if < 100.', icsOnly: 'ICS alone is not recommended in COPD; GOLD recommends LABA + LAMA for Group E.' },
     },
     gold: {
-      short: 'Group A: a short-acting bronchodilator as needed is a GOLD option for Group A (a long-acting bronchodilator is preferred unless breathlessness is very occasional).',
-      mono: 'Group A: a long-acting bronchodilator (LABA or LAMA) is the GOLD initial treatment for Group A.',
+      short: 'Group A: a short-acting bronchodilator may be substituted for a LAMA only if a LAMA is unavailable or unaffordable (GOLD 2027).',
+      mono: 'Group A: a LAMA is the GOLD 2027 initial treatment for Group A; continue it if benefit is documented.',
       dual: 'Group B or E: LABA + LAMA is the GOLD initial treatment for both. It is Group E if there was at least 1 moderate or severe exacerbation in the past year.',
       dualE: 'Group E: LABA + LAMA is the GOLD initial treatment for Group E (exacerbations reported).',
       triple: 'Group E: LABA + LAMA + ICS is the GOLD option for Group E with blood eosinophils ≥ 300 cells/µL.',
@@ -5949,7 +5969,7 @@ const FOLLOW_TEXT = {
     downTitle: 'Well controlled for 2–3 months: consider stepping down',
     downOptions: 'Options for the current treatment (GINA Box 4-13)',
     sdRef: 'Step-down guide: when, how and all options (GINA Box 4-13)',
-    icsRef: 'Stopping inhaled steroids in COPD (GOLD 2026)',
+    icsRef: 'Stopping inhaled steroids in COPD (GOLD 2027)',
     lowest: { 1: 'Already at the lowest step: continue as-needed low-dose ICS-formoterol.', 2: 'Already at the lowest step: keep taking ICS whenever SABA is taken. Do not stop ICS completely.' },
     devicesTitle: 'Inhalers for this step',
     relieversTitle: 'Reliever',
@@ -5960,18 +5980,18 @@ const FOLLOW_TEXT = {
     eos: 'Blood eosinophils',
     eosOpts: { low: '< 100 cells/µL', mid: '100–299 cells/µL', high: '≥ 300 cells/µL' },
     exSmoker: 'Ex-smoker (not currently smoking)',
-    quitSmoking: 'Stop smoking: advise the patient to quit at every visit and offer support (counselling plus nicotine replacement or other cessation medicine). Quitting is the most effective way to slow COPD (GOLD 2026).',
+    quitSmoking: 'Stop smoking: advise the patient to quit at every visit and offer support (counselling plus nicotine replacement or other cessation medicine). Quitting is the most effective way to slow COPD (GOLD 2027).',
     cb: "Chronic bronchitis (productive cough for 3 months in the past year)",
     sevExac: "≥ 2 moderate or ≥ 1 severe exacerbation in the past year",
     fev50: "FEV₁ < 50% predicted",
     icsIssue: 'ICS problem: pneumonia, significant side effects, no response, or started without an indication',
-    copdChecksTitle: 'First (GOLD 2026)',
+    copdChecksTitle: 'First (GOLD 2027)',
     copdChecks: ['Check adherence, inhaler technique and interfering comorbidities.', 'Consider pulmonary rehabilitation and other non-drug treatment.'],
     copdRecTitle: 'Suggested change (GOLD Figure 3.9)',
     maintain: 'Good response: maintain the current treatment.',
     laIcsOk: 'On LABA + ICS without features of asthma and well controlled: continuing LABA + ICS is an option.',
     noMaint: 'Not on long-acting maintenance: start the GOLD initial treatment for the patient\'s group.',
-    initA: 'Group A: a long-acting bronchodilator (LABA or LAMA) is preferred; a short-acting one alone is enough only if breathlessness is very occasional.',
+    initA: 'Group A: start a LAMA (continue if benefit is documented); a short-acting bronchodilator only if a LAMA is unavailable or unaffordable.',
     initB: 'Group B: start LABA + LAMA.',
     initE: 'Group E: start LABA + LAMA; consider LABA + LAMA + ICS if blood eosinophils are ≥ 300 cells/µL.',
     initPending: 'Assess the GOLD group above to choose the first maintenance treatment.',
@@ -5995,13 +6015,13 @@ const FOLLOW_TEXT = {
     biologicNeed: "Eosinophils ≥ 300 cells/µL: biologic therapy (dupilumab if chronic bronchitis, or mepolizumab) is an option if there were ≥ 2 moderate or ≥ 1 severe exacerbations in the past year.",
     icsWithdraw: 'Because of the ICS problem, the ICS may be withdrawn; weigh risks and benefits under close supervision.',
     icsWithdrawEos: ' With eosinophils ≥ 300 cells/µL, de-escalation is more likely to be followed by exacerbations.',
-    listTitles: { mono: 'LABA or LAMA inhalers', dual: 'LABA + LAMA inhalers', triple: 'LABA + LAMA + ICS inhalers' },
-    source: 'Sources: GINA 2026 Summary Guide (Table 2, Figure 2, adjusting and stepping down treatment) and full report Box 4-13; GOLD 2026 report, follow-up pharmacological treatment (Figures 3.9 and 3.12).',
+    listTitles: { mono: 'LAMA inhalers', dual: 'LABA + LAMA inhalers', triple: 'LABA + LAMA + ICS inhalers' },
+    source: 'Sources: GINA 2026 Summary Guide (Table 2, Figure 2, adjusting and stepping down treatment) and full report Box 4-13; GOLD 2027 report, follow-up pharmacological treatment (Figures 3.9 and 3.12).',
   },
   th: {
     btn: 'การติดตามผล',
     title: 'แนวทางการติดตามผล',
-    sub: 'เมื่อนัดติดตาม: เพิ่มยา คงยา หรือลดยา (GINA 2026, GOLD 2026)',
+    sub: 'เมื่อนัดติดตาม: เพิ่มยา คงยา หรือลดยา (GINA 2026, GOLD 2027)',
     tabAsthma: 'โรคหืด (GINA)', tabCopd: 'COPD (GOLD)',
     curTitle: "การรักษาปัจจุบัน (เลือกจากหน้าหลักหรือเพิ่มที่นี่)",
     curHint: "ยังไม่มียาสูด: ค้นหาด้านล่างเพื่อเพิ่มยาสูดของผู้ป่วย หรือกด Select บนการ์ดยาในหน้าหลัก",
@@ -6040,13 +6060,13 @@ const FOLLOW_TEXT = {
     groupPending: 'เลือกอาการและการกำเริบเพื่อกำหนดกลุ่ม',
     vLabel: { ok: (g) => `เหมาะสมกับกลุ่ม ${g}`, below: (g) => `ต่ำกว่า GOLD สำหรับกลุ่ม ${g}`, above: (g) => `มากกว่า GOLD สำหรับกลุ่ม ${g}`, no: () => 'ไม่แนะนำใน COPD (GOLD)', reliever: () => 'ยาบรรเทาอาการ: ใช้เมื่อมีอาการ' },
     verdict: {
-      A: { short: 'ยาขยายหลอดลมชนิดออกฤทธิ์สั้นเมื่อมีอาการเป็นทางเลือกสำหรับกลุ่ม A แนะนำชนิดออกฤทธิ์ยาวมากกว่า เว้นแต่เหนื่อยนานๆ ครั้ง', mono: 'ยาขยายหลอดลมชนิดออกฤทธิ์ยาว (LABA หรือ LAMA) เป็นการรักษาของ GOLD สำหรับกลุ่ม A', dual: 'มากกว่ายาเริ่มต้นของ GOLD สำหรับกลุ่ม A (ยาขยายหลอดลมตัวเดียว) เหมาะสมหากเพิ่มยาเพราะยังเหนื่อยต่อเนื่อง', triple: 'กลุ่ม A ไม่มีข้อบ่งชี้ของ ICS (ไม่มีการกำเริบ) พิจารณาลดเหลือยาขยายหลอดลม', laIcs: 'ไม่แนะนำ LABA + ICS ใน COPD กลุ่ม A ใช้ยาขยายหลอดลมชนิดออกฤทธิ์ยาวตัวเดียว', icsOnly: 'ไม่แนะนำ ICS อย่างเดียวใน COPD ให้ใช้ยาขยายหลอดลม' },
+      A: { short: 'ใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นแทน LAMA ในกลุ่ม A ได้เฉพาะเมื่อไม่มี LAMA หรือราคาสูงเกินไป (GOLD 2027)', mono: 'LAMA เป็นยาเริ่มต้นของ GOLD 2027 สำหรับกลุ่ม A ใช้ต่อหากเห็นประโยชน์', dual: 'มากกว่ายาเริ่มต้นของ GOLD สำหรับกลุ่ม A (LAMA) เหมาะสมหากเพิ่มยาเพราะยังเหนื่อยต่อเนื่อง', triple: 'กลุ่ม A ไม่มีข้อบ่งชี้ของ ICS (ไม่มีการกำเริบ) พิจารณาลดเหลือยาขยายหลอดลม', laIcs: 'ไม่แนะนำ LABA + ICS ใน COPD กลุ่ม A ใช้ LAMA', icsOnly: 'ไม่แนะนำ ICS อย่างเดียวใน COPD ให้ใช้ยาขยายหลอดลม' },
       B: { short: 'GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม B ยาขยายหลอดลมชนิดออกฤทธิ์สั้นอย่างเดียวไม่เพียงพอ', mono: 'GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม B: เพิ่มจากยาขยายหลอดลมชนิดออกฤทธิ์ยาวตัวเดียว', dual: 'LABA + LAMA เป็นการรักษาของ GOLD สำหรับกลุ่ม B', triple: 'ICS ใช้สำหรับผู้ที่มีการกำเริบ (กลุ่ม E) ในกลุ่ม B ทบทวนเหตุผลที่เริ่ม ICS และพิจารณาหยุดได้หรือไม่', laIcs: 'ไม่แนะนำ LABA + ICS ใน COPD GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม B', icsOnly: 'ไม่แนะนำ ICS อย่างเดียวใน COPD GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม B' },
       E: { short: 'GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม E ยาขยายหลอดลมชนิดออกฤทธิ์สั้นอย่างเดียวไม่เพียงพอ', mono: 'GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม E: เพิ่มจากยาขยายหลอดลมชนิดออกฤทธิ์ยาวตัวเดียว', dual: 'LABA + LAMA เป็นการรักษาของ GOLD สำหรับกลุ่ม E พิจารณาเพิ่ม ICS หาก eosinophils ในเลือด ≥ 300 cells/µL', triple: 'LABA + LAMA + ICS เหมาะกับกลุ่ม E (eosinophils ในเลือด ≥ 300 cells/µL หรือ ≥ 100 เมื่อยังกำเริบ)', tripleLow: 'หาก eosinophils ในเลือด < 100 cells/µL ICS ไม่น่าจะได้ประโยชน์ GOLD แนะนำ LABA + LAMA (พิจารณาหยุด ICS ภายใต้การติดตาม)', laIcs: 'ไม่แนะนำ LABA + ICS ใน COPD: เพิ่มเป็น LABA + LAMA + ICS หาก eosinophils ≥ 100 cells/µL หรือเปลี่ยนเป็น LABA + LAMA หาก < 100', icsOnly: 'ไม่แนะนำ ICS อย่างเดียวใน COPD GOLD แนะนำ LABA + LAMA สำหรับกลุ่ม E' },
     },
     gold: {
-      short: 'กลุ่ม A: ยาขยายหลอดลมชนิดออกฤทธิ์สั้นเมื่อมีอาการเป็นทางเลือกของ GOLD สำหรับกลุ่ม A (แนะนำชนิดออกฤทธิ์ยาวมากกว่า เว้นแต่เหนื่อยนานๆ ครั้ง)',
-      mono: 'กลุ่ม A: ยาขยายหลอดลมชนิดออกฤทธิ์ยาว (LABA หรือ LAMA) เป็นยาเริ่มต้นของ GOLD สำหรับกลุ่ม A',
+      short: 'กลุ่ม A: ใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นแทน LAMA ได้เฉพาะเมื่อไม่มี LAMA หรือราคาสูงเกินไป (GOLD 2027)',
+      mono: 'กลุ่ม A: LAMA เป็นยาเริ่มต้นของ GOLD 2027 สำหรับกลุ่ม A ใช้ต่อหากเห็นประโยชน์',
       dual: 'กลุ่ม B หรือ E: LABA + LAMA เป็นยาเริ่มต้นของ GOLD สำหรับทั้งสองกลุ่ม เป็นกลุ่ม E หากมีการกำเริบระดับปานกลางหรือรุนแรงอย่างน้อย 1 ครั้งในปีที่ผ่านมา',
       dualE: 'กลุ่ม E: LABA + LAMA เป็นยาเริ่มต้นของ GOLD สำหรับกลุ่ม E (มีการกำเริบ)',
       triple: 'กลุ่ม E: LABA + LAMA + ICS เป็นทางเลือกของ GOLD สำหรับกลุ่ม E ที่มี eosinophils ในเลือด ≥ 300 cells/µL',
@@ -6078,7 +6098,7 @@ const FOLLOW_TEXT = {
     downTitle: 'ควบคุมได้ดี 2–3 เดือน: พิจารณาลดขั้น',
     downOptions: 'ทางเลือกสำหรับการรักษาปัจจุบัน (GINA Box 4-13)',
     sdRef: 'แนวทางการลดยา: เมื่อไร อย่างไร และทางเลือกทั้งหมด (GINA Box 4-13)',
-    icsRef: 'การหยุดสเตียรอยด์ชนิดสูดใน COPD (GOLD 2026)',
+    icsRef: 'การหยุดสเตียรอยด์ชนิดสูดใน COPD (GOLD 2027)',
     lowest: { 1: 'อยู่ขั้นต่ำสุดแล้ว: ใช้ ICS-formoterol ขนาดต่ำเมื่อมีอาการต่อไป', 2: 'อยู่ขั้นต่ำสุดแล้ว: ใช้ ICS ทุกครั้งที่ใช้ SABA ต่อไป ห้ามหยุด ICS ทั้งหมด' },
     devicesTitle: 'ยาสูดสำหรับขั้นนี้',
     relieversTitle: 'ยาบรรเทาอาการ',
@@ -6089,18 +6109,18 @@ const FOLLOW_TEXT = {
     eos: 'Eosinophils ในเลือด',
     eosOpts: { low: '< 100 cells/µL', mid: '100–299 cells/µL', high: '≥ 300 cells/µL' },
     exSmoker: 'เลิกสูบบุหรี่แล้ว (ไม่ได้สูบในปัจจุบัน)',
-    quitSmoking: 'หยุดสูบบุหรี่: แนะนำให้ผู้ป่วยเลิกบุหรี่ทุกครั้งที่นัด และให้การช่วยเหลือ (การให้คำปรึกษาร่วมกับนิโคตินทดแทนหรือยาช่วยเลิกบุหรี่อื่น) การเลิกบุหรี่เป็นวิธีที่ได้ผลที่สุดในการชะลอการดำเนินของ COPD (GOLD 2026)',
+    quitSmoking: 'หยุดสูบบุหรี่: แนะนำให้ผู้ป่วยเลิกบุหรี่ทุกครั้งที่นัด และให้การช่วยเหลือ (การให้คำปรึกษาร่วมกับนิโคตินทดแทนหรือยาช่วยเลิกบุหรี่อื่น) การเลิกบุหรี่เป็นวิธีที่ได้ผลที่สุดในการชะลอการดำเนินของ COPD (GOLD 2027)',
     cb: "หลอดลมอักเสบเรื้อรัง (ไอมีเสมหะ 3 เดือนในปีที่ผ่านมา)",
     sevExac: "กำเริบระดับปานกลาง ≥ 2 ครั้ง หรือระดับรุนแรง ≥ 1 ครั้งในปีที่ผ่านมา",
     fev50: "FEV₁ < 50% ของค่าคาดการณ์",
     icsIssue: 'ปัญหาจาก ICS: ปอดอักเสบ ผลข้างเคียงสำคัญ ไม่ตอบสนอง หรือเริ่มใช้โดยไม่มีข้อบ่งชี้',
-    copdChecksTitle: 'ขั้นแรก (GOLD 2026)',
+    copdChecksTitle: 'ขั้นแรก (GOLD 2027)',
     copdChecks: ['ตรวจการใช้ยาสม่ำเสมอ เทคนิคการสูดยา และโรคร่วมที่อาจรบกวน', 'พิจารณาการฟื้นฟูสมรรถภาพปอดและการรักษาที่ไม่ใช้ยา'],
     copdRecTitle: 'การปรับยาที่แนะนำ (GOLD Figure 3.9)',
     maintain: 'ตอบสนองดี: ใช้การรักษาเดิมต่อ',
     laIcsOk: 'ใช้ LABA + ICS โดยไม่มีลักษณะของโรคหืดและควบคุมได้ดี: ใช้ LABA + ICS ต่อได้',
     noMaint: 'ยังไม่ได้ใช้ยาควบคุมชนิดออกฤทธิ์ยาว: เริ่มยาเริ่มต้นของ GOLD ตามกลุ่มของผู้ป่วย',
-    initA: 'กลุ่ม A: แนะนำยาขยายหลอดลมชนิดออกฤทธิ์ยาว (LABA หรือ LAMA) ชนิดออกฤทธิ์สั้นอย่างเดียวเพียงพอเฉพาะเมื่อเหนื่อยนานๆ ครั้ง',
+    initA: 'กลุ่ม A: เริ่มด้วย LAMA (ใช้ต่อหากเห็นประโยชน์) ใช้ยาขยายหลอดลมชนิดออกฤทธิ์สั้นเฉพาะเมื่อไม่มี LAMA หรือราคาสูงเกินไป',
     initB: 'กลุ่ม B: เริ่ม LABA + LAMA',
     initE: 'กลุ่ม E: เริ่ม LABA + LAMA พิจารณา LABA + LAMA + ICS หาก eosinophils ในเลือด ≥ 300 cells/µL',
     initPending: 'ประเมินกลุ่ม GOLD ด้านบนเพื่อเลือกยาควบคุมตัวแรก',
@@ -6124,8 +6144,8 @@ const FOLLOW_TEXT = {
     biologicNeed: "Eosinophils ≥ 300 cells/µL: ยาชีววัตถุ (dupilumab หากมีหลอดลมอักเสบเรื้อรัง หรือ mepolizumab) เป็นทางเลือกหากกำเริบปานกลาง ≥ 2 ครั้งหรือรุนแรง ≥ 1 ครั้งในปีที่ผ่านมา",
     icsWithdraw: 'จากปัญหาของ ICS อาจหยุด ICS ได้ โดยชั่งน้ำหนักความเสี่ยงและประโยชน์ภายใต้การติดตามใกล้ชิด',
     icsWithdrawEos: ' หาก eosinophils ≥ 300 cells/µL การหยุด ICS มีแนวโน้มทำให้กำเริบมากขึ้น',
-    listTitles: { mono: 'ยาสูด LABA หรือ LAMA', dual: 'ยาสูด LABA + LAMA', triple: 'ยาสูด LABA + LAMA + ICS' },
-    source: 'ที่มา: GINA 2026 Summary Guide (Table 2, Figure 2, การปรับและลดการรักษา) และฉบับเต็ม Box 4-13; GOLD 2026 report การรักษาด้วยยาในการติดตาม (Figure 3.9 และ 3.12)',
+    listTitles: { mono: 'ยาสูด LAMA', dual: 'ยาสูด LABA + LAMA', triple: 'ยาสูด LABA + LAMA + ICS' },
+    source: 'ที่มา: GINA 2026 Summary Guide (Table 2, Figure 2, การปรับและลดการรักษา) และฉบับเต็ม Box 4-13; GOLD 2027 report การรักษาด้วยยาในการติดตาม (Figure 3.9 และ 3.12)',
   },
 };
 const FollowIcon = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12a9 9 0 1 1-3-6.7" /><polyline points="21 3 21 9 15 9" /><polyline points="9 12 11 14 15 10" /></svg>);
@@ -6213,11 +6233,11 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
   const asthmaRows = indicatedRows('Asthma'), copdRows = indicatedRows('COPD');
   const det = asthmaRows.length ? inferGinaFromRegimen(asthmaRows) : null;
   const copdDet = copdRows.length ? copdClassFromRegimen(copdRows) : null;
-  // GOLD group matched by the current COPD treatment (GOLD 2026 initial pharmacological treatment)
+  // GOLD group matched by the current COPD treatment (GOLD 2027 initial pharmacological treatment)
   const copdKind = copdDet || (copdRows.some(r => r.per * r.freq > 0 && classesOf(findMed(r.id)).every(x => x === 'ICS')) ? 'icsOnly'
     : copdRows.some(r => isShortActingOnly(findMed(r.id))) ? 'short' : null);
   const goldKey = copdKind === 'dual' && (prob === 'exac' || prob === 'both') ? 'dualE' : copdKind;
-  // GOLD 2026 ABE: E = at least 1 moderate or severe exacerbation in the past year; otherwise B if
+  // GOLD 2027 ABE: E = at least 1 moderate or severe exacerbation in the past year; otherwise B if
   // mMRC ≥ 2 or CAT ≥ 10, else A. The regimen is then judged against GOLD's treatment for that group.
   const goldGroup = goldExac === '1' ? 'E' : goldExac === '0' && goldSym ? (goldSym === 'high' ? 'B' : 'A') : null;
   const V_STATUS = { A: { short: 'ok', mono: 'ok', dual: 'above', triple: 'above', laIcs: 'no', icsOnly: 'no' }, B: { short: 'below', mono: 'below', dual: 'ok', triple: 'above', laIcs: 'no', icsOnly: 'no' }, E: { short: 'below', mono: 'below', dual: 'ok', triple: 'ok', laIcs: 'no', icsOnly: 'no' } };
@@ -6347,7 +6367,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
   const exacPath = prob === 'exac' || prob === 'both';
   const recs = []; const lists = [];
   if (cur === 'short' || cur === 'icsOnly') {
-    // Not on a GOLD maintenance regimen: initial treatment by group (GOLD 2026 Figure 3.8)
+    // Not on a GOLD maintenance regimen: initial treatment by group (GOLD 2027 Figure 3.8)
     if (cur === 'icsOnly') { recs.push(c.icsOnlyRec); lists.push('dual', 'triple'); }
     else {
       recs.push(c.noMaint);
@@ -6364,7 +6384,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
     else if (cur === 'laIcs') { recs.push(c.laIcsDysp); lists.push('dual', 'triple'); }
     else recs.push(c.dyspOpts);
   } else {
-    // GOLD 2026 Figure 3.9, one or more moderate or severe exacerbation
+    // GOLD 2027 Figure 3.9, one or more moderate or severe exacerbation
     if (prob === 'both') recs.push(c.bothNote);
     const addOns = () => { if (fev50 && cb) recs.push(c.roflu); recs.push(smoker ? c.azithro + ' ' + c.azithroSmoker : c.azithro); };
     if (cur === 'mono') {
@@ -6501,7 +6521,7 @@ const FollowUpModal = ({ lang, t, regionData, onClose, current = [] }) => {
               {smoker && <div data-fu-quit className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm font-semibold text-red-800">{c.quitSmoking}</div>}
               {list(recs)}
               {lists.some(k => k !== 'mono') && <p className="text-[11px] text-slate-500" data-fu-single>{c.singleInhaler}</p>}
-              {lists.map(k => { const items = k === 'mono' ? [...copdDevices('LAMA', rxList), ...copdDevices('LABA', rxList)] : copdDevices(listCls[k], rxList); return items.length > 0 && <div key={k}>{label(c.listTitles[k])}<PlanDrugList key={`fuc-${k}`} list={items} t={t} /></div>; })}
+              {lists.map(k => { const items = k === 'mono' ? copdDevices('LAMA', rxList) : copdDevices(listCls[k], rxList); return items.length > 0 && <div key={k}>{label(c.listTitles[k])}<PlanDrugList key={`fuc-${k}`} list={items} t={t} /></div>; })}
             </section>
             {refSection(icsOpen, () => setIcsRefOpen(!icsOpen), c.icsRef, { 'data-fu-icsref': '' }, <CopdIcsRef lang={lang} />)}
           </>)}
@@ -6573,7 +6593,7 @@ const AsthmaActionPlan = ({ med, lang, doseText, reliever, pefBest }) => {
   );
 };
 
-// COPD action plan: GOLD 2026 self-management (written action plan; exacerbations treated
+// COPD action plan: GOLD 2027 self-management (written action plan; exacerbations treated
 // with short-acting bronchodilators, prednisone 40 mg for 5 days, antibiotics for 5 days
 // when sputum is purulent).
 const CopdActionPlan = ({ med, lang, doseText, reliever }) => {
@@ -6899,7 +6919,7 @@ const PatientSheetModal = ({ med, t, appLang, onClose, onToast }) => {
 // =====================================================================
 const REFERENCES = [
   { key: 'gina', cite: 'Global Initiative for Asthma (GINA). Global Strategy for Asthma Management and Prevention, 2026 update. GINA; 2026.', url: 'https://ginasthma.org/2026-gina-strategy-report/' },
-  { key: 'gold', cite: 'Global Initiative for Chronic Obstructive Lung Disease (GOLD). Global Strategy for Prevention, Diagnosis and Management of COPD: 2026 Report. GOLD; 2026.', url: 'https://goldcopd.org/2026-gold-report-and-pocket-guide/' },
+  { key: 'gold', cite: 'Global Initiative for Chronic Obstructive Lung Disease (GOLD). Global Strategy for Prevention, Diagnosis and Management of COPD: 2027 Report. GOLD; 2026.', url: 'https://goldcopd.org/2026-gold-report-and-pocket-guide/' },
   { key: 'nlem', cite: 'คณะกรรมการพัฒนาระบบยาแห่งชาติ. ประกาศคณะกรรมการพัฒนาระบบยาแห่งชาติ เรื่อง บัญชียาหลักแห่งชาติ พ.ศ. 2569 (ลงวันที่ 12 กุมภาพันธ์ 2569). ราชกิจจานุเบกษา เล่ม 143 ตอนพิเศษ 85 ง (30 มีนาคม 2569).', url: 'https://ndp.fda.moph.go.th/nlem/69-1' },
   { key: 'refprice', cite: 'คณะกรรมการพัฒนาระบบยาแห่งชาติ. ประกาศคณะกรรมการพัฒนาระบบยาแห่งชาติ เรื่อง กำหนดราคากลางยา. ฐานข้อมูลราคากลาง (ยา), ศูนย์ข้อมูลข่าวสารด้านเวชภัณฑ์ กระทรวงสาธารณสุข (accessed 7 October 2026).', url: 'https://dmsic.moph.go.th/index/drugsearch/3' },
   { key: 'dhand', cite: 'Dhand R, Duarte AG, Jubran A, Jenne JW, Fink JB, Fahey PJ, Tobin MJ. Dose-response to bronchodilator delivered by metered-dose inhaler in ventilator-supported patients. Am J Respir Crit Care Med. 1996;154(2 Pt 1):388–393.', url: 'https://doi.org/10.1164/ajrccm.154.2.8756811' },
@@ -7794,7 +7814,7 @@ const EXAC_LIST_GROUPS = {
     ['ipra', (d) => isShortActingOnly(d) && classesOf(d).includes('SAMA')],
     ['icsNeb', (d) => isNebulisedIcs(d)],
   ],
-  // GOLD 2026: SABA ± SAMA (pMDI with spacer or nebuliser); nebulised budesonide as an alternative to
+  // GOLD 2027: SABA ± SAMA (pMDI with spacer or nebuliser); nebulised budesonide as an alternative to
   // oral (mild-moderate) or systemic (severe) corticosteroids.
   copdMild: [
     ['saba', isSabaOnly],
@@ -7938,7 +7958,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
         {/* Tabs */}
         <div className="flex px-4 sm:px-6 pt-3 bg-slate-50 border-b border-slate-200 shrink-0 gap-4 sm:gap-6 overflow-x-auto hide-scrollbar">
           <button onClick={() => setTab('Asthma')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'Asthma' ? 'border-rose-600 text-rose-700' : 'border-transparent text-slate-500 hover:text-slate-600'}`}>Asthma (GINA 2026)</button>
-          <button onClick={() => setTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-500 hover:text-slate-600'}`}>COPD (GOLD 2026)</button>
+          <button onClick={() => setTab('COPD')} className={`pb-2.5 px-2 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${tab === 'COPD' ? 'border-orange-600 text-orange-700' : 'border-transparent text-slate-500 hover:text-slate-600'}`}>COPD (GOLD 2027)</button>
         </div>
 
         <div className="p-4 sm:p-6 flex-grow overflow-y-auto flex flex-col gap-6 bg-slate-50">
@@ -8120,7 +8140,7 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                    </div>
                </div>
 
-               {/* Disposition (GOLD 2026 Figures 4.4 and 4.10) */}
+               {/* Disposition (GOLD 2027 Figures 4.4 and 4.11) */}
                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
                    <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -8477,7 +8497,7 @@ function App() {
         stage = 'GOLD Group A';
         severityRationale = t.copdGroupARat;
         drugRecommendation = t.copdGroupARec;
-        controllers = rxData.filter(d => (d.class === 'LABA' || d.class === 'LAMA') && d.indications.includes('COPD')).sort(rankForPlan);
+        controllers = rxData.filter(d => d.class === 'LAMA' && d.indications.includes('COPD')).sort(rankForPlan);
       }
       relievers = rxData.filter(d => isShortActingOnly(d) && d.indications.includes('COPD')).sort(rankForPlan);
     }
