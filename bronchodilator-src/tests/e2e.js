@@ -550,6 +550,8 @@ window.__bdgE2E = async function () {
     log('COPD: SABA includes pMDI and nebulised salbutamol', ['Ventolin Evohaler 100 mcg', 'Salbutamol Nebules 2.5 mg'].every(n => [...sv.querySelectorAll('[data-exac-group="saba"] h3')].some(h => h.textContent.trim() === n)), ''); }
   log('COPD exacerbation: SABA ± SAMA, no asthma-only drugs', ['Berodual Inhaler', 'Combivent Respimat', 'Atrovent HFA', 'Pulmicort Respules', 'Berodual Nebules / Drops'].every(n => ex.includes(n)) && ex.includes('Aerotamol MDI 100 mcg') && !ex.includes('Flixotide Evohaler 125 mcg'), ex);
   { const bt = document.body.innerText;
+    { const m = document.querySelector('[data-copd-mimic]'); const tx = m ? m.textContent : '';
+      log('COPD exacerbation: folded table of conditions that mimic an exacerbation (GOLD 2027 Figure 4.3), closed by default, 6 rows', !!m && !m.open && m.querySelectorAll('tbody tr[class*="border-t"]').length === 6 && /Heart failure/.test(tx) && /NT-proBNP/.test(tx) && /D-dimer/.test(tx) && /Pneumothorax/.test(tx) && /lung ultrasound/.test(tx) && /Most frequent/.test(tx) && /Less frequent/.test(tx), tx.slice(0, 100)); }
     log('COPD exacerbation: When to Discharge (GOLD Figure 4.10) and When to Admit (Figure 4.4) boxes are shown', /when to discharge/i.test(bt) && /discharged on LABA \+ LAMA \+ ICS/.test(bt) && /Follow-up at 1–4 weeks/.test(bt) && /Follow-up at 12–16 weeks/.test(bt) && /when to admit/i.test(bt) && /Insufficient home support\./.test(bt) && /Respiratory or medical ICU/.test(bt), ''); }
   await esc();
 

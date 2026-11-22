@@ -1139,6 +1139,19 @@ const translations = {
     copdDis5: "Assess the need for continuing supplemental oxygen, give a management plan, and follow up comorbidities such as cardiovascular disease.",
     copdDisFu1: "Follow-up at 1–4 weeks: coping in the usual environment, understanding of treatment, inhaler technique, need for long-term oxygen, physical activity and eligibility for pulmonary rehabilitation, symptoms (CAAT™ or mMRC), comorbidities.",
     copdDisFu2: "Follow-up at 12–16 weeks: coping in the usual environment, understanding of treatment, inhaler technique, need for long-term oxygen, physical activity and activities of daily living, spirometry (FEV1), symptoms (CAAT™ or mMRC), comorbidities.",
+    mimicTitle: "Conditions that can mimic or worsen an exacerbation (GOLD 2027 Figure 4.3)",
+    mimicCond: "Condition",
+    mimicTests: "Tools to tell them apart",
+    mimicMost: "Most frequent",
+    mimicLess: "Less frequent",
+    mimic: [
+      { g: 0, c: "Acute viral or bacterial bronchitis", x: "Viral and bacterial microbiological assessment; chest X-ray" },
+      { g: 0, c: "Heart failure", x: "Chest X-ray or chest CT; NT-proBNP and BNP; echocardiogram" },
+      { g: 0, c: "Myocardial infarction and/or cardiac arrhythmias (atrial flutter/fibrillation)", x: "Electrocardiography; troponin" },
+      { g: 0, c: "Pulmonary embolism", x: "Clinical probability assessment (haemoptysis, deep vein thrombosis, history of cancer, surgery, bone fracture); D-dimer; CT pulmonary angiography" },
+      { g: 0, c: "Pneumonia", x: "Viral and bacterial microbiological assessment; chest X-ray or chest CT; lung ultrasound" },
+      { g: 1, c: "Pneumothorax", x: "Chest X-ray or chest CT; thoracic ultrasound" },
+    ],
 
     // Exac Details - COPD
     copdMildCrit: "GOLD 2027 (Rome) mild: dyspnoea VAS < 5, RR < 24/min, HR < 95/min, SpO₂ ≥ 92% on air (or usual O₂) with a fall ≤ 3% if known, CRP < 10 mg/L if available. Moderate: at least 3 of VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% and/or a fall > 3%, CRP ≥ 10. No signs of acute respiratory failure.",
@@ -1745,6 +1758,19 @@ const translations = {
     copdDis5: "ประเมินความจำเป็นของการให้ออกซิเจนต่อ ให้แผนการดูแล และติดตามโรคร่วม เช่น โรคหัวใจและหลอดเลือด",
     copdDisFu1: "นัดติดตามที่ 1–4 สัปดาห์: การปรับตัวในสภาพแวดล้อมปกติ ความเข้าใจเรื่องการรักษา เทคนิคการพ่นยา ความจำเป็นของออกซิเจนระยะยาว ความสามารถทางกายและความเหมาะสมในการฟื้นฟูสมรรถภาพปอด อาการ (CAAT™ หรือ mMRC) และโรคร่วม",
     copdDisFu2: "นัดติดตามที่ 12–16 สัปดาห์: การปรับตัวในสภาพแวดล้อมปกติ ความเข้าใจเรื่องการรักษา เทคนิคการพ่นยา ความจำเป็นของออกซิเจนระยะยาว ความสามารถในการทำกิจกรรมทางกายและกิจวัตรประจำวัน วัดสไปโรเมตรี (FEV1) อาการ (CAAT™ หรือ mMRC) และโรคร่วม",
+    mimicTitle: "ภาวะที่คล้ายหรือทำให้อาการกำเริบของ COPD แย่ลง (GOLD 2027 Figure 4.3)",
+    mimicCond: "ภาวะ",
+    mimicTests: "การตรวจที่ช่วยแยก",
+    mimicMost: "พบบ่อยที่สุด",
+    mimicLess: "พบน้อยกว่า",
+    mimic: [
+      { g: 0, c: "Acute viral or bacterial bronchitis (หลอดลมอักเสบเฉียบพลันจากไวรัสหรือแบคทีเรีย)", x: "ตรวจหาเชื้อไวรัสและแบคทีเรียทางจุลชีววิทยา; chest X-ray" },
+      { g: 0, c: "Heart failure (หัวใจล้มเหลว)", x: "Chest X-ray หรือ chest CT; NT-proBNP และ BNP; echocardiogram" },
+      { g: 0, c: "Myocardial infarction (กล้ามเนื้อหัวใจตายเฉียบพลัน) และ/หรือ cardiac arrhythmias (หัวใจเต้นผิดจังหวะ) เช่น atrial flutter/fibrillation", x: "Electrocardiography; troponin" },
+      { g: 0, c: "Pulmonary embolism (ภาวะลิ่มเลือดอุดตันในหลอดเลือดปอด)", x: "ประเมินความน่าจะเป็นทางคลินิก (ไอเป็นเลือด, deep vein thrombosis, ประวัติมะเร็ง, การผ่าตัด, กระดูกหัก); D-dimer; CT pulmonary angiography" },
+      { g: 0, c: "Pneumonia (ปอดอักเสบ)", x: "ตรวจหาเชื้อไวรัสและแบคทีเรียทางจุลชีววิทยา; chest X-ray หรือ chest CT; lung ultrasound" },
+      { g: 1, c: "Pneumothorax (ภาวะลมรั่วในเยื่อหุ้มปอด)", x: "Chest X-ray หรือ chest CT; thoracic ultrasound" },
+    ],
 
     // Exac Details - COPD (Thai)
     copdMildCrit: "GOLD 2027 (Rome) ระดับเล็กน้อย: ความเหนื่อย VAS < 5, RR < 24/นาที, HR < 95/นาที, SpO₂ ≥ 92% ขณะหายใจอากาศปกติ (หรือออกซิเจนที่ใช้ประจำ) และลดลง ≤ 3% หากทราบค่าเดิม, CRP < 10 mg/L หากตรวจได้ ระดับปานกลาง: มีอย่างน้อย 3 ข้อจาก VAS ≥ 5, RR ≥ 24, HR ≥ 95, SpO₂ < 92% และ/หรือลดลง > 3%, CRP ≥ 10 ไม่มีภาวะระบบหายใจล้มเหลวเฉียบพลัน",
@@ -2336,7 +2362,8 @@ const changelogData = [
       "GOLD figure links now open the 2027 report: Figures 4.5 and 4.10 are now 4.6 and 4.11 (a new Figure 4.5 was added), and the page numbers of all nine figures were updated.",
       "COPD exacerbation guide: the 12–16 week follow-up list now matches Figure 4.11 (physical activity and activities of daily living, spirometry).",
       "Follow-up Guide, COPD tab: a folded \"GOLD 2027: new information\" section with the cardiovascular risk after an exacerbation (Figure 4.5, also added to the Figures list), the new pMDI propellants (HFO-1234ze, HFA-152a) and the add-on biologics and ensifentrine notes (benralizumab, astegolimab, tozorakimab). No per-product propellant data is listed (N/A).",
-      "Checked against GOLD 2027: Figures 3.9, 3.10, 4.2, 4.4 and 4.6 agree with the app. Figure 4.3 and the rest of the new report sections are not included.",
+      "COPD exacerbation guide: a folded table of conditions that can mimic or worsen an exacerbation (bronchitis, heart failure, myocardial infarction or arrhythmia, pulmonary embolism, pneumonia, pneumothorax) with the tests that tell them apart (GOLD 2027 Figure 4.3).",
+      "Checked against GOLD 2027: Figures 3.9, 3.10, 4.2, 4.3, 4.4 and 4.6 agree with the app. The rest of the new report sections are not included.",
     ],
     bugs: [],
   },
@@ -2789,7 +2816,8 @@ const CHANGELOG_TH = {
     "ลิงก์รูปของ GOLD เปิดรายงานฉบับ 2027: รูปที่ 4.5 และ 4.10 เปลี่ยนเป็น 4.6 และ 4.11 (มีรูปที่ 4.5 ใหม่เพิ่มเข้ามา) และปรับเลขหน้าของทั้ง 9 รูปแล้ว",
     "คู่มือการกำเริบของ COPD: รายการนัดติดตามที่ 12–16 สัปดาห์ตรงกับรูปที่ 4.11 (กิจกรรมทางกายและกิจวัตรประจำวัน และสไปโรเมตรี)",
     "คู่มือติดตามการรักษา แท็บ COPD: เพิ่มหัวข้อพับเก็บ \"GOLD 2027: ข้อมูลใหม่\" ได้แก่ ความเสี่ยงหัวใจและหลอดเลือดหลังอาการกำเริบ (รูปที่ 4.5 ซึ่งเพิ่มในรายการรูปด้วย) ตัวขับดันใหม่ของ pMDI (HFO-1234ze, HFA-152a) และหมายเหตุยาชีววัตถุและ ensifentrine (benralizumab, astegolimab, tozorakimab) ไม่ระบุข้อมูลตัวขับดันรายผลิตภัณฑ์ (N/A)",
-    "ตรวจเทียบกับ GOLD 2027 แล้ว: รูปที่ 3.9, 3.10, 4.2, 4.4 และ 4.6 ตรงกับเนื้อหาในแอป ส่วนรูปที่ 4.3 และหัวข้อใหม่อื่นๆ ของรายงานยังไม่ได้รวมไว้"
+    "คู่มือการกำเริบของ COPD: เพิ่มตารางพับเก็บของภาวะที่คล้ายหรือทำให้อาการกำเริบแย่ลง (หลอดลมอักเสบ หัวใจล้มเหลว กล้ามเนื้อหัวใจตายหรือหัวใจเต้นผิดจังหวะ ภาวะลิ่มเลือดอุดตันในหลอดเลือดปอด ปอดอักเสบ ลมรั่วในเยื่อหุ้มปอด) พร้อมการตรวจที่ช่วยแยก (GOLD 2027 Figure 4.3)",
+    "ตรวจเทียบกับ GOLD 2027 แล้ว: รูปที่ 3.9, 3.10, 4.2, 4.3, 4.4 และ 4.6 ตรงกับเนื้อหาในแอป ส่วนหัวข้อใหม่อื่นๆ ของรายงานยังไม่ได้รวมไว้"
   ],
   "bugs": []
  },
@@ -8157,7 +8185,28 @@ const ExacGuideModal = ({ t, lang, tab, setTab, rxData, onClose }) => (
                    </div>
                </div>
 
-               {/* Disposition (GOLD 2027 Figures 4.4 and 4.11) */}
+               {/* Conditions that mimic or worsen an exacerbation (GOLD 2027 Figure 4.3), folded */}
+                   <details className="bg-white border border-slate-200 rounded-xl shadow-sm group" data-copd-mimic>
+                       <summary className="cursor-pointer list-none flex items-center justify-between gap-2 px-4 py-3 text-sm font-bold text-slate-800">
+                           <span>{t.mimicTitle}</span>
+                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 shrink-0 text-slate-500 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
+                       </summary>
+                       <div className="px-4 pb-4 overflow-x-auto">
+                           <table className="w-full text-xs text-left border-collapse">
+                               <thead><tr className="text-[11px] uppercase tracking-wide text-slate-500"><th className="py-1.5 pr-3 font-bold w-1/2">{t.mimicCond}</th><th className="py-1.5 font-bold">{t.mimicTests}</th></tr></thead>
+                               <tbody>
+                                   {t.mimic.map((r, i) => (
+                                       <React.Fragment key={i}>
+                                           {(i === 0 || t.mimic[i - 1].g !== r.g) && <tr><td colSpan={2} className="pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-orange-700">{r.g ? t.mimicLess : t.mimicMost}</td></tr>}
+                                           <tr className="border-t border-slate-100 align-top"><td className="py-1.5 pr-3 font-semibold text-slate-800">{r.c}</td><td className="py-1.5 text-slate-700">{r.x}</td></tr>
+                                       </React.Fragment>
+                                   ))}
+                               </tbody>
+                           </table>
+                       </div>
+                   </details>
+
+                   {/* Disposition (GOLD 2027 Figures 4.4 and 4.11) */}
                <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
                    <h4 className="font-bold text-slate-800 text-sm mb-3">{t.disposition}</h4>
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
